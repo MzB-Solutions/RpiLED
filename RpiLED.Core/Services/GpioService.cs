@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RpiLED.Core.Services
 {
-    public enum PinScheme
+    internal enum PinScheme
     {
         Physical,
         Broadcom,
