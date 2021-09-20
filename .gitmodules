@@ -1,0 +1,3 @@
+[submodule ".\\vendor\\ConsoLovers"]
+	path = .\\vendor\\ConsoLovers
+	url = https://github.com/bramerdaniel/ConsoLovers.git
