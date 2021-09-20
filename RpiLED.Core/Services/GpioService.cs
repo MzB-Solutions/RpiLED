@@ -10,7 +10,7 @@ namespace RpiLED.Core.Services
     {
         Physical,
         Broadcom,
-        wiringPi
+        WiringPi
     };
 
     class GpioService
