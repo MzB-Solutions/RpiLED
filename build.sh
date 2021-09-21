@@ -9,6 +9,12 @@
 VERBOSITY=m
 CURRENT_DIR=$(pwd)
 OUTPUT_DIR="${CURRENT_DIR}/output/"
+if [[ -d $OUTPUT_DIR ]];
+then
+    echo "Removing output directory ${OUTPUT_DIR}"
+    rm -rf $OUTPUT_DIR
+fi
+
 CONFIG="Release"
 LOGO="--nologo"
 echo "building a ${CONFIG}-build into ${OUTPUT_DIR}, verbosity (${VERBOSITY}) {q[uiet],m[inimal],n[ormal],d[etailed],diag[nostic]}"
