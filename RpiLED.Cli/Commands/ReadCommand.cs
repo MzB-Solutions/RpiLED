@@ -15,7 +15,7 @@ namespace RpiLED.Cli.Commands
         public void Execute()
         {
             PinModel pin = new PinModel(PinScheme.Physical, Arguments.Pin);
-            Console.WriteLine($@"We should be talking to pin ({Arguments.Pin.ToString()}) ..");
+            Console.WriteLine(Resources.TalkingToPinValue, Arguments.Pin.ToString());
             Console.WriteLine($@"Its direction is ({pin.PinDirection.ToString()}) and its value is: {pin.PinState.ToString()}");
 
         }

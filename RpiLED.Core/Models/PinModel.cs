@@ -18,12 +18,43 @@ namespace RpiLED.Core.Models
         public PinValue PinState { get; private set; }
         public PinMode PinDirection { get; private set; }
 
+        private void _resetPin(bool openForWrite = false)
+        {
+            if (openForWrite)
+            {
+                ioService.Gpio.OpenPin(pinLocation, PinMode.Output);
+            }
+            else
+            {
+                ioService.Gpio.OpenPin(pinLocation, PinMode.Input);
+            }
+
+        }
+
         public PinModel(PinScheme scheme, int pinNumber)
         {
             ioService = new GpioService();
             pinLocation = pinNumber;
-            ioService.Gpio.OpenPin(pinLocation);
+            _resetPin();
             _getPinValue();
+        }
+
+        ~PinModel()
+        {
+            ioService.Gpio.ClosePin(pinLocation);
+        }
+
+        public void PinWrite(bool value)
+        {
+            _resetPin(true);
+            ioService.Gpio.Write(pinLocation, value);
+            _getPinDirection();
+            _getPinValue();
+        }
+
+        private void _setPinDirection(PinMode mode)
+        {
+            ioService.Gpio.SetPinMode(pinLocation, mode);
         }
 
         private void _getPinDirection()

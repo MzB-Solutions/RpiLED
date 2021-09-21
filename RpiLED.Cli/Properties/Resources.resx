@@ -98,10 +98,13 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-	<data name="WelcomeString" xml:space="preserve">
-		<value>Welcome to RpiLED.Cli!</value>
-	</data>
 	<data name="ExitPrompt" xml:space="preserve">
 		<value>Please press any key to exit the application...</value>
+	</data>
+	<data name="TalkingToPinValue" xml:space="preserve">
+		<value>We should be talking to pin ({0}) ..</value>
+	</data>
+	<data name="WriteValue" xml:space="preserve">
+		<value>Writing [{0}]!</value>
 	</data>
 </root>

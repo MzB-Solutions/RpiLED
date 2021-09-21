@@ -1,6 +1,8 @@
 ﻿using System;
 using ConsoLovers.ConsoleToolkit.Core.CommandLineArguments;
 using RpiLED.Cli.Properties;
+using RpiLED.Core.Models;
+using RpiLED.Core.Services;
 
 namespace RpiLED.Cli.Commands
 {
@@ -11,8 +13,11 @@ namespace RpiLED.Cli.Commands
 
         public void Execute()
         {
-            Console.WriteLine(Resources.WelcomeString);
-            Console.WriteLine($@"Writing [{Arguments.Value.ToString()}] to physical pin ({Arguments.Pin.ToString()}) !");
+            PinModel pin = new PinModel(PinScheme.Physical, Arguments.Pin);
+            Console.WriteLine(Resources.TalkingToPinValue, Arguments.Pin.ToString());
+            Console.WriteLine(Resources.WriteValue, Arguments.Value.ToString());
+            Console.WriteLine($@"Its direction is ({pin.PinDirection.ToString()}) and its value is: {pin.PinState.ToString()}");
+            pin.PinWrite(Arguments.Value);
         }
 
     }

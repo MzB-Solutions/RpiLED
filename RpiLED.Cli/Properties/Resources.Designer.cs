@@ -70,11 +70,20 @@ namespace RpiLED.Cli.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Welcome to RpiLED.Cli!.
+        ///   Looks up a localized string similar to We should be talking to pin ({0}) ...
         /// </summary>
-        internal static string WelcomeString {
+        internal static string TalkingToPinValue {
             get {
-                return ResourceManager.GetString("WelcomeString", resourceCulture);
+                return ResourceManager.GetString("TalkingToPinValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Writing [{0}]!.
+        /// </summary>
+        internal static string WriteValue {
+            get {
+                return ResourceManager.GetString("WriteValue", resourceCulture);
             }
         }
     }
