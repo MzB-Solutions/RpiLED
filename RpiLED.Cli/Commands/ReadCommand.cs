@@ -1,5 +1,6 @@
 ﻿using System;
 using ConsoLovers.ConsoleToolkit.Core.CommandLineArguments;
+using RpiLED.Cli.Properties;
 
 namespace RpiLED.Cli.Commands
 {
@@ -12,6 +13,7 @@ namespace RpiLED.Cli.Commands
         {
             Console.WriteLine(@"Some awesome output here");
             Console.WriteLine($@"We should be talking to pin ({Arguments.Pin.ToString()}) ..");
+
         }
 
     }

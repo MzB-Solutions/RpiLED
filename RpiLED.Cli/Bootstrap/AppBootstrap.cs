@@ -12,11 +12,11 @@ namespace RpiLED.Cli.Bootstrap
         }
         public override void RunWith(AppArguments arguments)
         {
-            Console.WriteLine("We should not really get output here..");
             if (arguments.Wait)
             {
                 Console.Write(Resources.ExitPrompt); Console.ReadLine();
             }
         }
+
     }
 }
