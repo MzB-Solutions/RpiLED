@@ -3,6 +3,7 @@ using ConsoLovers.ConsoleToolkit.Core.CommandLineArguments;
 using RpiLED.Cli.Properties;
 using RpiLED.Core.Models;
 using RpiLED.Core.Services;
+using PinMode = System.Device.Gpio.PinMode;
 
 namespace RpiLED.Cli.Commands
 {
@@ -15,7 +16,7 @@ namespace RpiLED.Cli.Commands
         {
             PinModel pin = new PinModel(PinScheme.Physical, Arguments.Pin);
             Console.WriteLine($@"We should be talking to pin ({Arguments.Pin.ToString()}) ..");
-            Console.WriteLine($@"And its value is: {pin.PinState.ToString()}");
+            Console.WriteLine($@"Its direction is ({pin.PinDirection.ToString()}) and its value is: {pin.PinState.ToString()}");
 
         }
 

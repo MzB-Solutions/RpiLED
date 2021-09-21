@@ -22,6 +22,7 @@ namespace RpiLED.Core.Models
         {
             ioService = new GpioService();
             pinLocation = pinNumber;
+            ioService.Gpio.OpenPin(pinLocation);
             _getPinValue();
         }
 

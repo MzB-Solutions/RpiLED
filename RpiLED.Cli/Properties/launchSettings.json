@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "RpiLED.Cli": {
+      "commandName": "Project",
+      "remoteDebugEnabled": false
+    },
+    "RaspberryPiDebug": {
+      "commandName": "Project",
+      "commandLineArgs": "-r -p=12 -k",
+      "remoteDebugEnabled": false,
+      "remoteDebugMachine": "",
+      "authenticationMode": "None"
+    }
+  }
+}
