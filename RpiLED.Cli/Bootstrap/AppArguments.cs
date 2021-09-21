@@ -5,23 +5,8 @@ using RpiLED.Cli.Commands;
 
 namespace RpiLED.Cli.Bootstrap
 {
-   [HelpTextProvider(typeof(AppArguments))]
-    public class AppArguments : TypeHelpProvider
+    public class AppArguments
     {
-        public override void WriteTypeHeader(TypeHelpRequest helpRequest)
-        {
-            Console.WriteLine(" ╔══════════════════════════╗");
-            Console.WriteLine(" ║  XCOPY ARGUMENT HELP     ║");
-            Console.WriteLine(" ╚══════════════════════════╝");
-            Console.WriteLine();
-        }
-
-        public override void WriteTypeFooter(TypeHelpRequest helpRequest)
-        {
-            Console.WriteLine();
-            Console.WriteLine("►───────────────────────────────────────────────────────────────────────────◄");
-        }
-        
         [Command("Read", "r")]
         [HelpText("This reads a given pins current state on the board. (see -p)")]
         public ReadCommand Read { get; set; }
