@@ -36,11 +36,8 @@ namespace RpiLED.Core.Models
             ioService = new GpioService();
             pinLocation = pinNumber;
             _resetPin();
+            _getPinDirection();
             _getPinValue();
-        }
-
-        ~PinModel()
-        {
             ioService.Gpio.ClosePin(pinLocation);
         }
 
@@ -50,11 +47,7 @@ namespace RpiLED.Core.Models
             ioService.Gpio.Write(pinLocation, value);
             _getPinDirection();
             _getPinValue();
-        }
-
-        private void _setPinDirection(PinMode mode)
-        {
-            ioService.Gpio.SetPinMode(pinLocation, mode);
+            ioService.Gpio.ClosePin(pinLocation);
         }
 
         private void _getPinDirection()
