@@ -10,12 +10,8 @@ namespace RpiLED.Cli.Commands
 
         public void Execute()
         {
-            Console.WriteLine("Some awesome output here");
-            Console.WriteLine($"We should be talking to pin ({Arguments.Pin.ToString()}) ..");
-            if (Arguments.Wait)
-            {
-                Console.ReadKey();
-            }
+            Console.WriteLine(@"Some awesome output here");
+            Console.WriteLine($@"We should be talking to pin ({Arguments.Pin.ToString()}) ..");
         }
 
     }

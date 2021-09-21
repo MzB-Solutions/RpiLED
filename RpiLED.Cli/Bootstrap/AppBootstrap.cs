@@ -1,5 +1,6 @@
 ﻿using ConsoLovers.ConsoleToolkit.Core;
 using ConsoLovers.ConsoleToolkit.Core.CommandLineArguments;
+using RpiLED.Cli.Properties;
 
 namespace RpiLED.Cli.Bootstrap
 {
@@ -12,6 +13,10 @@ namespace RpiLED.Cli.Bootstrap
         public override void RunWith(AppArguments arguments)
         {
             Console.WriteLine("We should not really get output here..");
+            if (arguments.Wait)
+            {
+                Console.Write(Resources.ExitPrompt); Console.ReadLine();
+            }
         }
     }
 }
