@@ -8,27 +8,27 @@ using System.Device.Gpio;
 namespace RpiLED.Core.Services
 {
 
-    internal enum PinScheme
+    public enum PinScheme
     {
         Physical = 1,
         Broadcom = 2,
         None = -1
     };
 
-    internal enum PinDirection
+    public enum PinDirection
     {
         In,
         Out
     };
 
-    internal enum PinMode
+    public enum PinMode
     {
         Gpio = 1,
         Pwm = 2,
         None = -1
     };
 
-    internal class GpioService
+    public class GpioService
     {
         public GpioController Gpio { get; private set; }
 

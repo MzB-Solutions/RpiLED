@@ -9,7 +9,7 @@ using PinMode = System.Device.Gpio.PinMode;
 
 namespace RpiLED.Core.Models
 {
-    internal class PinModel
+    public class PinModel
     {
         internal GpioService ioService;
 
