@@ -15,12 +15,14 @@ namespace RpiLED.Cli.Bootstrap
         [HelpText("This writes the value to the given pin. (see -p -v)")]
         public WriteCommand Write { get; set; }
 
-        [Option("PauseAfterTerminate", "p")]
+        [Command("Help", "h")]
+        [HelpText("Displays the help you are watching at the moment.")]
+        [DetailedHelpText("calling this app with a command and then -h display the help of that command. ei: RpiLED.Cli -r -h")]
+        public HelpCommand Help { get; set; }
+
+        [Option("KeypressWait", "k")]
         [HelpText("Wait for a keypress after the app terminates.")]
         public bool Wait { get; set; }
 
-        [Command("Help", "h", "?")]
-        [HelpText("Displays the help you are watching at the moment.")]
-        public HelpCommand Help { get; set; }
     }
 }
