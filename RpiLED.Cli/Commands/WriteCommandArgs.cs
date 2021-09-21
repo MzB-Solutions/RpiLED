@@ -24,7 +24,7 @@ namespace RpiLED.Cli.Commands
         public int Pin { get; set; }
 
         [Argument("Value", "v", Required = false)]
-        [HelpText("What to write to this pin, false for low and true for high")]
+        [HelpText("What to write to this pin, Default: false [false = low]  [true = high]")]
         [DetailedHelpText("If no value is given we apply a low signal to the pin (ie: false)")]
         public bool Value { get; set; } = false;
     }
