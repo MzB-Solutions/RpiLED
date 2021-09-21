@@ -9,7 +9,7 @@ namespace RpiLED.Cli.Commands
         public int Pin { get; set; }
 
         [Argument("Value", "v")]
-        [HelpText("What to write to this pin, 0 for low and 1 for high")]
+        [HelpText("What to write to this pin, false for low and true for high")]
         public bool Value { get; set; }
     }
 }
