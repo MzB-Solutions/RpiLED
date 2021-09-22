@@ -14,11 +14,12 @@ namespace RpiLED.Cli.Bootstrap
         }
         public override void RunWith(AppArguments arguments)
         {
-            if (arguments.Wait)
+            if (arguments.KeyWait)
             {
                 Console.Write(Resources.ExitPrompt); Console.ReadLine();
             }
         }
+
         public override bool HandleException(Exception exception)
         {
             if (exception is IOException)

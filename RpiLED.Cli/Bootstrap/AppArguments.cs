@@ -21,7 +21,7 @@ namespace RpiLED.Cli.Bootstrap
         {
             Console.WriteLine();
             Console.WriteLine("►───────────────────────────────────────────────────────────────────────────◄");
-            if (this.Wait)
+            if (this.KeyWait)
             {
                 Console.Write(Resources.ExitPrompt); Console.ReadLine();
             }
@@ -42,9 +42,9 @@ namespace RpiLED.Cli.Bootstrap
         public HelpCommand Help { get; set; }
 
         [Option("KEYWAIT", "k")]
-        [HelpText("Wait for a keypress after the app terminates.")]
+        [HelpText("KeyWait for a keypress after the app terminates.")]
         [DetailedHelpText("Additionally, a line prompting to press a key will be displayed.")]
-        public bool Wait { get; set; }
+        public bool KeyWait { get; set; }
 
     }
 }
