@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+VERBOSITY=q
+AUTO_MODE=true
 ##
 function isTrue() {
     if [[ "${@^^}" =~ ^(TRUE|OUI|Y|O$|ON$|[1-9]) ]]; then return 0;fi
@@ -21,10 +23,8 @@ done
 ## n[ormal]
 ## d[etailed]
 ## diag[nostic]
-#VERBOSITY=m
 CURRENT_DIR=$(pwd)
 OUTPUT_DIR="${CURRENT_DIR}/output/"
-#AUTO_MODE=true
 if [[ -d $OUTPUT_DIR ]];
 then
     echo "Removing output directory ${OUTPUT_DIR}"
