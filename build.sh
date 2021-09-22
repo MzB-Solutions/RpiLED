@@ -46,12 +46,8 @@ if ! isTrue "$AUTO_MODE"; then
         dotnet clean -v $VERBOSITY $LOGO -c $CONFIG
         cleanState=$?
         echo "Cleaning finished ... Result: ${cleanState}"
-        echo "Restore started ..."
-        dotnet restore -v $VERBOSITY --force --force-evaluate
-        restoreState=$?
-        echo "Restore finished ... Result: ${restoreState}"
         echo "Build started ..."
-        dotnet build -v $VERBOSITY --force --no-restore $LOGO -c $CONFIG -o "${OUTPUT_DIR}"
+        dotnet build -v $VERBOSITY --force $LOGO -c $CONFIG -o "${OUTPUT_DIR}"
         buildState=$?
         echo "Build finished ... Result: ${buildState}"
         echo "Task completed! Results: Clean (${cleanState}) | Restore (${restoreState}) | Build (${buildState}) | [0 = Program executed successfully!] [!0 = Some error(number) occured]"
