@@ -50,7 +50,7 @@ if ! isTrue "$AUTO_MODE"; then
         dotnet build -v $VERBOSITY --force $LOGO -c $CONFIG -o "${OUTPUT_DIR}"
         buildState=$?
         echo "Build finished ... Result: ${buildState}"
-        echo "Task completed! Results: Clean (${cleanState}) | Restore (${restoreState}) | Build (${buildState}) | [0 = Program executed successfully!] [!0 = Some error(number) occured]"
+        echo "Task completed! Results: Clean (${cleanState}) |  Build (${buildState}) | [0 = Program executed successfully!] [!0 = Some error(number) occured]"
         printf "All Tasks completed!\n   exiting .."
         exit 0
     fi
