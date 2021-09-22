@@ -120,7 +120,7 @@ namespace RpiLED.Core.Services
             Pins.P40
         };
 
-        internal List<Pins> _forbiddenPins;
+        internal List<Pins> _forbiddenPins = new();
 
         /// <summary>
         /// These Pins should be excluded from any consideration! They are ground!
