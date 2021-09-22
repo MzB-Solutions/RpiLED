@@ -7,7 +7,7 @@ using System.Device.Gpio;
 
 namespace RpiLED.Core.Services
 {
-    internal enum Pins
+    public enum Pins
     {
         P01 = 1,
         P02 = 2,
@@ -76,7 +76,7 @@ namespace RpiLED.Core.Services
         /// <summary>
         /// This is a list of ALL available pins (40) on the board
         /// </summary>
-        internal List<Pins> AvailablePins = new()
+        private readonly List<Pins> _availablePins = new()
         {
             Pins.P01,
             Pins.P02,
@@ -120,7 +120,9 @@ namespace RpiLED.Core.Services
             Pins.P40
         };
 
-        internal List<Pins> _forbiddenPins = new();
+        public IEnumerable<Pins> ValidPins { get; }
+
+        private readonly List<Pins> _forbiddenPins = new();
 
         /// <summary>
         /// These Pins should be excluded from any consideration! They are ground!
@@ -147,6 +149,9 @@ namespace RpiLED.Core.Services
         /// </summary>
         private readonly List<Pins> _5vPins = new() { Pins.P02, Pins.P04 };
 
+        /// <summary>
+        /// An instance of an actual GPIO controller
+        /// </summary>
         public GpioController Gpio { get; private set; }
 
         private void SetScheme()
@@ -154,15 +159,22 @@ namespace RpiLED.Core.Services
             Gpio = new GpioController(PinNumberingScheme.Board);
         }
 
+        /// <summary>
+        /// The GpioService Constructor
+        /// </summary>
+        /// <summary>
+        /// Here we invalidate certain pins since they are part of the power rail.
+        /// In the PinModel, we should always check wether the pin we are talking to,
+        /// is contained in the ValidPins IEnumerable list
+        /// We also set the Pinscheme to the physical pin representation.
+        /// </summary>
         public GpioService()
         {
+            //Func <Pins, string> listItem = (pin) => $@"{pin.ToString()}, ";
             _forbiddenPins.AddRange(_groundPins);
             _forbiddenPins.AddRange(_3vPins);
             _forbiddenPins.AddRange(_5vPins);
-            Console.WriteLine("ALL Pins " + AvailablePins + " !!!");
-            AvailablePins.Intersect(_forbiddenPins);
-            Console.WriteLine("FORBIDDEN Pins " + _forbiddenPins + " !!!");
-            Console.WriteLine("Our Available Pins " + AvailablePins + " !!!");
+            ValidPins = _availablePins.Except(_forbiddenPins);
             SetScheme();
         }
     }
