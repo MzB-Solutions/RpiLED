@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace RpiLED.GUI.Views
+namespace RpiLED.Gui.Views
 {
     public partial class LED_control : UserControl
     {

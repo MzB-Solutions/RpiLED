@@ -1,15 +1,14 @@
 ﻿using ConsoLovers.ConsoleToolkit.Core.CommandLineArguments;
-using RpiLED.Cli.Bootstrap;
 
 namespace RpiLED.Cli.Commands
 {
-    [HelpTextProvider(typeof(ReadCommandArgs))]
-    public class ReadCommandArgs : TypeHelpProvider
+    [HelpTextProvider(typeof(WriteCommandArgs))]
+    public class WriteCommandArgs : TypeHelpProvider
     {
         public override void WriteTypeHeader(TypeHelpRequest helpRequest)
         {
             Console.WriteLine(" ╔══════════════════════════╗");
-            Console.WriteLine(" ║  'read' ARGUMENT HELP    ║");
+            Console.WriteLine(" ║  'write' ARGUMENT HELP   ║");
             Console.WriteLine(" ╚══════════════════════════╝");
             Console.WriteLine();
         }
@@ -19,9 +18,14 @@ namespace RpiLED.Cli.Commands
             Console.WriteLine();
             Console.WriteLine("►───────────────────────────────────────────────────────────────────────────◄");
         }
+
         [Argument("Pin", "p", Required = true)]
         [HelpText("The number of the physical pin to use. ie: 12")]
         public int Pin { get; set; }
 
+        [Argument("Value", "v", Required = false)]
+        [HelpText("What to write to this pin, Default: false [false = low]  [true = high]")]
+        [DetailedHelpText("If no value is given we apply a low signal to the pin (ie: false)")]
+        public bool Value { get; set; } = false;
     }
 }
