@@ -1,5 +1,4 @@
-﻿using System;
-using ConsoLovers.ConsoleToolkit.Core;
+﻿using ConsoLovers.ConsoleToolkit.Core;
 using RpiLED.Cli.Bootstrap;
 
 namespace RpiLED.Cli
