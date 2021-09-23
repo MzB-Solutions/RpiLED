@@ -1,9 +1,9 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using RpiLED.GUI.ViewModels;
+using RpiLED.Gui.ViewModels;
 
-namespace RpiLED.GUI
+namespace RpiLED.Gui
 {
     public class ViewLocator : IDataTemplate
     {

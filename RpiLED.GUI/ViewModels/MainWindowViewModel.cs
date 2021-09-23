@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RpiLED.GUI.ViewModels
+namespace RpiLED.Gui.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {

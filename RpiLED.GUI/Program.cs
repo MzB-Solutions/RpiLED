@@ -3,7 +3,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.ReactiveUI;
 
-namespace RpiLED.GUI
+namespace RpiLED.Gui
 {
     internal class Program
     {
