@@ -3,7 +3,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <Platforms>ARM32;x86</Platforms>
+    <Platforms>arm;x86</Platforms>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Models\" />
