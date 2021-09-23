@@ -70,6 +70,15 @@ namespace RpiLED.Cli.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string IOExceptionMsg {
+            get {
+                return ResourceManager.GetString("IOExceptionMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to We should be talking to pin ({0}) ...
         /// </summary>
         internal static string TalkingToPinValue {
