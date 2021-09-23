@@ -28,7 +28,10 @@ namespace RpiLED.Cli.Bootstrap
         public override bool HandleException(Exception exception)
         {
             if (exception is IOException)
+            {
+                Console.WriteLine($@"Some error message {exception.Message}");
                 Environment.Exit(-1);
+            }
             if (exception is MissingCommandLineArgumentException)
             {
                 Environment.Exit(-2);
