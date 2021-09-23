@@ -120,8 +120,17 @@ namespace RpiLED.Core.Services
             Pins.P40
         };
 
+        /// <summary>
+        /// This (when) filled contains only valid pins, meaning no power rails, or ground rails.
+        /// </summary>
+        /// <value>Contains a list of valid pins.</value>
         public IEnumerable<Pins> ValidPins { get; }
 
+        /// <summary>
+        /// This when filled contains only non-valid pins, meaning this contains the following groups:
+        /// 2x +3.3v | 2x +5v | 8x Ground
+        /// </summary>
+        /// <returns>A list of forbidden pins.</returns>
         private readonly List<Pins> _forbiddenPins = new();
 
         /// <summary>
@@ -154,6 +163,9 @@ namespace RpiLED.Core.Services
         /// </summary>
         public GpioController Gpio { get; private set; }
 
+        /// <summary>
+        /// This sets the pin numberring scheme. Hardcoded to physical pin-numbering.
+        /// </summary>
         private void SetScheme()
         {
             Gpio = new GpioController(PinNumberingScheme.Board);
