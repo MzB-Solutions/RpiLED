@@ -9,6 +9,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RpiLed.Cli", "RpiLED.Cli\Rp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RpiLed.Gui", "RpiLED.Gui\RpiLed.Gui.csproj", "{1F9A3046-2FD8-427E-89C7-9518A63E2795}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "vendor", "vendor", "{AC23EED4-1299-4303-97BF-5DF1CEB24D1D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConsoLovers", "ConsoLovers", "{82E8ED0A-1219-4D39-97A2-59302A98DD6B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B2164792-7DCD-4163-B8FF-AF9BA06B4023}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoLovers.ConsoleToolkit.Core", "vendor\ConsoLovers\src\ConsoLovers.ConsoleToolkit.Core\ConsoLovers.ConsoleToolkit.Core.csproj", "{C75EA7A3-32AB-4EF4-9ED1-FA4457547C28}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,5 +66,22 @@ Global
 		{1F9A3046-2FD8-427E-89C7-9518A63E2795}.Release|x64.Build.0 = Release|Any CPU
 		{1F9A3046-2FD8-427E-89C7-9518A63E2795}.Release|x86.ActiveCfg = Release|Any CPU
 		{1F9A3046-2FD8-427E-89C7-9518A63E2795}.Release|x86.Build.0 = Release|Any CPU
+		{C75EA7A3-32AB-4EF4-9ED1-FA4457547C28}.Debug|Any CPU.ActiveCfg = Debug|arm
+		{C75EA7A3-32AB-4EF4-9ED1-FA4457547C28}.Debug|Any CPU.Build.0 = Debug|arm
+		{C75EA7A3-32AB-4EF4-9ED1-FA4457547C28}.Debug|x64.ActiveCfg = Debug|arm
+		{C75EA7A3-32AB-4EF4-9ED1-FA4457547C28}.Debug|x64.Build.0 = Debug|arm
+		{C75EA7A3-32AB-4EF4-9ED1-FA4457547C28}.Debug|x86.ActiveCfg = Debug|x86
+		{C75EA7A3-32AB-4EF4-9ED1-FA4457547C28}.Debug|x86.Build.0 = Debug|x86
+		{C75EA7A3-32AB-4EF4-9ED1-FA4457547C28}.Release|Any CPU.ActiveCfg = Release|arm
+		{C75EA7A3-32AB-4EF4-9ED1-FA4457547C28}.Release|Any CPU.Build.0 = Release|arm
+		{C75EA7A3-32AB-4EF4-9ED1-FA4457547C28}.Release|x64.ActiveCfg = Release|arm
+		{C75EA7A3-32AB-4EF4-9ED1-FA4457547C28}.Release|x64.Build.0 = Release|arm
+		{C75EA7A3-32AB-4EF4-9ED1-FA4457547C28}.Release|x86.ActiveCfg = Release|x86
+		{C75EA7A3-32AB-4EF4-9ED1-FA4457547C28}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{82E8ED0A-1219-4D39-97A2-59302A98DD6B} = {AC23EED4-1299-4303-97BF-5DF1CEB24D1D}
+		{B2164792-7DCD-4163-B8FF-AF9BA06B4023} = {82E8ED0A-1219-4D39-97A2-59302A98DD6B}
+		{C75EA7A3-32AB-4EF4-9ED1-FA4457547C28} = {B2164792-7DCD-4163-B8FF-AF9BA06B4023}
 	EndGlobalSection
 EndGlobal
