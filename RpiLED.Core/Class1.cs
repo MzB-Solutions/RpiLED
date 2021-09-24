@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace RpiLED.Core
+﻿namespace RpiLED.Core
 {
     public class Class1
     {

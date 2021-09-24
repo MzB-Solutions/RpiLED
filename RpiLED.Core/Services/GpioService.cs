@@ -1,12 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Device.Gpio;
+using System.Linq;
 
 namespace RpiLED.Core.Services
 {
+    public enum PinDirection
+    {
+        In,
+        Out
+    }
+
+    public enum PinMode
+    {
+        Gpio = 1,
+        Pwm = 2,
+        None = -1
+    }
+
     public enum Pins
     {
         P01 = 1,
@@ -49,32 +59,29 @@ namespace RpiLED.Core.Services
         P38 = 38,
         P39 = 39,
         P40 = 40
-    };
+    }
 
     public enum PinScheme
     {
         Physical = 1,
         Broadcom = 2,
         None = -1
-    };
-
-    public enum PinDirection
-    {
-        In,
-        Out
-    };
-
-    public enum PinMode
-    {
-        Gpio = 1,
-        Pwm = 2,
-        None = -1
-    };
+    }
 
     public class GpioService
     {
         /// <summary>
-        /// This is a list of ALL available pins (40) on the board
+        ///     These Pins should be excluded from any consideration! They are +3 Volts DC!
+        /// </summary>
+        private readonly List<Pins> _3vPins = new() { Pins.P01, Pins.P17 };
+
+        /// <summary>
+        ///     These Pins should be excluded from any consideration! They are +5 Volts DC!
+        /// </summary>
+        private readonly List<Pins> _5vPins = new() { Pins.P02, Pins.P04 };
+
+        /// <summary>
+        ///     This is a list of ALL available pins (40) on the board
         /// </summary>
         private readonly List<Pins> _availablePins = new()
         {
@@ -120,12 +127,15 @@ namespace RpiLED.Core.Services
             Pins.P40
         };
 
-        public IEnumerable<Pins> ValidPins { get; }
-
+        /// <summary>
+        ///     This when filled contains only non-valid pins, meaning this contains the following groups:
+        ///     2x +3.3v | 2x +5v | 8x Ground
+        /// </summary>
+        /// <returns>A list of forbidden pins.</returns>
         private readonly List<Pins> _forbiddenPins = new();
 
         /// <summary>
-        /// These Pins should be excluded from any consideration! They are ground!
+        ///     These Pins should be excluded from any consideration! They are ground!
         /// </summary>
         private readonly List<Pins> _groundPins = new()
         {
@@ -140,34 +150,14 @@ namespace RpiLED.Core.Services
         };
 
         /// <summary>
-        /// These Pins should be excluded from any consideration! They are +3 Volts DC!
+        ///     The GpioService Constructor
         /// </summary>
-        private readonly List<Pins> _3vPins = new() { Pins.P01, Pins.P17 };
-
-        /// <summary>
-        /// These Pins should be excluded from any consideration! They are +5 Volts DC!
-        /// </summary>
-        private readonly List<Pins> _5vPins = new() { Pins.P02, Pins.P04 };
-
-        /// <summary>
-        /// An instance of an actual GPIO controller
-        /// </summary>
-        public GpioController Gpio { get; private set; }
-
-        private void SetScheme()
-        {
-            Gpio = new GpioController(PinNumberingScheme.Board);
-        }
-
-        /// <summary>
-        /// The GpioService Constructor
-        /// </summary>
-        /// <summary>
-        /// Here we invalidate certain pins since they are part of the power rail.
-        /// In the PinModel, we should always check wether the pin we are talking to,
-        /// is contained in the ValidPins IEnumerable list
-        /// We also set the Pinscheme to the physical pin representation.
-        /// </summary>
+        /// <remarks>
+        ///     Here we invalidate certain pins since they are part of the power rail.
+        ///     In the PinModel, we should always check wether the pin we are talking to,
+        ///     is contained in the ValidPins IEnumerable list
+        ///     We also set the Pinscheme to the physical pin representation.
+        /// </remarks>
         public GpioService()
         {
             //Func <Pins, string> listItem = (pin) => $@"{pin.ToString()}, ";
@@ -176,6 +166,25 @@ namespace RpiLED.Core.Services
             _forbiddenPins.AddRange(_5vPins);
             ValidPins = _availablePins.Except(_forbiddenPins);
             SetScheme();
+        }
+
+        /// <summary>
+        ///     An instance of an actual GPIO controller
+        /// </summary>
+        public GpioController Gpio { get; private set; }
+
+        /// <summary>
+        ///     This (when) filled contains only valid pins, meaning no power rails, or ground rails.
+        /// </summary>
+        /// <value>Contains a list of valid pins.</value>
+        public IEnumerable<Pins> ValidPins { get; }
+
+        /// <summary>
+        ///     This sets the pin numberring scheme. Hardcoded to physical pin-numbering.
+        /// </summary>
+        private void SetScheme()
+        {
+            Gpio = new GpioController(PinNumberingScheme.Board);
         }
     }
 }

@@ -107,4 +107,7 @@
 	<data name="WriteValue" xml:space="preserve">
 		<value>Writing [{0}]!</value>
 	</data>
+	<data name="IOExceptionMsg" xml:space="preserve">
+		<value>Cannot use pin ({0}). It's part of the powerrail</value>
+	</data>
 </root>

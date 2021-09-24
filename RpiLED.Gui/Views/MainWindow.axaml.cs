@@ -4,11 +4,14 @@ using Avalonia.Markup.Xaml;
 
 namespace RpiLED.Gui.Views
 {
-    public partial class LED_control : UserControl
+    public partial class MainWindow : Window
     {
-        public LED_control()
+        public MainWindow()
         {
             InitializeComponent();
+#if DEBUG
+            this.AttachDevTools();
+#endif
         }
 
         private void InitializeComponent()
