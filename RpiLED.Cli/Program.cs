@@ -1,18 +1,12 @@
-﻿using ConsoLovers.ConsoleToolkit.Core;
-using RpiLED.Cli.Bootstrap;
+﻿using System;
 
-namespace RpiLED.Cli
+namespace RpiLed.Cli
 {
-    internal class Program
+    class Program
     {
-        private static void Main(string[] args)
+        static void Main(string[] args)
         {
-            //Console.WriteLine("Hello World!");
-            ConsoleApplicationManager.For<AppBootstrap>()
-                .SetWindowHeight(80)
-                .SetWindowWidth(300)
-                .SetWindowTitle("Awesome Title")
-                .Run(args);
+            Console.WriteLine("Hello World!");
         }
     }
 }

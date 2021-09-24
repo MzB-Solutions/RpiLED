@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace RpiLED.Gui.Views
+namespace RpiLed.Gui.Views
 {
     public partial class MainWindow : Window
     {

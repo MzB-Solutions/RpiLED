@@ -1,10 +1,10 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using RpiLED.Gui.ViewModels;
-using RpiLED.Gui.Views;
+using RpiLed.Gui.ViewModels;
+using RpiLed.Gui.Views;
 
-namespace RpiLED.Gui
+namespace RpiLed.Gui
 {
     public class App : Application
     {
