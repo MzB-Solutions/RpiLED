@@ -10,8 +10,8 @@
     <OutputPath>Debug</OutputPath>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|arm'">
-    <PlatformTarget>ARM32</PlatformTarget>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM32'">
+    <PlatformTarget>arm</PlatformTarget>
     <OutputPath>Debug</OutputPath>
   </PropertyGroup>
 
@@ -20,8 +20,8 @@
     <OutputPath>Release</OutputPath>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|arm'">
-    <PlatformTarget>ARM32</PlatformTarget>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM32'">
+    <PlatformTarget>arm</PlatformTarget>
     <OutputPath>Release</OutputPath>
   </PropertyGroup>
   <ItemGroup>
