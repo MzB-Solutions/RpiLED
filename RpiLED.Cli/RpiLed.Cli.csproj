@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <Platforms>ARM32;x86</Platforms>
+    <StartupObject>RpiLED.Cli.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>

@@ -7,6 +7,8 @@ namespace RpiLED.Cli.Bootstrap
     [HelpTextProvider(typeof(AppArguments))]
     public class AppArguments : TypeHelpProvider
     {
+        #region Public Properties
+
         [Command("HELP", "h", "?")]
         [HelpText("Displays the help you are watching at the moment.")]
         [DetailedHelpText(
@@ -18,6 +20,10 @@ namespace RpiLED.Cli.Bootstrap
         [DetailedHelpText("Additionally, a line prompting to press a key will be displayed.")]
         public bool KeyWait { get; set; }
 
+        [Command("PWM", "p")]
+        [HelpText("This writes a PWM value to the indicated Pin")]
+        public PwmCommand Pwm { get; set; }
+
         [Command("READ", "r")]
         [HelpText("This reads a given pins current state on the board. (see -p)")]
         [DetailedHelpText(
@@ -27,6 +33,10 @@ namespace RpiLED.Cli.Bootstrap
         [Command("WRITE", "w")]
         [HelpText("This writes the value to the given pin. (see -p -v)")]
         public WriteCommand Write { get; set; }
+
+        #endregion Public Properties
+
+        #region Public Methods
 
         public override void WriteTypeFooter(TypeHelpRequest helpRequest)
         {
@@ -46,5 +56,7 @@ namespace RpiLED.Cli.Bootstrap
             Console.WriteLine(" ╚══════════════════════════╝");
             Console.WriteLine();
         }
+
+        #endregion Public Methods
     }
 }

@@ -4,6 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
     <Platforms>ARM32;x86</Platforms>
+    <StartupObject>RpiLed.Gui.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Models\" />

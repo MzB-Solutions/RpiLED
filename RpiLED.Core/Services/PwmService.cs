@@ -1,36 +1,93 @@
 ﻿using System.Collections.Generic;
-using System.Device.Gpio;
-using System.Linq;
-using RpiLed.Core;
+using System.Device.Pwm;
+using System.Device.Pwm.Drivers;
 
-namespace RpiLED.Core.Services
+namespace RpiLed.Core.Services
 {
-    public enum PinDirection
+    internal enum PwmMode
     {
-        In,
-        Out
+        Hardware,
+        Software
     }
 
-    public enum PinMode
+    internal enum PwmSelect
     {
-        Gpio = 1,
-        Pwm = 2,
-        None = -1
+        Pin12 = 12,
+        Pin32 = 32,
+        Pin33 = 33,
+        Pin35 = 35
     }
 
-    public class GpioService
+    internal class PwmService
     {
+        #region Public Fields
+
+        public PwmChannel Pwm;
+
+        #endregion Public Fields
+
+        #region Public Constructors
+
+        public PwmService(PwmSelect selectedPin, PwmMode mode)
+        {
+            if (mode == PwmMode.Hardware)
+            {
+                var chip = 0;
+                var channel = 0;
+                pwmSelect((int) selectedPin, ref chip, ref channel);
+                Pwm = PwmChannel.Create(chip, channel, 400, 0);
+            }
+            else
+            {
+                Pwm = new SoftwarePwmChannel((int) selectedPin, 400, 0, shouldDispose: true);
+            }
+        }
+
+        #endregion Public Constructors
+
+        #region Private Methods
+
+        private void pwmSelect(int pin, ref int chip, ref int channel)
+        {
+            switch (pin)
+            {
+                case 12:
+                    chip = 0;
+                    channel = 0;
+                    break;
+
+                case 32:
+                    chip = 0;
+                    channel = 1;
+                    break;
+
+                case 33:
+                    chip = 1;
+                    channel = 0;
+                    break;
+
+                case 35:
+                    chip = 1;
+                    channel = 1;
+                    break;
+            }
+        }
+
+        #endregion Private Methods
+
         #region Private Fields
 
         /// <summary>
         ///     These Pins should be excluded from any consideration! They are +3 Volts DC!
         /// </summary>
-        private readonly List<Pins> _3vPins = new() { Pins.P01, Pins.P17 };
+        private readonly List<Pins> _3vPins = new()
+            {Pins.P01, Pins.P17};
 
         /// <summary>
         ///     These Pins should be excluded from any consideration! They are +5 Volts DC!
         /// </summary>
-        private readonly List<Pins> _5vPins = new() { Pins.P02, Pins.P04 };
+        private readonly List<Pins> _5vPins = new()
+            {Pins.P02, Pins.P04};
 
         /// <summary>
         ///     This is a list of ALL available pins (40) on the board
@@ -101,56 +158,14 @@ namespace RpiLED.Core.Services
             Pins.P39
         };
 
+        private List<Pins> PwmSelect = new()
+        {
+            Pins.P12,
+            Pins.P32,
+            Pins.P33,
+            Pins.P35
+        };
+
         #endregion Private Fields
-
-        #region Private Methods
-
-        /// <summary>
-        ///     This sets the pin numberring scheme. Hardcoded to physical pin-numbering.
-        /// </summary>
-        private void SetGpioScheme()
-        {
-            Gpio = new GpioController(PinNumberingScheme.Board);
-        }
-
-        #endregion Private Methods
-
-        #region Public Constructors
-
-        /// <summary>
-        ///     The GpioService Constructor
-        /// </summary>
-        /// <remarks>
-        ///     Here we invalidate certain pins since they are part of the power rail.
-        ///     In the PinModel, we should always check wether the pin we are talking to,
-        ///     is contained in the ValidPins IEnumerable list
-        ///     We also set the Pinscheme to the physical pin representation.
-        /// </remarks>
-        public GpioService()
-        {
-            //Func <Pins, string> listItem = (pin) => $@"{pin.ToString()}, ";
-            _forbiddenPins.AddRange(_groundPins);
-            _forbiddenPins.AddRange(_3vPins);
-            _forbiddenPins.AddRange(_5vPins);
-            ValidPins = _availablePins.Except(_forbiddenPins);
-            SetGpioScheme();
-        }
-
-        #endregion Public Constructors
-
-        #region Public Properties
-
-        /// <summary>
-        ///     An instance of an actual GPIO controller
-        /// </summary>
-        public GpioController Gpio { get; private set; }
-
-        /// <summary>
-        ///     This (when) filled contains only valid pins, meaning no power rails, or ground rails.
-        /// </summary>
-        /// <value>Contains a list of valid pins.</value>
-        public IEnumerable<Pins> ValidPins { get; }
-
-        #endregion Public Properties
     }
 }

@@ -2,6 +2,7 @@
 using System.Device.Gpio;
 using System.IO;
 using System.Linq;
+using RpiLed.Core;
 using RpiLED.Core.Services;
 using PinMode = System.Device.Gpio.PinMode;
 
@@ -9,21 +10,13 @@ namespace RpiLED.Core.Models
 {
     public class PinModel
     {
+        #region Private Fields
+
         private static int pinLocation;
-        internal GpioService ioService;
 
-        public PinModel(PinScheme scheme, int pinNumber)
-        {
-            ioService = new GpioService();
-            pinLocation = pinNumber;
-            _resetPin();
-            _getPinDirection();
-            _getPinValue();
-            ioService.Gpio.ClosePin(pinLocation);
-        }
+        #endregion Private Fields
 
-        public PinMode PinDirection { get; private set; }
-        public PinValue PinState { get; private set; }
+        #region Private Methods
 
         private void _getPinDirection()
         {
@@ -66,6 +59,37 @@ namespace RpiLED.Core.Models
             }
         }
 
+        #endregion Private Methods
+
+        #region Internal Fields
+
+        internal GpioService ioService;
+
+        #endregion Internal Fields
+
+        #region Public Constructors
+
+        public PinModel(PinScheme scheme, int pinNumber)
+        {
+            ioService = new GpioService();
+            pinLocation = pinNumber;
+            _resetPin();
+            _getPinDirection();
+            _getPinValue();
+            ioService.Gpio.ClosePin(pinLocation);
+        }
+
+        #endregion Public Constructors
+
+        #region Public Properties
+
+        public PinMode PinDirection { get; private set; }
+        public PinValue PinState { get; private set; }
+
+        #endregion Public Properties
+
+        #region Public Methods
+
         public void PinWrite(bool value)
         {
             _resetPin(true);
@@ -74,5 +98,7 @@ namespace RpiLED.Core.Models
             _getPinValue();
             ioService.Gpio.ClosePin(pinLocation);
         }
+
+        #endregion Public Methods
     }
 }

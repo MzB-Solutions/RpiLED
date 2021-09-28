@@ -6,11 +6,11 @@ using RpiLED.Core.Models;
 
 namespace RpiLED.Cli.Commands
 {
-    public class WriteCommand : ICommand<WriteCommandArgs>
+    public class PwmCommand : ICommand<PwmCommandArgs>
     {
         #region Public Properties
 
-        public WriteCommandArgs Arguments { get; set; }
+        public PwmCommandArgs Arguments { get; set; }
 
         #endregion Public Properties
 
@@ -22,7 +22,7 @@ namespace RpiLED.Cli.Commands
             Console.WriteLine(Resources.TalkingToPinValue, Arguments.Pin.ToString());
             Console.WriteLine(Resources.WriteValue, Arguments.Value.ToString());
             Console.WriteLine(
-                $@"Its direction is ({pin.PinDirection.ToString()}) and its value is: {pin.PinState.ToString()}");
+                $@"Its direction is ({pin.PinDirection}) and its value is: {pin.PinState}");
             pin.PinWrite(Arguments.Value);
         }
 
