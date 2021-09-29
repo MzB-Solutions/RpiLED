@@ -18,7 +18,7 @@ namespace RpiLED.Cli.Commands
 
         public void Execute()
         {
-            var pin = new PinModel(PinScheme.Physical, Arguments.Pin);
+            var pin = new PinModel(Arguments.Pin, PinService.Pwm);
             Console.WriteLine(Resources.TalkingToPinValue, Arguments.Pin.ToString());
             Console.WriteLine(Resources.WriteValue, Arguments.Value.ToString());
             Console.WriteLine(

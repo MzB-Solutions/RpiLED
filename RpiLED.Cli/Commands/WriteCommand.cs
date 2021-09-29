@@ -18,11 +18,11 @@ namespace RpiLED.Cli.Commands
 
         public void Execute()
         {
-            var pin = new PinModel(PinScheme.Physical, Arguments.Pin);
+            var pin = new PinModel(Arguments.Pin, PinService.Gpio);
             Console.WriteLine(Resources.TalkingToPinValue, Arguments.Pin.ToString());
             Console.WriteLine(Resources.WriteValue, Arguments.Value.ToString());
             Console.WriteLine(
-                $@"Its direction is ({pin.PinDirection.ToString()}) and its value is: {pin.PinState.ToString()}");
+                $@"Its direction is ({pin.PinDirection}) and its value is: {pin.PinState}");
             pin.PinWrite(Arguments.Value);
         }
 

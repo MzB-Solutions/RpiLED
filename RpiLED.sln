@@ -8,9 +8,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpiLed.Cli", "RpiLED.Cli\RpiLed.Cli.csproj", "{F13B8F87-9D7F-4156-A59D-E78D22B07095}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpiLed.Gui", "RpiLED.Gui\RpiLed.Gui.csproj", "{1F9A3046-2FD8-427E-89C7-9518A63E2795}"
-	ProjectSection(ProjectDependencies) = postProject
-		{D9EDF940-3AAF-4C4B-B668-BE4BD7C6FD76} = {D9EDF940-3AAF-4C4B-B668-BE4BD7C6FD76}
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "vendor", "vendor", "{AC23EED4-1299-4303-97BF-5DF1CEB24D1D}"
 EndProject

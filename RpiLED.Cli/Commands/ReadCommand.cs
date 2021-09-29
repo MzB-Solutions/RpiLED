@@ -3,6 +3,7 @@ using RpiLED.Cli.Properties;
 using RpiLED.Core.Models;
 using RpiLED.Core.Services;
 using System;
+using RpiLed.Core;
 
 namespace RpiLED.Cli.Commands
 {
@@ -12,9 +13,9 @@ namespace RpiLED.Cli.Commands
 
         public void Execute()
         {
-            PinModel pin = new PinModel(PinScheme.Physical, Arguments.Pin);
+            PinModel pin = new(Arguments.Pin, PinService.Gpio);
             Console.WriteLine(Resources.TalkingToPinValue, Arguments.Pin.ToString());
-            Console.WriteLine($@"Its direction is ({pin.PinDirection.ToString()}) and its value is: {pin.PinState.ToString()}");
+            Console.WriteLine($@"Its direction is ({pin.PinDirection}) and its value is: {pin.PinState}");
         }
     }
 }

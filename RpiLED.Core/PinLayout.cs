@@ -1,9 +1,12 @@
-﻿namespace RpiLed.Core
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace RpiLed.Core
 {
     internal class PinLayout
     {
     }
 
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public enum Pins
     {
         P01 = 1,
@@ -48,10 +51,9 @@
         P40 = 40
     }
 
-    public enum PinScheme
+    public enum PinService
     {
-        Physical = 1,
-        Broadcom = 2,
-        None = -1
+        Gpio,
+        Pwm
     }
 }
