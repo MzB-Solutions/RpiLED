@@ -5,14 +5,15 @@ CONTAINMENT="--self-contained"
 TARGET=Cli
 PRINTHELP=0
 fileName=$(basename "$0")
+
 function printHelp() {
     printf "%s " $fileName
     printf "%s\n" "Usage help:"
     echo "##################"
     printf "%s\n" "Defaults "
-    echo "-a ${AUTO_MODE}"
-    echo "-v ${VERBOSITY}"
-    echo "-c ${CONTAINMENT}"
+    echo -n "-a ${AUTO_MODE} "
+    echo -n "-v ${VERBOSITY} "
+    echo -n "-c ${CONTAINMENT} "
     echo "-t ${TARGET}"
     echo "=================="
     echo "Parameter help:"
@@ -79,7 +80,7 @@ if ! isTrue "$AUTO_MODE"; then
         echo "Publishing finished as ${publishState} in ${OUTPUT_DIR}"
         echo "Task completed! Results: Clean (${cleanState}) | Restore (${restoreState}) |  Build&Publish (${buildState}|${publishState}) | [0 = Program executed ok!] [!0 = Some error(number) occured]"
         printf "All Tasks completed!\n   exiting .."
-        exit 0
+        if [[ "$restoreState" -eq 0 ]] && [[ "$buildState" -eq 0 ]] && [[ "$publishState" -eq 0 ]] ; then exit 0; else exit 1; fi
     fi
 else
     echo "building RpiLED.${TARGET} ${CONFIG}-build into ${OUTPUT_DIR}, verbosity (${VERBOSITY}) {q[uiet],m[inimal],n[ormal],d[etailed],diag[nostic]}"
@@ -93,5 +94,5 @@ else
     publishState=$?
     echo "Task completed! Results: Clean (${cleanState}) | Restore (${restoreState}) |  Build&Publish (${buildState}|${publishState}) | [0 = Program executed ok!] [!0 = Some error(number) occured]"
     printf "All Tasks completed!\n   exiting .."
-    exit 0
+    if [[ "$restoreState" -eq 0 ]] && [[ "$buildState" -eq 0 ]] && [[ "$publishState" -eq 0 ]] ; then exit 0; else exit 1; fi
 fi
