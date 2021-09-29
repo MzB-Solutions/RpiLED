@@ -9,11 +9,11 @@ function printHelp() {
     printf "%s " $fileName
     printf "%s\n" "Usage help:"
     echo "##################"
-    printf "%s\n" "Defaults ";
-    printf "-a ";printf "%s " $AUTO_MODE
-    printf "-v ";printf "%s " $VERBOSITY
-    printf "-c ";printf "%s " $CONTAINMENT
-    printf "-t ";printf "%s " $TARGET
+    printf "%s\n" "Defaults "
+    echo "-a ${AUTO_MODE}"
+    echo "-v ${VERBOSITY}"
+    echo "-c ${CONTAINMENT}"
+    echo "-t ${TARGET}"
     echo "=================="
     echo "Parameter help:"
     printf "%s\n" "-a[utomatic-mode] (either 0 or 1) 0 asks for confirmation before it runs."
