@@ -2,12 +2,13 @@
 VERBOSITY=q
 AUTO_MODE=true
 CONTAINMENT="--self-contained"
+TARGET=Cli
 ##
 function isTrue() {
     if [[ "${@^^}" =~ ^(TRUE|OUI|Y|O$|ON$|[1-9]) ]]; then return 0;fi
     return 1
 }
-while getopts ":a:v:c:" opt; do
+while getopts ":a:v:c_t:" opt; do
     case $opt in
         a) AUTO_MODE="$OPTARG"
            ;;
@@ -17,6 +18,8 @@ while getopts ":a:v:c:" opt; do
         c) 
             CONTAINMENT="$OPTARG"
             ;;
+        t)
+            TARGET="$OPTARG"
         \?) echo "Invalid option -$OPTARG" >&2
             ;;
     esac
@@ -47,19 +50,19 @@ if ! isTrue "$AUTO_MODE"; then
     elif [[ $key == $'\x0a' ]];        # if input == ENTER key
     then
         echo "Cleaning started ..."
-        dotnet clean -v $VERBOSITY $LOGO -c $CONFIG
+        dotnet clean -v $VERBOSITY $LOGO -c $CONFIG "./RpiLED.${TARGET}/RpiLED.${TARGET}.csproj"
         cleanState=$?
         echo "Cleaning finished ... Result: ${cleanState}"
         echo "Restoring packages and dependencies..."
-        dotnet restore -v $VERBOSITY --force --force-evaluate
+        dotnet restore -v $VERBOSITY --force --force-evaluate "./RpiLED.${TARGET}/RpiLED.${TARGET}.csproj"
         restoreState=$?
         echo "Restore finished ... Result: ${restoreState}"
         echo "Build started ..."
-        dotnet build -v $VERBOSITY --no-restore $LOGO -c $CONFIG
+        dotnet build -v $VERBOSITY --no-restore $LOGO -c $CONFIG "./RpiLED.${TARGET}/RpiLED.${TARGET}.csproj"
         buildState=$?
         echo "Build finished ... Result: ${buildState}"
         echo "Publishing Solutions into ${OUTPUT_DIR}"
-        dotnet publish -v $VERBOSITY $CONTAINMENT --no-build -c $CONFIG $LOGO -o "${OUTPUT_DIR}"
+        dotnet publish -v $VERBOSITY $CONTAINMENT --no-build -c $CONFIG $LOGO -o "${OUTPUT_DIR}" "./RpiLED.${TARGET}/RpiLED.${TARGET}.csproj"
         publishState=$?
         echo "Publishing finished as ${publishState} in ${OUTPUT_DIR}"
         echo "Task completed! Results: Clean (${cleanState}) | Restore (${restoreState}) |  Build&Publish (${buildState}|${publishState}) | [0 = Program executed ok!] [!0 = Some error(number) occured]"
