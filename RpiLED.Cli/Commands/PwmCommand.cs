@@ -6,11 +6,11 @@ using RpiLED.Core.Models;
 
 namespace RpiLED.Cli.Commands
 {
-    public class WriteCommand : ICommand<WriteCommandArgs>
+    public class PwmCommand : ICommand<PwmCommandArgs>
     {
         #region Public Properties
 
-        public WriteCommandArgs Arguments { get; set; }
+        public PwmCommandArgs Arguments { get; set; }
 
         #endregion Public Properties
 
@@ -18,7 +18,7 @@ namespace RpiLED.Cli.Commands
 
         public void Execute()
         {
-            var pin = new PinModel(Arguments.Pin, PinService.Gpio);
+            var pin = new PinModel(Arguments.Pin, PinService.Pwm);
             Console.WriteLine(Resources.TalkingToPinValue, Arguments.Pin.ToString());
             Console.WriteLine(Resources.WriteValue, Arguments.Value.ToString());
             Console.WriteLine(

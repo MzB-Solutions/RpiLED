@@ -2,59 +2,85 @@
 using System.Device.Gpio;
 using System.IO;
 using System.Linq;
+using RpiLed.Core;
+using RpiLed.Core.Services;
 using RpiLED.Core.Services;
-using PinMode = System.Device.Gpio.PinMode;
 
 namespace RpiLED.Core.Models
 {
     public class PinModel
     {
-        private static int pinLocation;
-        internal GpioService ioService;
+        #region Private Fields
 
-        public PinModel(PinScheme scheme, int pinNumber)
+        private static int _pinLocation;
+
+        #endregion Private Fields
+
+        #region Public Constructors
+
+        public PinModel(int pinNumber, PinService srv)
         {
-            ioService = new GpioService();
-            pinLocation = pinNumber;
-            _resetPin();
-            _getPinDirection();
-            _getPinValue();
-            ioService.Gpio.ClosePin(pinLocation);
-        }
-
-        public PinMode PinDirection { get; private set; }
-        public PinValue PinState { get; private set; }
-
-        private void _getPinDirection()
-        {
-            PinDirection = ioService.Gpio.GetPinMode(pinLocation);
-        }
-
-        private void _getPinValue()
-        {
-            PinState = ioService.Gpio.Read(pinLocation);
-        }
-
-        private void _resetPin(bool openForWrite = false)
-        {
-            if (IsValidPin(pinLocation))
+            switch (srv)
             {
-                if (openForWrite)
-                    ioService.Gpio.OpenPin(pinLocation, PinMode.Output);
-                else
-                    ioService.Gpio.OpenPin(pinLocation, PinMode.Input);
+                case PinService.Gpio:
+                    gpioService = new GpioService();
+                    break;
+
+                case PinService.Pwm:
+                    pwmService = new PwmService((PwmSelect)pinNumber);
+                    break;
+
+                default:
+                    throw new NotImplementedException("This functionality is not implemented yet.");
             }
-            else
+
+            _pinLocation = pinNumber;
+            ResetPin();
+            GetPinDirection();
+            GetPinValue();
+            gpioService.Gpio.ClosePin(_pinLocation);
+        }
+
+        #endregion Public Constructors
+
+        #region Private Destructors
+
+        ~PinModel()
+        {
+            switch (OurService)
             {
-                throw new IOException("You cannot use that pin, since it is part of the power-rail!");
+                case PinService.Gpio:
+                    gpioService.Gpio.ClosePin(_pinLocation);
+                    break;
+                case PinService.Pwm:
+                    pwmService.Pwm.Stop();
+                    pwmService.Pwm.Dispose();
+                    break;
+                default:
+                    break;
+
             }
+        }
+
+        #endregion Private Destructors
+
+        #region Private Methods
+
+        private void GetPinDirection()
+        {
+            PinDirection = gpioService.Gpio.GetPinMode(_pinLocation);
+        }
+
+        private void GetPinValue()
+        {
+            PinState = gpioService.Gpio.Read(_pinLocation);
         }
 
         private bool IsValidPin(int pin)
         {
-            if (ioService.ValidPins.Contains((Pins) pin))
+            if (gpioService.ValidPins.Contains((Pins)pin))
             {
-                var result = $@"Found pin {pin} in {ioService.ValidPins}";
+                var result = $@"Found pin {pin} in {gpioService.ValidPins}";
                 Console.WriteLine(result);
                 return true;
             }
@@ -66,13 +92,78 @@ namespace RpiLED.Core.Models
             }
         }
 
+        private void ResetPin(bool openForWrite = false)
+        {
+            if (IsValidPin(_pinLocation))
+                gpioService.Gpio.OpenPin(_pinLocation, openForWrite ? PinMode.Output : PinMode.Input);
+            else
+                throw new IOException("You cannot use that pin, since it is part of the power-rail!");
+        }
+
+        #endregion Private Methods
+
+        #region Internal Fields
+
+        /// <summary>
+        ///     This represents a handler on a GPIO service
+        /// </summary>
+        internal GpioService gpioService;
+
+        /// <summary>
+        ///     This is a handle on a PWM service
+        /// </summary>
+        internal PwmService pwmService;
+
+        #endregion Internal Fields
+
+        #region Public Properties
+
+        /// <summary>
+        ///     Input or Output
+        /// </summary>
+        public PinMode PinDirection { get; private set; }
+
+        /// <summary>
+        ///     Current Value on the pin
+        /// </summary>
+        /// <remarks>
+        ///     This is either a boolean, in case of GPIO, or a double value between 0 and 1, for PWM
+        /// </remarks>
+        public PinValue PinState { get; private set; }
+
+        protected internal PinService OurService
+        {
+            get
+            {
+                return ourService;
+            }
+            set { ourService = value; }
+        }
+
+        #endregion Public Properties
+
+        #region Public Methods
+
         public void PinWrite(bool value)
         {
-            _resetPin(true);
-            ioService.Gpio.Write(pinLocation, value);
-            _getPinDirection();
-            _getPinValue();
-            ioService.Gpio.ClosePin(pinLocation);
+            ResetPin(true);
+            gpioService.Gpio.Write(_pinLocation, value);
+            GetPinDirection();
+            GetPinValue();
+            gpioService.Gpio.ClosePin(_pinLocation);
         }
+
+        public void PinWrite(double value)
+        {
+            ResetPin(true);
+            pwmService.Pwm.DutyCycle = value;
+            GetPinDirection();
+            GetPinValue();
+            pwmService.Pwm.Start();
+        }
+
+        #endregion Public Methods
+
+        private PinService ourService;
     }
 }

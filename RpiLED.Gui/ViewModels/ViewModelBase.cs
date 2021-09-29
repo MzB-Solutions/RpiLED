@@ -1,9 +1,9 @@
-using ReactiveUI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ReactiveUI;
 
-namespace RpiLED.Gui.ViewModels
+namespace RpiLed.Gui.ViewModels
 {
     public class ViewModelBase : ReactiveObject
     {
