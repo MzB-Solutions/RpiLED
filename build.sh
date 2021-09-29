@@ -3,33 +3,37 @@ VERBOSITY=q
 AUTO_MODE=true
 CONTAINMENT="--self-contained"
 TARGET=Cli
-##
+
+function printHelp() {
+    printf "Usage:\nDefaults build.sh -a 1 -v q -c --self-contained -t Cli\n"
+    printf "-a[utomatic-mode] (either 0 or 1) 0 asks for confirmation before it runs.\n"
+    printf "-v[verbosity] (q[uiet],m[inimal],n[ormal],d[etailed],diag[nostic])\n"
+    printf "-c[ontainment] (either '--self-contained' or '--no-self-contained')\n"
+    printf "-t[arget] (either 'Cli' or 'Gui')\n"
+    printf "-h[elp] see this text"
+}
+
 function isTrue() {
     if [[ "${@^^}" =~ ^(TRUE|OUI|Y|O$|ON$|[1-9]) ]]; then return 0;fi
     return 1
 }
-while getopts ":a:v:c_t:" opt; do
+while getopts ":a:v:c:t:h:" opt; do
     case $opt in
         a) AUTO_MODE="$OPTARG"
            ;;
-        v)
-            VERBOSITY="$OPTARG"
-            ;;
-        c) 
-            CONTAINMENT="$OPTARG"
-            ;;
-        t)
-            TARGET="$OPTARG"
+        v) VERBOSITY="$OPTARG"
+           ;;
+        c) CONTAINMENT="$OPTARG"
+           ;;
+        t) TARGET="$OPTARG"
+           ;;
+        h) printHelp
+           exit 0
+           ;;
         \?) echo "Invalid option -$OPTARG" >&2
             ;;
     esac
 done
-## Verbosity Levels:
-## q[uiet]
-## m[inimal]
-## n[ormal]
-## d[etailed]
-## diag[nostic]
 CURRENT_DIR=$(pwd)
 OUTPUT_DIR="${CURRENT_DIR}/output/"
 if [[ -d $OUTPUT_DIR ]];
@@ -37,10 +41,11 @@ then
     echo "Removing output directory ${OUTPUT_DIR}"
     rm -rf "$OUTPUT_DIR"
 fi
+OUTPUT_DIR="${OUTPUT_DIR}/${TARGET}"
 CONFIG="Release"
 LOGO="--nologo"
 if ! isTrue "$AUTO_MODE"; then
-    echo "building a ${CONFIG}-build into ${OUTPUT_DIR}, verbosity (${VERBOSITY}) {q[uiet],m[inimal],n[ormal],d[etailed],diag[nostic]}"
+    echo "building RpiLED.${TARGET} ${CONFIG}-build into ${OUTPUT_DIR}, verbosity (${VERBOSITY}) {q[uiet],m[inimal],n[ormal],d[etailed],diag[nostic]}"
     printf "Press [ENTER] to Run the build or 'q' to exit\n  => "
     read -r -s -N 1 key
     if [[ $key == $'\x71' ]];        # if input == q key
