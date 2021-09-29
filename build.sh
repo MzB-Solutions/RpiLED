@@ -3,7 +3,7 @@ VERBOSITY=q
 AUTO_MODE=true
 CONTAINMENT="--self-contained"
 TARGET=Cli
-PRINTHELP=False
+PRINTHELP=0
 fileName=$(basename "$0")
 function printHelp() {
     printf "%s " $fileName
@@ -30,7 +30,7 @@ function isTrue() {
 }
 while getopts ":a:v:c:t:h:" opt; do
     case $opt in
-        h) PRINTHELP=True;;
+        h) PRINTHELP=1;;
         a) AUTO_MODE="$OPTARG";;
         v) VERBOSITY="$OPTARG";;
         c) CONTAINMENT="$OPTARG";;
@@ -38,8 +38,8 @@ while getopts ":a:v:c:t:h:" opt; do
         \?) echo "Invalid option -$OPTARG" >&2;;
     esac
 done
-if ! isTrue "$PRINTHELP"; then
-    printHelp
+if isTrue "$PRINTHELP"; then
+    printHelp;
 fi
 CURRENT_DIR=$(pwd)
 OUTPUT_DIR="${CURRENT_DIR}/output"
