@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# -*- coding: utf-8 -*-
 VERBOSITY=q
 AUTO_MODE=true
 CONTAINMENT="--self-contained"
@@ -49,7 +50,7 @@ then
     echo "Removing output directory '${OUTPUT_DIR}'"
     rm -rf "$OUTPUT_DIR"
 fi
-build_dir="${OUTPUT_DIR}/build"
+#build_dir="${OUTPUT_DIR}/build"
 OUTPUT_DIR="${OUTPUT_DIR}/${TARGET}"
 WORKING_DIR="${CURRENT_DIR}/RpiLED.${TARGET}"
 PROJECT_FILE="RpiLed.${TARGET}.csproj"
@@ -75,7 +76,7 @@ if ! isTrue "$AUTO_MODE"; then
         restoreState=$?
         echo "Restore finished ... Result: ${restoreState}"
         echo "Build started ..."
-        dotnet build -v $VERBOSITY --no-restore $LOGO -c $CONFIG -o $build_dir "${PROJECT_FILE}"
+        dotnet build -v $VERBOSITY --no-restore $LOGO -c $CONFIG "${PROJECT_FILE}"
         buildState=$?
         echo "Build finished ... Result: ${buildState}"
         echo "Publishing Solutions into ${OUTPUT_DIR}"
@@ -93,7 +94,7 @@ else
     cleanState=$?
     dotnet restore -v $VERBOSITY --force --force-evaluate "${PROJECT_FILE}"
     restoreState=$?
-    dotnet build -v $VERBOSITY --no-restore $LOGO -c $CONFIG -o $build_dir "${PROJECT_FILE}"
+    dotnet build -v $VERBOSITY --no-restore $LOGO -c $CONFIG "${PROJECT_FILE}"
     buildState=$?
     dotnet publish -v $VERBOSITY $CONTAINMENT --no-build -c $CONFIG $LOGO -o "${OUTPUT_DIR}" "${PROJECT_FILE}"
     publishState=$?
