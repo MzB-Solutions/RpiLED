@@ -4,13 +4,24 @@ AUTO_MODE=true
 CONTAINMENT="--self-contained"
 TARGET=Cli
 PRINTHELP=False
+fileName=$(basename "$0")
 function printHelp() {
-    printf "Usage:\nDefaults build.sh -a 1 -v q -c --self-contained -t Cli\n"
-    printf "-a[utomatic-mode] (either 0 or 1) 0 asks for confirmation before it runs.\n"
-    printf "-v[verbosity] (q[uiet],m[inimal],n[ormal],d[etailed],diag[nostic])\n"
-    printf "-c[ontainment] (either '--self-contained' or '--no-self-contained')\n"
-    printf "-t[arget] (either 'Cli' or 'Gui')\n"
-    printf "-h[elp] see this text"
+
+    printf "%s " "${fileName}"
+    printf "%s\n" "Usage help:"
+    echo "##################"
+    printf "%s\n" "Defaults ";
+    printf "-a %s " "${AUTO_MODE}"
+    printf "-v %s " "${VERBOSITY}"
+    printf "-c %s " "${CONTAINMENT}"
+    printf "-t %s" "${TARGET}"
+    echo "=================="
+    echo "Parameter help:"
+    printf "%s\n" "-a[utomatic-mode] (either 0 or 1) 0 asks for confirmation before it runs."
+    printf "%s\n" "-v[verbosity] (q[uiet],m[inimal],n[ormal],d[etailed],diag[nostic])"
+    printf "%s\n" "-c[ontainment] (either '--self-contained' or '--no-self-contained')"
+    printf "%s\n" "-t[arget] (either 'Cli' or 'Gui')"
+    printf "%s\n" "-h[elp] see this text"
     exit 0
 }
 
