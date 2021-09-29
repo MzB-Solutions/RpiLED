@@ -3,7 +3,7 @@ VERBOSITY=q
 AUTO_MODE=true
 CONTAINMENT="--self-contained"
 TARGET=Cli
-
+PRINTHELP=False
 function printHelp() {
     printf "Usage:\nDefaults build.sh -a 1 -v q -c --self-contained -t Cli\n"
     printf "-a[utomatic-mode] (either 0 or 1) 0 asks for confirmation before it runs.\n"
@@ -11,6 +11,7 @@ function printHelp() {
     printf "-c[ontainment] (either '--self-contained' or '--no-self-contained')\n"
     printf "-t[arget] (either 'Cli' or 'Gui')\n"
     printf "-h[elp] see this text"
+    exit 0
 }
 
 function isTrue() {
@@ -19,23 +20,19 @@ function isTrue() {
 }
 while getopts ":a:v:c:t:h:" opt; do
     case $opt in
-        a) AUTO_MODE="$OPTARG"
-           ;;
-        v) VERBOSITY="$OPTARG"
-           ;;
-        c) CONTAINMENT="$OPTARG"
-           ;;
-        t) TARGET="$OPTARG"
-           ;;
-        h) printHelp
-           exit 0
-           ;;
-        \?) echo "Invalid option -$OPTARG" >&2
-            ;;
+        h) PRINTHELP=True;;
+        a) AUTO_MODE="$OPTARG";;
+        v) VERBOSITY="$OPTARG";;
+        c) CONTAINMENT="$OPTARG";;
+        t) TARGET="$OPTARG";;
+        \?) echo "Invalid option -$OPTARG" >&2;;
     esac
 done
+if ! isTrue "$PRINTHELP"; then
+    printHelp
+fi
 CURRENT_DIR=$(pwd)
-OUTPUT_DIR="${CURRENT_DIR}/output/"
+OUTPUT_DIR="${CURRENT_DIR}/output"
 if [[ -d $OUTPUT_DIR ]];
 then
     echo "Removing output directory ${OUTPUT_DIR}"
