@@ -1,17 +1,21 @@
 #!/usr/bin/env bash
 VERBOSITY=q
 AUTO_MODE=true
+CONTAINMENT="--self-contained"
 ##
 function isTrue() {
     if [[ "${@^^}" =~ ^(TRUE|OUI|Y|O$|ON$|[1-9]) ]]; then return 0;fi
     return 1
 }
-while getopts ":a:v:" opt; do
+while getopts ":a:v:c:" opt; do
     case $opt in
         a) AUTO_MODE="$OPTARG"
            ;;
         v)
             VERBOSITY="$OPTARG"
+            ;;
+        c) 
+            CONTAINMENT="$OPTARG"
             ;;
         \?) echo "Invalid option -$OPTARG" >&2
             ;;
@@ -46,11 +50,19 @@ if ! isTrue "$AUTO_MODE"; then
         dotnet clean -v $VERBOSITY $LOGO -c $CONFIG
         cleanState=$?
         echo "Cleaning finished ... Result: ${cleanState}"
+        echo "Restoring packages and dependencies..."
+        dotnet restore -v $VERBOSITY --force --force-evaluate
+        restoreState=$?
+        echo "Restore finished ... Result: ${restoreState}"
         echo "Build started ..."
-        dotnet build -v $VERBOSITY --force $LOGO -c $CONFIG -o "${OUTPUT_DIR}"
+        dotnet build -v $VERBOSITY --no-restore $LOGO -c $CONFIG
         buildState=$?
         echo "Build finished ... Result: ${buildState}"
-        echo "Task completed! Results: Clean (${cleanState}) |  Build (${buildState}) | [0 = Program executed successfully!] [!0 = Some error(number) occured]"
+        echo "Publishing Solutions into ${OUTPUT_DIR}"
+        dotnet publish -v $VERBOSITY $CONTAINMENT --no-build -c $CONFIG $LOGO -o "${OUTPUT_DIR}"
+        publishState=$?
+        echo "Publishing finished as ${publishState} in ${OUTPUT_DIR}"
+        echo "Task completed! Results: Clean (${cleanState}) | Restore (${restoreState}) |  Build&Publish (${buildState}|${publishState}) | [0 = Program executed ok!] [!0 = Some error(number) occured]"
         printf "All Tasks completed!\n   exiting .."
         exit 0
     fi
@@ -59,9 +71,11 @@ else
     cleanState=$?
     dotnet restore -v $VERBOSITY --force --force-evaluate
     restoreState=$?
-    dotnet build -v $VERBOSITY --force --no-restore $LOGO -c $CONFIG -o "${OUTPUT_DIR}"
+    dotnet build -v $VERBOSITY --no-restore $LOGO -c $CONFIG
     buildState=$?
-    echo "Task completed! Results: Clean (${cleanState}) | Restore (${restoreState}) | Build (${buildState}) | [0 = Program executed successfully!] [!0 = Some error(number) occured]"
+    dotnet publish -v $VERBOSITY $CONTAINMENT --no-build -c $CONFIG $LOGO -o "${OUTPUT_DIR}"
+    publishState=$?
+    echo "Task completed! Results: Clean (${cleanState}) | Restore (${restoreState}) |  Build&Publish (${buildState}|${publishState}) | [0 = Program executed ok!] [!0 = Some error(number) occured]"
     printf "All Tasks completed!\n   exiting .."
     exit 0
 fi
