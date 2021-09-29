@@ -3,7 +3,7 @@ VERBOSITY=q
 AUTO_MODE=true
 CONTAINMENT="--self-contained"
 TARGET=Cli
-PRINTHELP=0
+##PRINTHELP=0
 fileName=$(basename "$0")
 
 function printHelp() {
@@ -46,9 +46,10 @@ CURRENT_DIR=$(pwd)
 OUTPUT_DIR="${CURRENT_DIR}/output"
 if [[ -d $OUTPUT_DIR ]];
 then
-    echo "Removing output directory ${OUTPUT_DIR}"
+    echo "Removing output directory '${OUTPUT_DIR}'"
     rm -rf "$OUTPUT_DIR"
 fi
+build_dir="${OUTPUT_DIR}/build"
 OUTPUT_DIR="${OUTPUT_DIR}/${TARGET}"
 CONFIG="Release"
 LOGO="--nologo"
@@ -71,7 +72,7 @@ if ! isTrue "$AUTO_MODE"; then
         restoreState=$?
         echo "Restore finished ... Result: ${restoreState}"
         echo "Build started ..."
-        dotnet build -v $VERBOSITY --no-restore $LOGO -c $CONFIG "./RpiLED.${TARGET}/RpiLed.${TARGET}.csproj"
+        dotnet build -v $VERBOSITY --no-restore $LOGO -c $CONFIG -o $build_dir "./RpiLED.${TARGET}/RpiLed.${TARGET}.csproj"
         buildState=$?
         echo "Build finished ... Result: ${buildState}"
         echo "Publishing Solutions into ${OUTPUT_DIR}"
@@ -88,7 +89,7 @@ else
     cleanState=$?
     dotnet restore -v $VERBOSITY --force --force-evaluate "./RpiLED.${TARGET}/RpiLed.${TARGET}.csproj"
     restoreState=$?
-    dotnet build -v $VERBOSITY --no-restore $LOGO -c $CONFIG "./RpiLED.${TARGET}/RpiLed.${TARGET}.csproj"
+    dotnet build -v $VERBOSITY --no-restore $LOGO -c $CONFIG -o $build_dir "./RpiLED.${TARGET}/RpiLed.${TARGET}.csproj"
     buildState=$?
     dotnet publish -v $VERBOSITY $CONTAINMENT --no-build -c $CONFIG $LOGO -o "${OUTPUT_DIR}" "./RpiLED.${TARGET}/RpiLed.${TARGET}.csproj"
     publishState=$?
