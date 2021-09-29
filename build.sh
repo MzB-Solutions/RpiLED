@@ -51,8 +51,11 @@ then
 fi
 build_dir="${OUTPUT_DIR}/build"
 OUTPUT_DIR="${OUTPUT_DIR}/${TARGET}"
+WORKING_DIR="${CURRENT_DIR}/RpiLED.${TARGET}"
+PROJECT_FILE="RpiLed.${TARGET}.csproj"
 CONFIG="Release"
 LOGO="--nologo"
+pushd $WORKING_DIR || exit 1
 if ! isTrue "$AUTO_MODE"; then
     echo "building RpiLED.${TARGET} ${CONFIG}-build into ${OUTPUT_DIR}, verbosity (${VERBOSITY}) {q[uiet],m[inimal],n[ormal],d[etailed],diag[nostic]}"
     printf "Press [ENTER] to Run the build or 'q' to exit\n  => "
@@ -64,36 +67,38 @@ if ! isTrue "$AUTO_MODE"; then
     elif [[ $key == $'\x0a' ]];        # if input == ENTER key
     then
         echo "Cleaning started ..."
-        dotnet clean -v $VERBOSITY $LOGO -c $CONFIG "./RpiLED.${TARGET}/RpiLed.${TARGET}.csproj"
+        dotnet clean -v $VERBOSITY $LOGO -c $CONFIG "${PROJECT_FILE}"
         cleanState=$?
         echo "Cleaning finished ... Result: ${cleanState}"
         echo "Restoring packages and dependencies..."
-        dotnet restore -v $VERBOSITY --force --force-evaluate "./RpiLED.${TARGET}/RpiLed.${TARGET}.csproj"
+        dotnet restore -v $VERBOSITY --force --force-evaluate "${PROJECT_FILE}"
         restoreState=$?
         echo "Restore finished ... Result: ${restoreState}"
         echo "Build started ..."
-        dotnet build -v $VERBOSITY --no-restore $LOGO -c $CONFIG -o $build_dir "./RpiLED.${TARGET}/RpiLed.${TARGET}.csproj"
+        dotnet build -v $VERBOSITY --no-restore $LOGO -c $CONFIG -o $build_dir "${PROJECT_FILE}"
         buildState=$?
         echo "Build finished ... Result: ${buildState}"
         echo "Publishing Solutions into ${OUTPUT_DIR}"
-        dotnet publish -v $VERBOSITY $CONTAINMENT --no-build -c $CONFIG $LOGO -o "${OUTPUT_DIR}" "./RpiLED.${TARGET}/RpiLed.${TARGET}.csproj"
+        dotnet publish -v $VERBOSITY $CONTAINMENT --no-build -c $CONFIG $LOGO -o "${OUTPUT_DIR}" "${PROJECT_FILE}"
         publishState=$?
         echo "Publishing finished as ${publishState} in ${OUTPUT_DIR}"
         echo "Task completed! Results: Clean (${cleanState}) | Restore (${restoreState}) |  Build&Publish (${buildState}|${publishState}) | [0 = Program executed ok!] [!0 = Some error(number) occured]"
         printf "All Tasks completed!\n   exiting .."
+        popd || exit 1
         if [[ "$restoreState" -eq 0 ]] && [[ "$buildState" -eq 0 ]] && [[ "$publishState" -eq 0 ]] ; then exit 0; else exit 1; fi
     fi
 else
     echo "building RpiLED.${TARGET} ${CONFIG}-build into ${OUTPUT_DIR}, verbosity (${VERBOSITY}) {q[uiet],m[inimal],n[ormal],d[etailed],diag[nostic]}"
     dotnet clean -v $VERBOSITY $LOGO -c $CONFIG "./RpiLED.${TARGET}/RpiLed.${TARGET}.csproj"
     cleanState=$?
-    dotnet restore -v $VERBOSITY --force --force-evaluate "./RpiLED.${TARGET}/RpiLed.${TARGET}.csproj"
+    dotnet restore -v $VERBOSITY --force --force-evaluate "${PROJECT_FILE}"
     restoreState=$?
-    dotnet build -v $VERBOSITY --no-restore $LOGO -c $CONFIG -o $build_dir "./RpiLED.${TARGET}/RpiLed.${TARGET}.csproj"
+    dotnet build -v $VERBOSITY --no-restore $LOGO -c $CONFIG -o $build_dir "${PROJECT_FILE}"
     buildState=$?
-    dotnet publish -v $VERBOSITY $CONTAINMENT --no-build -c $CONFIG $LOGO -o "${OUTPUT_DIR}" "./RpiLED.${TARGET}/RpiLed.${TARGET}.csproj"
+    dotnet publish -v $VERBOSITY $CONTAINMENT --no-build -c $CONFIG $LOGO -o "${OUTPUT_DIR}" "${PROJECT_FILE}"
     publishState=$?
     echo "Task completed! Results: Clean (${cleanState}) | Restore (${restoreState}) |  Build&Publish (${buildState}|${publishState}) | [0 = Program executed ok!] [!0 = Some error(number) occured]"
     printf "All Tasks completed!\n   exiting .."
+    popd || exit 1
     if [[ "$restoreState" -eq 0 ]] && [[ "$buildState" -eq 0 ]] && [[ "$publishState" -eq 0 ]] ; then exit 0; else exit 1; fi
 fi
