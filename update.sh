@@ -23,7 +23,7 @@ while getopts ":h:a:v:" opt; do
     case $opt in
         h) PRINTHELP=1;;
         a) AUTOCLEAN="$OPTARG";;
-        v) VERBOSE="-v"
+        v) VERBOSE="-v";;
         \?) echo "Invalid option -$OPTARG" >&2;;
     esac
 done
