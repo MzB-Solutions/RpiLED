@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 AUTOCLEAN=0
 fileName=$(basename "$0")
+branch_name="$(git symbolic-ref --short HEAD 2>/dev/null" || echo "DETACHED STATE!;exit 1)"     # detached HEAD should fail us out since we dont want to pull from that
 function printHelp() {
     printf "%s " "$fileName"
     printf "%s\n" "Usage help:"
@@ -35,10 +36,14 @@ echo "git fetch result: $? #####"
 git status $VERBOSE
 echo "git status result: $? #####"
 if [[ "$AUTOCLEAN" -eq 1 ]]; then
-     rm -rf ./vendor/ConsoLovers/
-     rm -rf ./output/
+    echo "Removing all untracked and ignored files AND directories"
+    git clean -v -xdf $VERBOSE
+    echo "Resetting hard to origin ${branch_name}"
+    git reset --hard $VERBOSE
+else
+    echo "Pulling current state from origin ${branch_name}"
+    git pull origin "$branch_name" $VERBOSE
 fi
-git reset --hard $VERBOSE
 echo "git reset result: $? #####"
 git submodule init $VERBOSE
 echo "git submodule init result: $? #####"
