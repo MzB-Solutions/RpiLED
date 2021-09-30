@@ -54,7 +54,7 @@ if [[ $key == $'\x71' ]];        # if input == q key
         echo "git status result: $? #####"
         if isTrue "$AUTOCLEAN"; then
             echo "Removing all untracked and ignored files AND directories"
-            git clean -v -xdf $VERBOSE
+            if isTrue "$VERBOSITY"; then git clean -xdf $VERBOSE; else clean -q -xdf $VERBOSE; fi
             echo "Resetting hard to origin ${branch_name}"
             git reset --hard $VERBOSE
         else
