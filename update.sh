@@ -33,7 +33,7 @@ while getopts ":h:a:v:" opt; do
     case "${opt}" in
         h) printHelp;exit 0;;
         a) export AUTOCLEAN=1;;
-        v) export VERBOSE="-v";export VERBOSITY=1;;
+        v) export VERBOSE="-v";export VERBOSITY=true;;
         \?) echo "Invalid option -$OPTARG" >&2;;
     esac
 done
