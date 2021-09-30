@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 AUTOCLEAN=0
 fileName=$(basename "$0")
-branch_name="$(git symbolic-ref --short HEAD 2>/dev/null" || echo "DETACHED STATE!;exit 1)"     # detached HEAD should fail us out since we dont want to pull from that
+branch_name="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)" || echo "${branch_name}";exit 1;
+# detached HEAD should fail us out since we dont want to pull from that
 function printHelp() {
     printf "%s " "$fileName"
     printf "%s\n" "Usage help:"
@@ -29,6 +30,7 @@ while getopts ":h:a:v:" opt; do
     esac
 done
 if isTrue "$PRINTHELP"; then
+    echo "Printing help"
     printHelp;
 fi
 git fetch $VERBOSE
