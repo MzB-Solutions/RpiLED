@@ -22,7 +22,7 @@ printHelp() {
     echo "-v ${VERBOSITY}"
     echo "=================="
     echo "Parameter help:"
-    printf "%s\n" "-a[utomatic-cleanup] (either 0 or 1) 0 doesn't try to clean the Project/Submodule Directories"
+    printf "%s\n" "-a[uto-clean] (either 0 or 1) 0 doesn't try to clean the Project/Submodule Directories"
     printf "%s\n" "-v[erbose] be verbose in output"
     printf "%s\n" "-h[elp] see this text"
 }
@@ -33,7 +33,7 @@ isTrue() {
 #################################
 ### MAIN routine DECLARATION ####
 #################################
-options=$(getopt -l "help,autoclean,verbose" -o "haV" -- "$@")
+options=$(getopt -l "help,auto-clean,verbose" -o "haV" -a -- "$@")
 eval set -- "$options"
 while true
     do
@@ -46,7 +46,7 @@ while true
                 VERBOSE="-v"
                 VERBOSITY=true
                 ;;
-            -a|--autoclean)
+            -a|--auto-clean)
                 AUTOCLEAN=true
                 ;;
             --)
