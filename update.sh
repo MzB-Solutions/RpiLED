@@ -37,7 +37,7 @@ while getopts ":h:a:v:" opt; do
         \?) echo "Invalid option -$OPTARG" >&2;;
     esac
 done
-if isTrue "$VERBOSITY"; then echo "Updating repository with increased verbosity (${VERBOSE}) || Branch Name (${branch_name})"; else echo "Updating repository quietly || Branch Name (${branch_name})"; fi
+if isTrue "${VERBOSITY}"; then echo "Updating repository with increased verbosity (${VERBOSE}) || Branch Name (${branch_name})"; else echo "Updating repository quietly || Branch Name (${branch_name})"; fi
 if isTrue "${AUTOCLEAN}"; then echo "This is a hard reset to the '${branch_name}' branch!!!"; fi
 printf "Press [ENTER] to Run the update or 'q' to exit\n  => "
 read -r -s -N 1 key
