@@ -3,8 +3,11 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <Platforms>ARM32;x86</Platforms>
+    <Platforms>AnyCPU</Platforms>
     <StartupObject>RpiLed.Gui.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Models\" />
