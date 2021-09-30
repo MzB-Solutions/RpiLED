@@ -38,6 +38,7 @@ while getopts ":h:a:v:" opt; do
     esac
 done
 echo " Updating repository verbosity (${VERBOSE}) || Branch Name (${branch_name})"
+if isTrue "${AUTOCLEAN}"; then echo "This is a hard reset to the '${branch_name}' branch!!!"; fi
 printf "Press [ENTER] to Run the update or 'q' to exit\n  => "
 read -r -s -N 1 key
 if [[ $key == $'\x71' ]];        # if input == q key
