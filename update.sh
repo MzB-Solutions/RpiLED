@@ -4,8 +4,8 @@
 #### VARIABLE DECLARATIONS ####
 ###############################
 AUTOCLEAN=0
-fileName=$(basename "$0")
-branch_name="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
+export fileName=$(basename "$0")
+export branch_name="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
 ###############################
 #### FUNCTION DECLARATIONS ####
 ###############################
@@ -14,7 +14,7 @@ printHelp() {
     printf "%s\n" "Usage help:"
     echo "##################"
     printf "%s\n" "Defaults "
-    echo "-a ${AUTOCLEAN} "
+    echo "-a ${AUTOCLEAN}"
     echo "=================="
     echo "Parameter help:"
     printf "%s\n" "-a[utomatic-cleanup] (either 0 or 1) 0 doesn't try to clean the Project/Submodule Directories"
@@ -32,12 +32,12 @@ isTrue() {
 while getopts ":h:a:v:" opt; do
     case "${opt}" in
         h) printHelp;exit 0;;
-        a) AUTOCLEAN=1;;
-        v) VERBOSE="-v";;
+        a) export AUTOCLEAN=1;;
+        v) export VERBOSE="-v";export VERBOSITY=1;;
         \?) echo "Invalid option -$OPTARG" >&2;;
     esac
 done
-echo " Updating repository verbosity (${VERBOSE}) || Branch Name (${branch_name})"
+if isTrue "$VERBOSITY"; then echo "Updating repository with increased verbosity (${VERBOSE}) || Branch Name (${branch_name})"; else echo "Updating repository quietly || Branch Name (${branch_name})"; fi
 if isTrue "${AUTOCLEAN}"; then echo "This is a hard reset to the '${branch_name}' branch!!!"; fi
 printf "Press [ENTER] to Run the update or 'q' to exit\n  => "
 read -r -s -N 1 key
