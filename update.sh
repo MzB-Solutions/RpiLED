@@ -31,9 +31,9 @@ isTrue() {
 #################################
 while getopts ":h:a:v:" opt; do
     case "${opt}" in
-        h) PRINTHELP=1;;
+        h) printHelp;exit 0;;
         a) AUTOCLEAN="$OPTARG";;
-        v) VERBOSE="-v";;
+        v) VERBOSE="$OPTARG";;
         \?) echo "Invalid option -$OPTARG" >&2;;
     esac
 done
