@@ -23,16 +23,15 @@ function printHelp() {
     printf "%s\n" "-c[ontainment] (either '--self-contained' or '--no-self-contained')"
     printf "%s\n" "-t[arget] (either 'Cli' or 'Gui')"
     printf "%s\n" "-h[elp] see this text"
-    exit 0
 }
 
 function isTrue() {
     if [[ "${*^^}" =~ ^(TRUE|OUI|Y|O$|ON$|[1-9]) ]]; then return 0;fi
     return 1
 }
-while getopts ":a:v:c:t:h:" opt; do
+while getopts ":a:v:c:t:h" opt; do
     case $opt in
-        h) PRINTHELP=1;;
+        h) printHelp;exit 0;;
         a) AUTO_MODE="$OPTARG";;
         v) VERBOSITY="$OPTARG";;
         c) CONTAINMENT="$OPTARG";;
@@ -52,11 +51,11 @@ then
 fi
 #build_dir="${OUTPUT_DIR}/build"
 OUTPUT_DIR="${OUTPUT_DIR}/${TARGET}"
-WORKING_DIR="${CURRENT_DIR}/RpiLED.${TARGET}"
+export WORKING_DIR="${CURRENT_DIR}/RpiLED.${TARGET}"
 PROJECT_FILE="RpiLed.${TARGET}.csproj"
 CONFIG="Release"
 LOGO="--nologo"
-pushd "$WORKING_DIR/" || exit 1
+pushd "$WORKING_DIR/"
 if ! isTrue "$AUTO_MODE"; then
     echo "building RpiLED.${TARGET} ${CONFIG}-build into ${OUTPUT_DIR}"
     echo " verbosity (${VERBOSITY}) {q[uiet],m[inimal],n[ormal],d[etailed],diag[nostic]} || Directory Status (${WORKING_DIR}):${directory_status}"

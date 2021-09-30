@@ -3,9 +3,13 @@
 ###############################
 #### VARIABLE DECLARATIONS ####
 ###############################
-AUTOCLEAN=0
-export fileName=$(basename "$0")
-export branch_name="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
+export AUTOCLEAN=0
+fileName=$(basename "$0")
+export fileName
+branch_name="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
+export branch_name
+export VERBOSE
+export VERBOSITY
 ###############################
 #### FUNCTION DECLARATIONS ####
 ###############################
@@ -15,12 +19,12 @@ printHelp() {
     echo "##################"
     printf "%s\n" "Defaults "
     echo "-a ${AUTOCLEAN}"
+    echo "-v ${VERBOSITY}"
     echo "=================="
     echo "Parameter help:"
     printf "%s\n" "-a[utomatic-cleanup] (either 0 or 1) 0 doesn't try to clean the Project/Submodule Directories"
     printf "%s\n" "-v[erbose] be verbose in output"
     printf "%s\n" "-h[elp] see this text"
-    exit 0
 }
 isTrue() {
     if [[ "${*^^}" =~ ^(TRUE|OUI|Y|O$|ON$|[1-9]) ]]; then return 0;fi
@@ -29,14 +33,36 @@ isTrue() {
 #################################
 ### MAIN routine DECLARATION ####
 #################################
-while getopts ":h:a:v:" opt; do
-    case "${opt}" in
-        h) printHelp;exit 0;;
-        a) export AUTOCLEAN=1;;
-        v) export VERBOSE="-v";export VERBOSITY=true;;
-        \?) echo "Invalid option -$OPTARG" >&2;;
-    esac
-done
+options=$(getopt -l "help,autoclean,verbose" -o "haV" -- "$@")
+eval set -- "$options"
+while true
+    do
+        case $1 in
+            -h|--help)
+                printHelp
+                exit 0
+                ;;
+            -V|--verbose)
+                VERBOSE="-v"
+                VERBOSITY=true
+                ;;
+            -a|--autoclean)
+                AUTOCLEAN=true
+                ;;
+            --)
+                shift
+                break;;
+        esac
+        shift
+        done
+##while getopts ":h:a:v:" opt; do
+##    case "${opt}" in
+##        h) printHelp;exit 0;;
+##        a) AUTOCLEAN=true;;
+##        v) VERBOSE="-v";VERBOSITY=true;;
+##        \?) echo "Invalid option -$OPTARG" >&2;;
+##    esac
+##done
 if isTrue "${VERBOSITY}"; then echo "Updating repository with increased verbosity (${VERBOSE}) || Branch Name (${branch_name})"; else echo "Updating repository quietly || Branch Name (${branch_name})"; fi
 if isTrue "${AUTOCLEAN}"; then echo "This is a hard reset to the '${branch_name}' branch!!!"; fi
 printf "Press [ENTER] to Run the update or 'q' to exit\n  => "
