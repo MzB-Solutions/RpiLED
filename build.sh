@@ -8,7 +8,7 @@ TARGET=Cli
 fileName=$(basename "$0")
 
 function printHelp() {
-    printf "%s " $fileName
+    printf "%s " "$fileName"
     printf "%s\n" "Usage help:"
     echo "##################"
     printf "%s\n" "Defaults "
@@ -27,7 +27,7 @@ function printHelp() {
 }
 
 function isTrue() {
-    if [[ "${@^^}" =~ ^(TRUE|OUI|Y|O$|ON$|[1-9]) ]]; then return 0;fi
+    if [[ "${*^^}" =~ ^(TRUE|OUI|Y|O$|ON$|[1-9]) ]]; then return 0;fi
     return 1
 }
 while getopts ":a:v:c:t:h:" opt; do
@@ -56,9 +56,10 @@ WORKING_DIR="${CURRENT_DIR}/RpiLED.${TARGET}"
 PROJECT_FILE="RpiLed.${TARGET}.csproj"
 CONFIG="Release"
 LOGO="--nologo"
-pushd $WORKING_DIR || exit 1
+directory_status=pushd "$WORKING_DIR" || directory_status=1;exit 1
 if ! isTrue "$AUTO_MODE"; then
-    echo "building RpiLED.${TARGET} ${CONFIG}-build into ${OUTPUT_DIR}, verbosity (${VERBOSITY}) {q[uiet],m[inimal],n[ormal],d[etailed],diag[nostic]}"
+    echo "building RpiLED.${TARGET} ${CONFIG}-build into ${OUTPUT_DIR}"
+    echo " verbosity (${VERBOSITY}) {q[uiet],m[inimal],n[ormal],d[etailed],diag[nostic]} || Directory Status (${WORKING_DIR}):${directory_status}"
     printf "Press [ENTER] to Run the build or 'q' to exit\n  => "
     read -r -s -N 1 key
     if [[ $key == $'\x71' ]];        # if input == q key
@@ -68,38 +69,39 @@ if ! isTrue "$AUTO_MODE"; then
     elif [[ $key == $'\x0a' ]];        # if input == ENTER key
     then
         echo "Cleaning started ..."
-        dotnet clean -v $VERBOSITY $LOGO -c $CONFIG "${PROJECT_FILE}"
+        dotnet clean -v "$VERBOSITY" $LOGO -c $CONFIG "${PROJECT_FILE}"
         cleanState=$?
         echo "Cleaning finished ... Result: ${cleanState}"
         echo "Restoring packages and dependencies..."
-        dotnet restore -v $VERBOSITY --force --force-evaluate "${PROJECT_FILE}"
+        dotnet restore -v "$VERBOSITY" --force --force-evaluate "${PROJECT_FILE}"
         restoreState=$?
         echo "Restore finished ... Result: ${restoreState}"
         echo "Build started ..."
-        dotnet build -v $VERBOSITY --no-restore $LOGO -c $CONFIG "${PROJECT_FILE}"
+        dotnet build -v "$VERBOSITY" --no-restore $LOGO -c $CONFIG "${PROJECT_FILE}"
         buildState=$?
         echo "Build finished ... Result: ${buildState}"
         echo "Publishing Solutions into ${OUTPUT_DIR}"
-        dotnet publish -v $VERBOSITY $CONTAINMENT --no-build -c $CONFIG $LOGO -o "${OUTPUT_DIR}" "${PROJECT_FILE}"
+        dotnet publish -v "$VERBOSITY" "$CONTAINMENT" --no-build -c $CONFIG $LOGO -o "${OUTPUT_DIR}" "${PROJECT_FILE}"
         publishState=$?
         echo "Publishing finished as ${publishState} in ${OUTPUT_DIR}"
         echo "Task completed! Results: Clean (${cleanState}) | Restore (${restoreState}) |  Build&Publish (${buildState}|${publishState}) | [0 = Program executed ok!] [!0 = Some error(number) occured]"
         printf "All Tasks completed!\n   exiting .."
-        popd || exit 1
-        if [[ "$restoreState" -eq 0 ]] && [[ "$buildState" -eq 0 ]] && [[ "$publishState" -eq 0 ]] ; then exit 0; else exit 1; fi
+        popd || directory_status=1
+        if [[ "$restoreState" -eq 0 ]] && [[ "$buildState" -eq 0 ]] && [[ "$publishState" -eq 0 ]] && [[ "$directory_status" -eq 0 ]]; then exit 0; else exit 1; fi
     fi
 else
-    echo "building RpiLED.${TARGET} ${CONFIG}-build into ${OUTPUT_DIR}, verbosity (${VERBOSITY}) {q[uiet],m[inimal],n[ormal],d[etailed],diag[nostic]}"
-    dotnet clean -v $VERBOSITY $LOGO -c $CONFIG "./RpiLED.${TARGET}/RpiLed.${TARGET}.csproj"
+    echo "building RpiLED.${TARGET} ${CONFIG}-build into ${OUTPUT_DIR}"
+    echo " verbosity (${VERBOSITY}) {q[uiet],m[inimal],n[ormal],d[etailed],diag[nostic]} || Directory Status (${WORKING_DIR}):${directory_status}"
+    dotnet clean -v "$VERBOSITY" $LOGO -c $CONFIG "./RpiLED.${TARGET}/RpiLed.${TARGET}.csproj"
     cleanState=$?
-    dotnet restore -v $VERBOSITY --force --force-evaluate "${PROJECT_FILE}"
+    dotnet restore -v "$VERBOSITY" --force --force-evaluate "${PROJECT_FILE}"
     restoreState=$?
-    dotnet build -v $VERBOSITY --no-restore $LOGO -c $CONFIG "${PROJECT_FILE}"
+    dotnet build -v "$VERBOSITY" --no-restore $LOGO -c $CONFIG "${PROJECT_FILE}"
     buildState=$?
-    dotnet publish -v $VERBOSITY $CONTAINMENT --no-build -c $CONFIG $LOGO -o "${OUTPUT_DIR}" "${PROJECT_FILE}"
+    dotnet publish -v "$VERBOSITY" "$CONTAINMENT" --no-build -c $CONFIG $LOGO -o "${OUTPUT_DIR}" "${PROJECT_FILE}"
     publishState=$?
     echo "Task completed! Results: Clean (${cleanState}) | Restore (${restoreState}) |  Build&Publish (${buildState}|${publishState}) | [0 = Program executed ok!] [!0 = Some error(number) occured]"
     printf "All Tasks completed!\n   exiting .."
-    popd || exit 1
-    if [[ "$restoreState" -eq 0 ]] && [[ "$buildState" -eq 0 ]] && [[ "$publishState" -eq 0 ]] ; then exit 0; else exit 1; fi
+    popd || directory_status=1
+    if [[ "$restoreState" -eq 0 ]] && [[ "$buildState" -eq 0 ]] && [[ "$publishState" -eq 0 ]] && [[ "$directory_status" -eq 0 ]]; then exit 0; else exit 1; fi
 fi
