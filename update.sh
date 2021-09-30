@@ -32,8 +32,8 @@ isTrue() {
 while getopts ":h:a:v:" opt; do
     case "${opt}" in
         h) printHelp;exit 0;;
-        a) AUTOCLEAN="$OPTARG";;
-        v) VERBOSE="$OPTARG";;
+        a) AUTOCLEAN=1;;
+        v) VERBOSE="-v";;
         \?) echo "Invalid option -$OPTARG" >&2;;
     esac
 done
@@ -47,16 +47,12 @@ if [[ $key == $'\x71' ]];        # if input == q key
         exit 1
     elif [[ $key == $'\x0a' ]];        # if input == ENTER key
     then
-            # detached HEAD should fail us out since we dont want to pull from that
-        if isTrue "$PRINTHELP"; then
-            echo "Printing help"
-            printHelp;
-        fi
+        # detached HEAD should fail us out since we dont want to pull from that
         git fetch $VERBOSE
         echo "git fetch result: $? #####"
         git status $VERBOSE
         echo "git status result: $? #####"
-        if [[ "$AUTOCLEAN" -eq 1 ]]; then
+        if isTrue "$AUTOCLEAN"; then
             echo "Removing all untracked and ignored files AND directories"
             git clean -v -xdf $VERBOSE
             echo "Resetting hard to origin ${branch_name}"
