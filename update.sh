@@ -9,7 +9,7 @@ export fileName
 branch_name="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
 export branch_name
 export VERBOSE
-export VERBOSITY
+export VERBOSITY=false
 ###############################
 #### FUNCTION DECLARATIONS ####
 ###############################
@@ -18,12 +18,12 @@ printHelp() {
     printf "%s\n" "Usage help:"
     echo "##################"
     printf "%s\n" "Defaults "
-    echo "-a ${AUTOCLEAN}"
-    echo "-v ${VERBOSITY}"
+    echo "-A ${AUTOCLEAN}"
+    echo "-V ${VERBOSITY}"
     echo "=================="
     echo "Parameter help:"
-    printf "%s\n" "-a[uto-clean] (either 0 or 1) 0 doesn't try to clean the Project/Submodule Directories"
-    printf "%s\n" "-v[erbose] be verbose in output"
+    printf "%s\n" "-A[--auto-clean] try to clean the Project/Submodule Directories"
+    printf "%s\n" "-V[--verbose] be verbose in output"
     printf "%s\n" "-h[elp] see this text"
 }
 isTrue() {
@@ -33,7 +33,7 @@ isTrue() {
 #################################
 ### MAIN routine DECLARATION ####
 #################################
-options=$(getopt -l "help,auto-clean,verbose" -o "haV" -a -- "$@")
+options=$(getopt -l "help,auto-clean,verbose" -o "hAV" -a -- "$@")
 eval set -- "$options"
 while true
     do
@@ -46,12 +46,15 @@ while true
                 VERBOSE="-v"
                 VERBOSITY=true
                 ;;
-            -a|--auto-clean)
+            -A|--auto-clean)
                 AUTOCLEAN=true
                 ;;
             --)
                 shift
                 break;;
+            \?) echo "Invalid option -$1" >&2
+                exit 1
+                ;;
         esac
         shift
         done
