@@ -34,14 +34,14 @@ FORCE:
 --clean_gui:
 	dotnet clean -v $(VERBOSITY) $(LOGO) $(GUI_PATH)$(GUI_PROJECT)
 
---clean_disk:
+--clean_disk: --clean_makefile_markers
 	rm -rf $(OUTPUT_DIR)
 	rm -rf $(CLI_PATH)$(BINARY_DUMP)
 	rm -rf $(CLI_PATH)$(OBJECT_DUMP)
 	rm -rf $(GUI_PATH)$(BINARY_DUMP)
 	rm -rf $(GUI_PATH)$(OBJECT_DUMP)
 
-clean: --clean_sln --clean_makefile_markers
+clean: --clean_sln
 
 full_clean: clean --clean_disk
 
