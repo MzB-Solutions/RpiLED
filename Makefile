@@ -3,6 +3,17 @@ CLI_PROJECT=RpiLed.Cli.csproj
 CLI_PATH=./RpiLED.Cli/
 GUI_PROJECT=RpiLed.Gui.csproj
 GUI_PATH=./RpiLED.Gui/
+CORE_PROJECT=RpiLed.Core.csproj
+CORE_PATH=./RpiLED.Core/
+## VendorLibs
+VENDOR_PATH=./vendor/
+# ConsoLovers.Core
+VENDOR_LIB_ConsoLovers=ConsoLovers/src/
+VENDOR_PROJECT_PATH_ConsoLoversCore=ConsoLovers.ConsoleToolkit.Core/
+VENDOR_PROJECT_ConsoLoversCore=ConsoLovers.ConsoleToolkit.Core.csproj
+VENDOR_PROJECT_ConsoLoversCore_file=$(VENDOR)$(VENDOR_LIB_ConsoLovers)$(VENDOR_PROJECT_PATH_ConsoLoversCore)$(VENDOR_PROJECT_ConsoLoversCore)
+## all vendors ...
+VENDOR1=$(VENDOR_PROJECT_ConsoLoversCore_file)
 SOLUTION=RpiLED.sln
 
 ## {q[uiet],m[inimal],n[ormal],d[etailed],diag[nostic]}
@@ -22,6 +33,10 @@ RUNTIME=linux-arm
 
 FORCE:
 
+--clean_extras:
+	dotnet clean -v $(VERBOSITY) $(LOGO) $(CORE_PATH)$(CORE_PROJECT)
+	dotnet clean -v $(VERBOSITY) $(LOGO) $(VENDOR1)
+
 --clean_makefile_markers:
 	rm -f build
 	rm -f publish
@@ -34,12 +49,14 @@ FORCE:
 
 --clean_disk: --clean_makefile_markers
 	rm -rf $(OUTPUT_DIR)
+	rm -rf $(CORE_PATH)$(BINARY_DUMP)
+	rm -rf $(CORE_PATH)$(OBJECT_DUMP)
 	rm -rf $(CLI_PATH)$(BINARY_DUMP)
 	rm -rf $(CLI_PATH)$(OBJECT_DUMP)
 	rm -rf $(GUI_PATH)$(BINARY_DUMP)
 	rm -rf $(GUI_PATH)$(OBJECT_DUMP)
 
---clean_sln: --clean_cli --clean_gui
+--clean_sln: --clean_cli --clean_gui --clean_extras
 
 --clean_all: --clean_sln
 	dotnet clean -v $(VERBOSITY) $(LOGO) ./$(SOLUTION)
