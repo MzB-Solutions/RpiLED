@@ -65,31 +65,31 @@ full_clean: --clean_disk clean
 
 --restore_cli: --clean_cli
 	dotnet restore -v $(VERBOSITY) --force --force-evaluate $(CLI_PATH)$(CLI_PROJECT)
-	touch $@
+	touch "$@"
 
 --restore_gui: --clean_gui
 	dotnet restore -v $(VERBOSITY) --force --force-evaluate $(GUI_PATH)$(GUI_PROJECT)
-	touch $@
+	touch "$@""
 
 restore: clean --restore_cli --restore_gui
 
 --build_cli: --restore_cli
 	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) $(CLI_PATH)$(CLI_PROJECT)
-	touch $@
+	touch "$@"
 
 --build_gui: --restore_gui
 	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) $(GUI_PATH)$(GUI_PROJECT)
-	touch $@
+	touch "$@"
 
 build: --build_cli --build_gui
 
 --publish_cli: --build_cli
 	dotnet publish --no-build $(LOGO) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(CLI_PATH)$(CLI_PROJECT)
-	touch $@
+	touch "$@"
 
 --publish_gui: --build_gui
 	dotnet publish --no-build $(LOGO) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(GUI_PATH)$(GUI_PROJECT)
-	touch $@
+	touch "$@"
 
 publish: build --publish_cli --publish_gui
 
