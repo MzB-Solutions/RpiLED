@@ -1,13 +1,21 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <Platforms>ARM32</Platforms>
+    <PublishReadyToRun>true</PublishReadyToRun>
     <Nullable>enable</Nullable>
-    <Platforms>AnyCPU</Platforms>
     <StartupObject>RpiLed.Gui.Program</StartupObject>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM32'">
     <DefineConstants>DEBUG</DefineConstants>
+    <PlatformTarget>ARM32</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM32'">
+    <PlatformTarget>ARM32</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Models\" />

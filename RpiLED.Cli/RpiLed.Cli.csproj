@@ -1,18 +1,23 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-    <Platforms>AnyCPU</Platforms>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <Platforms>ARM32</Platforms>
+    <PublishReadyToRun>true</PublishReadyToRun>
     <StartupObject>RpiLED.Cli.Program</StartupObject>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM32'">
     <DefineConstants />
+    <PlatformTarget>ARM32</PlatformTarget>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM32'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <PlatformTarget>ARM32</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>

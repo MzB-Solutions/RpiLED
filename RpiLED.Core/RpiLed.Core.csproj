@@ -2,15 +2,20 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <Platforms>AnyCPU</Platforms>
+    <PublishSingleFile>false</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <Platforms>ARM32</Platforms>
+    <PublishReadyToRun>true</PublishReadyToRun>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM32'">
     <DefineConstants />
+    <PlatformTarget>ARM32</PlatformTarget>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM32'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <PlatformTarget>ARM32</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
