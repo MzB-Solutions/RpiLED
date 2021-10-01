@@ -34,39 +34,39 @@ FORCE:
 	rm -rf $(GUI_PATH)$(OBJECT_DUMP)
 
 clean:
-	$(MAKE) --clean_sln
-	$(MAKE) --clean_cli
-	$(MAKE) --clean_gui
+	--clean_sln
+	--clean_cli
+	--clean_gui
 
 full_clean:
-	$(MAKE) clean
-	$(MAKE) --clean_disk
+	clean
+	--clean_disk
 
 --restore_cli:
-	$(MAKE) --clean_cli
+	--clean_cli
 	dotnet restore -v $(VERBOSITY) --force --force-evaluate $(CLI_PATH)$(CLI_PROJECT)
 
 --restore_gui:
-	$(MAKE) --clean_gui
+	--clean_gui
 	dotnet restore -v $(VERBOSITY) --force --force-evaluate $(GUI_PATH)$(GUI_PROJECT)
 
 restore:
-	$(MAKE) FORCE
-	$(MAKE) clean
-	$(MAKE) --restore_cli
-	$(MAKE) --restore_gui
+	FORCE
+	clean
+	--restore_cli
+	--restore_gui
 
 --build_cli:
-	$(MAKE) --restore_cli
+	--restore_cli
 	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) -r linux-arm $(CLI_PATH)$(CLI_PROJECT)
 
 --build_gui:
-	$(MAKE) --restore_gui
+	--restore_gui
 	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) -r linux-arm $(GUI_PATH)$(GUI_PROJECT)
 
 build:
-	$(MAKE) --build_cli
-	$(MAKE) --build_gui
+	--build_cli
+	--build_gui
 
 --publish_cli:
 	dotnet publish --no-build $(LOGO) -c $(CONFIGURATION) -r linux-arm $(CONTAINMENT) -o $(OUTPUT_DIR) $(CLI_PATH)$(CLI_PROJECT)
@@ -75,14 +75,14 @@ build:
 	dotnet publish --no-build $(LOGO) -c $(CONFIGURATION) -r linux-arm $(CONTAINMENT) -o $(OUTPUT_DIR) $(GUI_PATH)$(GUI_PROJECT)
 
 publish:
-	$(MAKE) build
-	$(MAKE) --publish_cli
-	$(MAKE) --publish_gui
+	build
+	--publish_cli
+	--publish_gui
 
 cli:
-	$(MAKE) --build_cli
+	--build_cli
 	dotnet run $(CLI_PATH) -h
 
 gui:
-	$(MAKE) --build_gui
+	--build_gui
 	dotnet run $(GUI_PATH)
