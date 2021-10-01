@@ -4,7 +4,9 @@ CLI_PATH = ./RpiLED.Cli/
 GUI_PROJECT = RpiLed.Gui.csproj
 GUI_PATH = ./RpiLED.Gui/
 SOLUTION = RpiLED.sln
-VERBOSITY = n	## {q[uiet],m[inimal],n[ormal],d[etailed],diag[nostic]}
+
+## {q[uiet],m[inimal],n[ormal],d[etailed],diag[nostic]}
+VERBOSITY = n
 CONTAINMENT = "--self-contained"
 CONFIGURATION = Release
 LOGO = --nologo
@@ -12,7 +14,9 @@ OUTPUT_DIR = ./output/
 BINARY_DUMP = bin/
 OBJECT_DUMP = obj/
 BINARIES = BINARY_DUMP OBJECT_DUMP
-RUNTIME = linux-arm			# as per https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
+
+# as per https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
+RUNTIME = linux-arm
 
 .PHONY : clean restore build publish
 
