@@ -91,7 +91,7 @@ publish: build --publish_cli --publish_gui
 	touch $@
 
 cli: --build_cli
-	dotnet run $(CLI_PATH) -- -h
+	dotnet run --project $(CLI_PATH) -h
 
 gui: --build_gui
-	dotnet run $(GUI_PATH)
+	dotnet run --project $(GUI_PATH)
