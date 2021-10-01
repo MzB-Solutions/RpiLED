@@ -17,7 +17,7 @@ all : clean restore build publish
 
 FORCE:
 
---clean_sln:
+--clean_sln: --clean_cli --clean_gui
 	dotnet clean -v $(VERBOSITY) $(LOGO) ./$(SOLUTION)
 
 --clean_cli:
@@ -33,7 +33,7 @@ FORCE:
 	rm -rf $(GUI_PATH)$(BINARY_DUMP)
 	rm -rf $(GUI_PATH)$(OBJECT_DUMP)
 
-clean: --clean_sln --clean_cli --clean_gui
+clean: --clean_sln
 
 full_clean: clean --clean_disk
 
