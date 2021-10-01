@@ -44,6 +44,8 @@ FORCE:
 	rm -rf $(GUI_PATH)$(OBJECT_DUMP)
 
 --clean_sln: --clean_cli --clean_gui
+
+--clean_all: --clean_sln
 	dotnet clean -v $(VERBOSITY) $(LOGO) ./$(SOLUTION)
 
 clean: --clean_sln
@@ -61,7 +63,6 @@ restore: FORCE clean --restore_cli --restore_gui
 --build_cli: --restore_cli
 	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) $(CONTAINMENT) $(CLI_PATH)$(CLI_PROJECT)
 	touch $@
-
 
 --build_gui: --restore_gui
 	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) $(CONTAINMENT) $(GUI_PATH)$(GUI_PROJECT)
