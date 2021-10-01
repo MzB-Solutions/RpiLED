@@ -44,8 +44,10 @@ FORCE:
 --clean_gui:
 	dotnet clean -v $(VERBOSITY) $(LOGO) $(GUI_PATH)$(GUI_PROJECT)
 
---clean_disk: --clean_makefile_markers
+--clean_output:
 	rm -rf $(OUTPUT_DIR)
+
+--clean_disk: --clean_makefile_markers
 	rm -rf $(CORE_PATH)$(BINARY_DUMP)
 	rm -rf $(CORE_PATH)$(OBJECT_DUMP)
 	rm -rf $(VENDOR_LIB_ConsoLovers)$(VENDOR_PROJECT_PATH_ConsoLoversCore)$(BINARY_DUMP)
@@ -55,7 +57,7 @@ FORCE:
 	rm -rf $(GUI_PATH)$(BINARY_DUMP)
 	rm -rf $(GUI_PATH)$(OBJECT_DUMP)
 
---clean_sln: --clean_cli --clean_gui --clean_extras
+--clean_sln: --clean_output --clean_cli --clean_gui --clean_extras
 
 --clean_all: --clean_sln
 	dotnet clean -v $(VERBOSITY) $(LOGO) ./$(SOLUTION)
