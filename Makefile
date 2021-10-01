@@ -43,10 +43,9 @@ run-cli:
 run-gui:
 	dotnet run $(GUI_PATH)
 
-
-dotnet restore -v "$VERBOSITY" --force --force-evaluate "${PROJECT_FILE}"
-restoreState=$?
-dotnet build -v "$VERBOSITY" --no-restore $LOGO -c $CONFIG "${PROJECT_FILE}"
-buildState=$?
-dotnet publish -v "$VERBOSITY" "$CONTAINMENT" --no-build -c $CONFIG $LOGO -o "${OUTPUT_DIR}" "${PROJECT_FILE}"
-publishState=$?
+##dotnet restore -v "$VERBOSITY" --force --force-evaluate "${PROJECT_FILE}"
+##restoreState=$?
+##dotnet build -v "$VERBOSITY" --no-restore $LOGO -c $CONFIG "${PROJECT_FILE}"
+##buildState=$?
+##dotnet publish -v "$VERBOSITY" "$CONTAINMENT" --no-build -c $CONFIG $LOGO -o "${OUTPUT_DIR}" "${PROJECT_FILE}"
+##publishState=$?
