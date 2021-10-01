@@ -33,7 +33,10 @@ all: clean restore build publish
 	dotnet clean -v $(VERBOSITY) $(LOGO) $(VENDOR1)
 
 --clean_makefile_markers:
-	rm -i "./--*"
+	rm -f clean
+	rm -f restore
+	rm -f build
+	rm -f publish*
 
 --clean_cli:
 	dotnet clean -v $(VERBOSITY) $(LOGO) $(CLI_PATH)$(CLI_PROJECT)
@@ -60,36 +63,33 @@ all: clean restore build publish
 	dotnet clean -v $(VERBOSITY) $(LOGO) ./$(SOLUTION)
 
 clean: --clean_sln
+	touch $@
 
 full_clean: --clean_disk clean
 
 --restore_cli: --clean_cli
 	dotnet restore -v $(VERBOSITY) --force --force-evaluate $(CLI_PATH)$(CLI_PROJECT)
-	touch < "$@"
 
 --restore_gui: --clean_gui
 	dotnet restore -v $(VERBOSITY) --force --force-evaluate $(GUI_PATH)$(GUI_PROJECT)
-	touch < "$@"
 
 restore: clean --restore_cli --restore_gui
+	touch $@
 
 --build_cli: --restore_cli
 	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) $(CLI_PATH)$(CLI_PROJECT)
-	touch "$@"
 
 --build_gui: --restore_gui
 	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) $(GUI_PATH)$(GUI_PROJECT)
-	touch "$@"
 
 build: --build_cli --build_gui
+	touch $@
 
 --publish_cli: --build_cli
 	dotnet publish --no-build $(LOGO) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(CLI_PATH)$(CLI_PROJECT)
-	touch "$@"
 
 --publish_gui: --build_gui
 	dotnet publish --no-build $(LOGO) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(GUI_PATH)$(GUI_PROJECT)
-	touch "$@"
 
 publish: build --publish_cli --publish_gui
 
