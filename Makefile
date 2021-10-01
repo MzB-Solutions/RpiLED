@@ -62,7 +62,7 @@ FORCE:
 
 clean: --clean_sln
 
-full_clean: clean --clean_disk
+full_clean: --clean_disk clean
 
 --restore_cli: --clean_cli
 	dotnet restore -v $(VERBOSITY) --force --force-evaluate $(CLI_PATH)$(CLI_PROJECT)
