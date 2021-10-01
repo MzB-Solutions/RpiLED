@@ -84,13 +84,14 @@ if [[ $key == $'\x71' ]];        # if input == q key
         if isTrue "$AUTOCLEAN"; then
             echo "Removing all untracked and ignored files AND directories"
             if isTrue "$VERBOSITY"; then git clean -xdf; else clean -qxdf; fi
-            echo "Resetting hard to origin ${branch_name}"
+            echo "git clean result: $?"
+            echo "Resetting HARD to origin:${branch_name}"
             if isTrue "$VERBOSITY"; then git reset --hard; else git reset --hard -q; fi
-        else
-            echo "Pulling current state from origin ${branch_name}"
-            git pull origin "$branch_name" $VERBOSE
+            echo "git reset result: $? #####"
         fi
-        echo "git reset result: $? #####"
+        echo "Pulling current state from origin ${branch_name}"
+        git pull origin "$branch_name" $VERBOSE
+        echo "git pull result: $?"
         if isTrue "$VERBOSITY"; then git submodule init; else git submodule --quiet init; fi
         echo "git submodule init result: $? #####"
         if isTrue "$VERBOSITY"; then git submodule update; else git submodule --quiet update; fi
