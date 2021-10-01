@@ -57,10 +57,10 @@ full_clean: clean --clean_disk
 restore: FORCE clean --restore_cli --restore_gui
 
 --build_cli: --restore_cli
-	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) $(CONTAINMENT) $(CLI_PATH)$(CLI_PROJECT)
+	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) $(CLI_PATH)$(CLI_PROJECT)
 
 --build_gui: --restore_gui
-	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) $(CONTAINMENT) $(GUI_PATH)$(GUI_PROJECT)
+	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) $(GUI_PATH)$(GUI_PROJECT)
 
 build: --build_cli --build_gui
 	touch $@
