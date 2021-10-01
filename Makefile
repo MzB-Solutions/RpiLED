@@ -1,24 +1,24 @@
 SHELL=/usr/bin/env bash
-CLI_PROJECT = RpiLed.Cli.csproj
-CLI_PATH = ./RpiLED.Cli/
-GUI_PROJECT = RpiLed.Gui.csproj
-GUI_PATH = ./RpiLED.Gui/
-SOLUTION = RpiLED.sln
+CLI_PROJECT=RpiLed.Cli.csproj
+CLI_PATH=./RpiLED.Cli/
+GUI_PROJECT=RpiLed.Gui.csproj
+GUI_PATH=./RpiLED.Gui/
+SOLUTION=RpiLED.sln
 
 ## {q[uiet],m[inimal],n[ormal],d[etailed],diag[nostic]}
-VERBOSITY = n
-CONTAINMENT = "--self-contained"
-CONFIGURATION = Release
-LOGO = --nologo
-OUTPUT_DIR = ./output/
-BINARY_DUMP = bin/
-OBJECT_DUMP = obj/
-BINARIES = BINARY_DUMP OBJECT_DUMP
+VERBOSITY=n
+CONTAINMENT=--self-contained
+CONFIGURATION=Release
+LOGO=--nologo
+OUTPUT_DIR=./output/
+BINARY_DUMP=bin/
+OBJECT_DUMP=obj/
+BINARIES=BINARY_DUMP OBJECT_DUMP
 
 # as per https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
-RUNTIME = linux-arm
+RUNTIME=linux-arm
 
-.PHONY : clean restore build publish
+.PHONY: clean restore build publish
 
 FORCE:
 
