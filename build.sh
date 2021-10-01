@@ -55,7 +55,7 @@ export WORKING_DIR="${CURRENT_DIR}/RpiLED.${TARGET}"
 PROJECT_FILE="RpiLed.${TARGET}.csproj"
 CONFIG="Release"
 LOGO="--nologo"
-pushd "${WORKING_DIR}/"
+pushd "${WORKING_DIR}/" || directory_status=0
 if ! isTrue "$AUTO_MODE"; then
     echo "building RpiLED.${TARGET} ${CONFIG}-build into ${OUTPUT_DIR}"
     echo " verbosity (${VERBOSITY}) {q[uiet],m[inimal],n[ormal],d[etailed],diag[nostic]} || Directory Status (${WORKING_DIR}):${directory_status}"
