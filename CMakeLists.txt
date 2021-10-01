@@ -2,11 +2,12 @@
 # project specific logic here.
 #
 cmake_minimum_required (VERSION 3.18)
-PROJECT(RpiLED LANGUAGES CSharp CXX)
+PROJECT(RpiLED LANGUAGES CSharp)
 
 # Set global .NET Framework version.
 # 5.0?
-SET(CMAKE_DOTNET_TARGET_FRAMEWORK_VERSION "v4.7.2")
+#SET(CMAKE_DOTNET_TARGET_FRAMEWORK_VERSION "v4.7.2")
+SET(CMAKE_DOTNET_TARGET_FRAMEWORK "net5.0")
 
 SET(CMAKE_CSharp_FLAGS "/langversion:9.0")
 
@@ -34,10 +35,10 @@ SET(CMAKE_INSTALL_INCLUDE_DIR   "include/")
 SET(CMAKE_INSTALL_EXPORT_DIR    "cmake/")
 
 # Include sub-projects.
-ADD_SUBDIRECTORY(RpiLED.Cli)
-ADD_SUBDIRECTORY(RpiLED.Gui)
 ADD_SUBDIRECTORY(RpiLED.Core)
-ADD_SUBDIRECTORY(vendor/ConsoLovers)
+#ADD_SUBDIRECTORY(RpiLED.Cli)
+#ADD_SUBDIRECTORY(RpiLED.Gui)
+#ADD_SUBDIRECTORY(vendor/ConsoLovers)
 
 # Add source to this project's executable.
 # from original template

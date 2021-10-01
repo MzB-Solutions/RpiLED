@@ -1,0 +1,31 @@
+{
+    "version": 2,
+    "configurePresets": [
+        {
+            "name": "dotnetARM32_debug",
+            "displayName": "Visual Studio Community 2019 Release - x86_arm",
+            "description": "Using compilers for Visual Studio 16 2019 (x86_arm architecture)",
+            "generator": "Visual Studio 16 2019",
+            "toolset": "host=x86",
+            "architecture": "arm",
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}"
+            }
+        },
+        {
+            "name": "dotnetARM32_release",
+            "displayName": "Visual Studio Community 2019 Release - x86_arm",
+            "description": "Using compilers for Visual Studio 16 2019 (x86_arm architecture)",
+            "generator": "Visual Studio 16 2019",
+            "toolset": "host=x86",
+            "architecture": "arm",
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}"
+            }
+        }
+    ]
+}
