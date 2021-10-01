@@ -26,7 +26,7 @@ BINARIES=BINARY_DUMP OBJECT_DUMP
 # as per https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
 RUNTIME=linux-arm
 
-.PHONY: clean restore build publish
+all: clean restore build publish
 
 --clean_extras:
 	dotnet clean -v $(VERBOSITY) $(LOGO) $(CORE_PATH)$(CORE_PROJECT)
