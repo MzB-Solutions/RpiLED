@@ -83,7 +83,7 @@ if [[ $key == $'\x71' ]];        # if input == q key
         echo "git status result: $? #####"
         if isTrue "$AUTOCLEAN"; then
             echo "Removing all untracked and ignored files AND directories"
-            if isTrue "$VERBOSITY"; then git clean -xdf; else clean -qxdf; fi
+            if isTrue "$VERBOSITY"; then git clean -xdf; else git clean -qxdf; fi
             echo "git clean result: $?"
             echo "Resetting HARD to origin:${branch_name}"
             if isTrue "$VERBOSITY"; then git reset --hard; else git reset --hard -q; fi
