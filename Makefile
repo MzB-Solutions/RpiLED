@@ -5,20 +5,17 @@ GUI_PROJECT=RpiLed.Gui.csproj
 GUI_PATH=./RpiLED.Gui/
 CORE_PROJECT=RpiLed.Core.csproj
 CORE_PATH=./RpiLED.Core/
-## VendorLibs
-VENDOR_PATH=./vendor/
 # ConsoLovers.Core
-VENDOR_LIB_ConsoLovers=ConsoLovers/src/
+VENDOR_LIB_ConsoLovers=./vendor/ConsoLovers/src/
 VENDOR_PROJECT_PATH_ConsoLoversCore=ConsoLovers.ConsoleToolkit.Core/
 VENDOR_PROJECT_ConsoLoversCore=ConsoLovers.ConsoleToolkit.Core.csproj
-VENDOR_PROJECT_ConsoLoversCore_file=$(VENDOR)$(VENDOR_LIB_ConsoLovers)$(VENDOR_PROJECT_PATH_ConsoLoversCore)$(VENDOR_PROJECT_ConsoLoversCore)
+VENDOR_PROJECT_ConsoLoversCore_file=$(VENDOR_LIB_ConsoLovers)$(VENDOR_PROJECT_PATH_ConsoLoversCore)$(VENDOR_PROJECT_ConsoLoversCore)
 ## all vendors ...
 VENDOR1=$(VENDOR_PROJECT_ConsoLoversCore_file)
 SOLUTION=RpiLED.sln
 
 ## {q[uiet],m[inimal],n[ormal],d[etailed],diag[nostic]}
 VERBOSITY=n
-CONTAINMENT=--self-contained
 CONFIGURATION=Release
 LOGO=--nologo
 OUTPUT_DIR=./output/
@@ -51,6 +48,8 @@ FORCE:
 	rm -rf $(OUTPUT_DIR)
 	rm -rf $(CORE_PATH)$(BINARY_DUMP)
 	rm -rf $(CORE_PATH)$(OBJECT_DUMP)
+	rm -rf $(VENDOR_LIB_ConsoLovers)$(VENDOR_PROJECT_PATH_ConsoLoversCore)$(BINARY_DUMP)
+	rm -rf $(VENDOR_LIB_ConsoLovers)$(VENDOR_PROJECT_PATH_ConsoLoversCore)$(OBJECT_DUMP)
 	rm -rf $(CLI_PATH)$(BINARY_DUMP)
 	rm -rf $(CLI_PATH)$(OBJECT_DUMP)
 	rm -rf $(GUI_PATH)$(BINARY_DUMP)
@@ -83,10 +82,10 @@ build: --build_cli --build_gui
 	touch $@
 
 --publish_cli: --build_cli
-	dotnet publish --no-build $(LOGO) -c $(CONFIGURATION) $(CONTAINMENT) -o $(OUTPUT_DIR) $(CLI_PATH)$(CLI_PROJECT)
+	dotnet publish --no-build $(LOGO) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(CLI_PATH)$(CLI_PROJECT)
 
 --publish_gui: --build_gui
-	dotnet publish --no-build $(LOGO) -c $(CONFIGURATION) $(CONTAINMENT) -o $(OUTPUT_DIR) $(GUI_PATH)$(GUI_PROJECT)
+	dotnet publish --no-build $(LOGO) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(GUI_PATH)$(GUI_PROJECT)
 
 publish: build --publish_cli --publish_gui
 	touch $@
