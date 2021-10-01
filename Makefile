@@ -28,8 +28,6 @@ RUNTIME=linux-arm
 
 .PHONY: clean restore build publish
 
-FORCE:
-
 --clean_extras:
 	dotnet clean -v $(VERBOSITY) $(LOGO) $(CORE_PATH)$(CORE_PROJECT)
 	dotnet clean -v $(VERBOSITY) $(LOGO) $(VENDOR1)
@@ -73,7 +71,7 @@ full_clean: --clean_disk clean
 	dotnet restore -v $(VERBOSITY) --force --force-evaluate $(GUI_PATH)$(GUI_PROJECT)
 	touch $@
 
-restore: FORCE clean --restore_cli --restore_gui
+restore: clean --restore_cli --restore_gui
 
 --build_cli: --restore_cli
 	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) $(CLI_PATH)$(CLI_PROJECT)
