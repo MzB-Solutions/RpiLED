@@ -5,16 +5,18 @@
     <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>true</SelfContained>
     <RuntimeIdentifier>linux-arm</RuntimeIdentifier>
-    <Platforms>AnyCPU</Platforms>
+    <Platforms>ARM32</Platforms>
     <PublishReadyToRun>true</PublishReadyToRun>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM32'">
     <DefineConstants />
+    <PlatformTarget>ARM32</PlatformTarget>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM32'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <PlatformTarget>ARM32</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
