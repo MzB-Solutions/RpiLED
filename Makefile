@@ -65,11 +65,11 @@ full_clean: --clean_disk clean
 
 --restore_cli: --clean_cli
 	dotnet restore -v $(VERBOSITY) --force --force-evaluate $(CLI_PATH)$(CLI_PROJECT)
-	touch "$@"
+	touch < "$@"
 
 --restore_gui: --clean_gui
 	dotnet restore -v $(VERBOSITY) --force --force-evaluate $(GUI_PATH)$(GUI_PROJECT)
-	touch "$@""
+	touch < "$@"
 
 restore: clean --restore_cli --restore_gui
 
