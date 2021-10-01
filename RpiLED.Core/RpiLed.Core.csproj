@@ -2,10 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <PublishSingleFile>true</PublishSingleFile>
+    <PublishSingleFile>false</PublishSingleFile>
     <SelfContained>true</SelfContained>
-    <RuntimeIdentifier>linux-arm</RuntimeIdentifier>
-   <!--<Platforms>ARM32</Platforms>-->
+    <Platforms>ARM32</Platforms>
     <PublishReadyToRun>true</PublishReadyToRun>
   </PropertyGroup>
 

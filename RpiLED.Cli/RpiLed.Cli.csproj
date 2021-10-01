@@ -5,8 +5,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>true</SelfContained>
-    <RuntimeIdentifier>linux-arm</RuntimeIdentifier>
-    <!--<Platforms>ARM32</Platforms>-->
+    <Platforms>ARM32</Platforms>
     <PublishReadyToRun>true</PublishReadyToRun>
     <StartupObject>RpiLED.Cli.Program</StartupObject>
   </PropertyGroup>
