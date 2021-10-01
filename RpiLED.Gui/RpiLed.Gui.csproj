@@ -3,8 +3,12 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>linux-arm</RuntimeIdentifier>
     <Platforms>AnyCPU</Platforms>
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <Nullable>enable</Nullable>
     <StartupObject>RpiLed.Gui.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

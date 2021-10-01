@@ -12,6 +12,7 @@ OUTPUT_DIR = ./output/
 BINARY_DUMP = bin/
 OBJECT_DUMP = obj/
 BINARIES = BINARY_DUMP OBJECT_DUMP
+RUNTIME = linux-arm			# as per https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
 
 .PHONY : clean restore build publish
 
@@ -54,23 +55,23 @@ full_clean: clean --clean_disk
 restore: FORCE clean --restore_cli --restore_gui
 
 --build_cli: --restore_cli
-	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) -r linux-arm $(CLI_PATH)$(CLI_PROJECT)
+	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) -r $(RUNTIME) $(CONTAINMENT) $(CLI_PATH)$(CLI_PROJECT)
 	touch $@
 
 
 --build_gui: --restore_gui
-	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) -r linux-arm $(GUI_PATH)$(GUI_PROJECT)
+	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) -r $(RUNTIME) $(CONTAINMENT) $(GUI_PATH)$(GUI_PROJECT)
 	touch $@
 
 build: --build_cli --build_gui
 	touch $@
 
 --publish_cli: --build_cli
-	dotnet publish --no-build $(LOGO) -c $(CONFIGURATION) -r linux-arm $(CONTAINMENT) -o $(OUTPUT_DIR) $(CLI_PATH)$(CLI_PROJECT)
+	dotnet publish --no-build $(LOGO) -c $(CONFIGURATION) -r $(RUNTIME) $(CONTAINMENT) -o $(OUTPUT_DIR) $(CLI_PATH)$(CLI_PROJECT)
 	touch $@
 
 --publish_gui: --build_gui
-	dotnet publish --no-build $(LOGO) -c $(CONFIGURATION) -r linux-arm $(CONTAINMENT) -o $(OUTPUT_DIR) $(GUI_PATH)$(GUI_PROJECT)
+	dotnet publish --no-build $(LOGO) -c $(CONFIGURATION) -r $(RUNTIME) $(CONTAINMENT) -o $(OUTPUT_DIR) $(GUI_PATH)$(GUI_PROJECT)
 	touch $@
 
 publish: build --publish_cli --publish_gui
