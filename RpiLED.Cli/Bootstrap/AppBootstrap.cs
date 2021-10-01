@@ -11,11 +11,11 @@ namespace RpiLED.Cli.Bootstrap
         public AppBootstrap(ICommandLineEngine commandLineEngine) : base(commandLineEngine)
         {
             // some pre-init tasks if necessary
-            if (!HasArguments)
-            {
-                commandLineEngine.PrintHelp<AppArguments>(null);
-                throw new MissingCommandLineArgumentException("AppArguments");
-            }
+            //if (!HasArguments)
+            //{
+            //    commandLineEngine.PrintHelp<AppArguments>(null);
+            //    throw new MissingCommandLineArgumentException("AppArguments");
+            //}
         }
 
         public override bool HandleException(Exception exception)
