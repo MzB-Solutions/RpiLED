@@ -24,10 +24,6 @@ FORCE:
 
 --clean_makefile_markers:
 	rm -f build
-	rm -f --publish_cli
-	rm -f --publish_gui
-	rm -f --build_cli
-	rm -f --build_gui
 	rm -f publish
 
 --clean_cli:
@@ -62,22 +58,18 @@ restore: FORCE clean --restore_cli --restore_gui
 
 --build_cli: --restore_cli
 	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) $(CONTAINMENT) $(CLI_PATH)$(CLI_PROJECT)
-	touch $@
 
 --build_gui: --restore_gui
 	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) $(CONTAINMENT) $(GUI_PATH)$(GUI_PROJECT)
-	touch $@
 
 build: --build_cli --build_gui
 	touch $@
 
 --publish_cli: --build_cli
 	dotnet publish --no-build $(LOGO) -c $(CONFIGURATION) $(CONTAINMENT) -o $(OUTPUT_DIR) $(CLI_PATH)$(CLI_PROJECT)
-	touch $@
 
 --publish_gui: --build_gui
 	dotnet publish --no-build $(LOGO) -c $(CONFIGURATION) $(CONTAINMENT) -o $(OUTPUT_DIR) $(GUI_PATH)$(GUI_PROJECT)
-	touch $@
 
 publish: build --publish_cli --publish_gui
 	touch $@
