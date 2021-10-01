@@ -1,0 +1,19 @@
+using System.Reflection;
+using System.Resources;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Windows;
+
+[assembly: AssemblyTitle("@PROJECT_NAME@")]
+[assembly: AssemblyDescription("A full implementation of GPIO and HW/SW PWM pins")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("TheNoviceProspect")]
+[assembly: AssemblyProduct("RpiLED")]
+[assembly: AssemblyCopyright("(c) 2000+ Sebastian Meier zu Biesen")]
+[assembly: AssemblyTrademark("... only try to realize the truth... There is no trademark.. Then you'll see that it is not the trademark that bends, it is only yourself.")]
+[assembly: AssemblyCulture("")]
+[assembly: AssemblyVersion("@PROJECT_VERSION_MAJOR@.@PROJECT_VERSION_MINOR@.@PROJECT_VERSION_PATCH@.0")]
+[assembly: AssemblyFileVersion("@PROJECT_VERSION_MAJOR@.@PROJECT_VERSION_MINOR@.@PROJECT_VERSION_PATCH@.0")]
+
+[assembly: ComVisible(false)]
+[assembly: NeutralResourcesLanguage("en-US")]
