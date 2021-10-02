@@ -109,7 +109,7 @@ build: --build_cli --build_gui
 	$(info ************  Publishing RpiLED.Gui  ************)
 	dotnet publish --no-build $(LOGO) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(GUI_PATH)$(GUI_PROJECT)
 
-publish: build --publish_cli --publish_gui
+publish: publish-cli publish-gui
 	$(info ************  Published both RpiLED.Cli & RpiLED.Gui  ************)
 	touch $@
 
