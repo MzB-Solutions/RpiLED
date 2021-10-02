@@ -71,7 +71,6 @@ all: clean restore build publish
 
 clean: --clean_sln
 	$(info ************  Cleaned Solution and NuGet packages  ************)
-	touch $@
 
 full_clean: --clean_disk clean
 
