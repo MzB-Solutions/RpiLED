@@ -90,11 +90,11 @@ restore: clean --restore_cli --restore_gui
 configure: restore
 
 --build_cli: --restore_cli
-	$(info ************  Restoring RpiLED.Cli  ************)
+	$(info ************  Building RpiLED.Cli  ************)
 	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) $(CLI_PATH)$(CLI_PROJECT)
 
 --build_gui: --restore_gui
-	$(info ************  Restoring RpiLED.Gui  ************)
+	$(info ************  Building RpiLED.Gui  ************)
 	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) $(GUI_PATH)$(GUI_PROJECT)
 
 build: --build_cli --build_gui
@@ -102,21 +102,24 @@ build: --build_cli --build_gui
 	touch $@
 
 --publish_cli: --build_cli
-	$(info ************  Building RpiLED.Cli  ************)
+	$(info ************  Publishing RpiLED.Cli  ************)
 	dotnet publish --no-build $(LOGO) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(CLI_PATH)$(CLI_PROJECT)
 
 --publish_gui: --build_gui
-	$(info ************  Building RpiLED.Gui  ************)
+	$(info ************  Publishing RpiLED.Gui  ************)
 	dotnet publish --no-build $(LOGO) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(GUI_PATH)$(GUI_PROJECT)
 
 publish: build --publish_cli --publish_gui
 	$(info ************  Published both RpiLED.Cli & RpiLED.Gui  ************)
+	touch $@
 
 publish-cli: --publish_cli
 	$(info ************  Published RpiLED.Cli  ************)
+	touch $@
 
 publish-gui: --publish_gui
 	$(info ************  Published RpiLED.Gui  ************)
+	touch $@
 
 cli: --build_cli
 	$(info ************  Running RpiLED.Cli  ************)
