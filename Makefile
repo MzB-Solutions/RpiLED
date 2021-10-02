@@ -15,7 +15,7 @@ VENDOR1=$(VENDOR_PROJECT_ConsoLoversCore_file)
 SOLUTION=RpiLED.sln
 
 ## {q[uiet],m[inimal],n[ormal],d[etailed],diag[nostic]}
-VERBOSITY=n
+VERBOSITY=m
 CONFIGURATION=Release
 LOGO=--nologo
 OUTPUT_DIR=./output/

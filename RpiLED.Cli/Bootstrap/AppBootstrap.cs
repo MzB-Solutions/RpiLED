@@ -23,7 +23,7 @@ namespace RpiLED.Cli.Bootstrap
             if (exception is IOException)
             {
                 Console.WriteLine(Resources.IOExceptionMsg, exception.Message);
-                Environment.Exit(-1);
+                Environment.Exit(1);
             }
 
             if (exception is MissingCommandLineArgumentException) Environment.Exit(-2);
