@@ -4,7 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <PublishSingleFile>false</PublishSingleFile>
     <SelfContained>true</SelfContained>
-    <RuntimeIdentifier>linux-arm</RuntimeIdentifier>
+    <RuntimeIdentifiers>linux-arm</RuntimeIdentifiers>
     <Platforms>ARM32</Platforms>
     <PublishReadyToRun>true</PublishReadyToRun>
   </PropertyGroup>
