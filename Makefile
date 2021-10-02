@@ -49,7 +49,7 @@ all: full_clean restore build publish
 	dotnet clean -v $(VERBOSITY) $(LOGO) $(GUI_PATH)$(GUI_PROJECT)
 
 --clean_output:
-	$(info  ************ Cleaning ./output/ directory)  ************
+	$(info  ************ Cleaning ./output/ directory  ************)
 	rm -rf $(OUTPUT_DIR)
 
 --clean_disk: --clean_makefile_markers
