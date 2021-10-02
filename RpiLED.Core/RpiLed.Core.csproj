@@ -1,5 +1,5 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <PublishSingleFile>false</PublishSingleFile>
@@ -8,22 +8,18 @@
     <Platforms>ARM32</Platforms>
     <PublishReadyToRun>true</PublishReadyToRun>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM32'">
     <DefineConstants />
     <PlatformTarget>ARM32</PlatformTarget>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM32'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <PlatformTarget>ARM32</PlatformTarget>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Iot.Device.Bindings" Version="1.5.0" />
     <PackageReference Include="System.Device.Gpio" Version="1.5.0" />
   </ItemGroup>
-
   <ItemGroup>
     <Compile Update="Properties\ExceptionMessages.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -31,12 +27,15 @@
       <DependentUpon>ExceptionMessages.resx</DependentUpon>
     </Compile>
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Update="Properties\ExceptionMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ExceptionMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Content Include="Models\PinModel.cs" />
+    <Content Include="Exceptions\EPinNotValidException.cs" />
+    <Content Include="PinLayout.cs" />
+    <Content Include="Services\GpioService.cs" />
+    <Content Include="Services\PwmService.cs" />
   </ItemGroup>
-
 </Project>
