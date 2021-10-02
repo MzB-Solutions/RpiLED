@@ -26,7 +26,7 @@ BINARIES=BINARY_DUMP OBJECT_DUMP
 # as per https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
 RUNTIME=linux-arm
 
-all: clean restore build publish
+all: full_clean restore build publish
 
 --clean_extras:
 	dotnet clean -v $(VERBOSITY) $(LOGO) $(CORE_PATH)$(CORE_PROJECT)
@@ -63,9 +63,11 @@ all: clean restore build publish
 	dotnet clean -v $(VERBOSITY) $(LOGO) ./$(SOLUTION)
 
 clean: --clean_sln
+	$(info ************  Cleaning Solution and NuGet packages  ************)
 	touch $@
 
 full_clean: --clean_disk clean
+	$(warning ************  This deletes all assets, obj files and build-states  ************)
 
 --restore_cli: --clean_cli
 	dotnet restore -v $(VERBOSITY) --force --force-evaluate $(CLI_PATH)$(CLI_PROJECT)
@@ -74,7 +76,10 @@ full_clean: --clean_disk clean
 	dotnet restore -v $(VERBOSITY) --force --force-evaluate $(GUI_PATH)$(GUI_PROJECT)
 
 restore: clean --restore_cli --restore_gui
+	$(info ************  Restoring NuGet packages  ************)
 	touch $@
+
+configure: restore
 
 --build_cli: --restore_cli
 	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) $(CLI_PATH)$(CLI_PROJECT)
@@ -83,6 +88,7 @@ restore: clean --restore_cli --restore_gui
 	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) $(GUI_PATH)$(GUI_PROJECT)
 
 build: --build_cli --build_gui
+	$(info ************  Building both RpiLED.Cli & RpiLED.Gui and their dependencies  ************)
 	touch $@
 
 --publish_cli: --build_cli
@@ -92,13 +98,18 @@ build: --build_cli --build_gui
 	dotnet publish --no-build $(LOGO) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(GUI_PATH)$(GUI_PROJECT)
 
 publish: build --publish_cli --publish_gui
+	$(info ************  Publishing both RpiLED.Cli & RpiLED.Gui  ************)
 
 publish-cli: --publish_cli
+	$(info ************  Publishing RpiLED.Cli  ************)
 
 publish-gui: --publish_gui
+	$(info ************  Publishing RpiLED.Gui  ************)
 
 cli: --build_cli
+	$(info ************  Running RpiLED.Cli  ************)
 	dotnet run --project $(CLI_PATH) -- -h
 
 gui: --build_gui
+	$(info ************  Running RpiLED.Gui  ************)
 	dotnet run --project $(GUI_PATH)
