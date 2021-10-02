@@ -26,7 +26,49 @@ BINARIES=BINARY_DUMP OBJECT_DUMP
 # as per https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
 RUNTIME=linux-arm
 
+####################
+## Public Targets ##
+####################
 all: clean restore build publish
+
+clean: --clean_sln
+	$(info ************  Cleaned Solution and NuGet packages  ************)
+
+full_clean: --clean_disk clean
+
+restore: clean --restore_cli --restore_gui
+	$(info ************  Restoring NuGet packages  ************)
+	touch $@
+
+configure: restore
+
+build: --build_cli --build_gui
+	$(info ************  Built both RpiLED.Cli & RpiLED.Gui and their dependencies  ************)
+	touch $@
+
+publish: publish-cli publish-gui
+	$(info ************  Published both RpiLED.Cli & RpiLED.Gui  ************)
+	touch $@
+
+publish-cli: --publish_cli
+	$(info ************  Published RpiLED.Cli  ************)
+	touch $@
+
+publish-gui: --publish_gui
+	$(info ************  Published RpiLED.Gui  ************)
+	touch $@
+
+cli: --build_cli
+	$(info ************  Running RpiLED.Cli  ************)
+	dotnet run --project $(CLI_PATH) -- -h
+
+gui: --build_gui
+	$(info ************  Running RpiLED.Gui  ************)
+	dotnet run --project $(GUI_PATH)
+
+#####################
+## Private targets ##
+#####################
 
 --clean_extras:
 	$(info ************  Cleaning libraries  ************)
@@ -69,11 +111,6 @@ all: clean restore build publish
 	$(info ************  Cleaning Solution (.sln)  ************)
 	dotnet clean -v $(VERBOSITY) $(LOGO) ./$(SOLUTION)
 
-clean: --clean_sln
-	$(info ************  Cleaned Solution and NuGet packages  ************)
-
-full_clean: --clean_disk clean
-
 --restore_cli: --clean_cli
 	$(info ************  Restoring RpiLED.Cli  ************)
 	dotnet restore -v $(VERBOSITY) --force --force-evaluate $(CLI_PATH)$(CLI_PROJECT)
@@ -81,12 +118,6 @@ full_clean: --clean_disk clean
 --restore_gui: --clean_gui
 	$(info  ************  Restoring RpiLED.Gui  ************)
 	dotnet restore -v $(VERBOSITY) --force --force-evaluate $(GUI_PATH)$(GUI_PROJECT)
-
-restore: clean --restore_cli --restore_gui
-	$(info ************  Restoring NuGet packages  ************)
-	touch $@
-
-configure: restore
 
 --build_cli: --restore_cli
 	$(info ************  Building RpiLED.Cli  ************)
@@ -96,10 +127,6 @@ configure: restore
 	$(info ************  Building RpiLED.Gui  ************)
 	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) $(GUI_PATH)$(GUI_PROJECT)
 
-build: --build_cli --build_gui
-	$(info ************  Built both RpiLED.Cli & RpiLED.Gui and their dependencies  ************)
-	touch $@
-
 --publish_cli: --build_cli
 	$(info ************  Publishing RpiLED.Cli  ************)
 	dotnet publish --no-build $(LOGO) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(CLI_PATH)$(CLI_PROJECT)
@@ -108,22 +135,3 @@ build: --build_cli --build_gui
 	$(info ************  Publishing RpiLED.Gui  ************)
 	dotnet publish --no-build $(LOGO) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(GUI_PATH)$(GUI_PROJECT)
 
-publish: publish-cli publish-gui
-	$(info ************  Published both RpiLED.Cli & RpiLED.Gui  ************)
-	touch $@
-
-publish-cli: --publish_cli
-	$(info ************  Published RpiLED.Cli  ************)
-	touch $@
-
-publish-gui: --publish_gui
-	$(info ************  Published RpiLED.Gui  ************)
-	touch $@
-
-cli: --build_cli
-	$(info ************  Running RpiLED.Cli  ************)
-	dotnet run --project $(CLI_PATH) -- -h
-
-gui: --build_gui
-	$(info ************  Running RpiLED.Gui  ************)
-	dotnet run --project $(GUI_PATH)
