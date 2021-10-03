@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <PublishSingleFile>false</PublishSingleFile>
-    <SelfContained>true</SelfContained>
+    <SelfContained>false</SelfContained>
     <Platforms>AnyCPU</Platforms>
     <PublishReadyToRun>true</PublishReadyToRun>
     <Nullable>enable</Nullable>
