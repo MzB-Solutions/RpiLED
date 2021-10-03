@@ -24,7 +24,10 @@ OBJECT_DUMP=obj/
 BINARIES=BINARY_DUMP OBJECT_DUMP
 
 # as per https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
+## This app specifically is aimed at RaspBerryPi's, so linux-arm is the only logical choice
+## win-arm;win-arm64;linux-arm;linux-arm64
 RUNTIME=linux-arm
+SELF_CONTAINED=--self-contained -r $(RUNTIME)
 
 ####################
 ## Public Targets ##
@@ -44,6 +47,14 @@ configure: restore
 
 build: --build_cli --build_gui
 	$(info ************  Built both RpiLED.Cli & RpiLED.Gui and their dependencies  ************)
+	touch $@
+
+build-cli: --build_cli
+	$(info ************  Built RpiLED.Cli and its dependencies  ************)
+	touch $@
+
+build-gui: --build_gui
+	$(info ************  Built RpiLED.Gui and its dependencies  ************)
 	touch $@
 
 publish: publish-cli publish-gui
@@ -79,7 +90,7 @@ gui: --build_gui
 	$(info ************  Cleaning makefile markers  ************)
 	rm -f clean
 	rm -f restore
-	rm -f build
+	rm -f build*
 	rm -f publish*
 
 --clean_cli:
@@ -129,9 +140,9 @@ gui: --build_gui
 
 --publish_cli: --build_cli
 	$(info ************  Publishing RpiLED.Cli  ************)
-	dotnet publish --no-build $(LOGO) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(CLI_PATH)$(CLI_PROJECT)
+	dotnet publish --no-build $(LOGO) $(SELF_CONTAINED) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(CLI_PATH)$(CLI_PROJECT)
 
 --publish_gui: --build_gui
 	$(info ************  Publishing RpiLED.Gui  ************)
-	dotnet publish --no-build $(LOGO) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(GUI_PATH)$(GUI_PROJECT)
+	dotnet publish --no-build $(LOGO) $(SELF_CONTAINED) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(GUI_PATH)$(GUI_PROJECT)
 
