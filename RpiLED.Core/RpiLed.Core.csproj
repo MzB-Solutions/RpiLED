@@ -5,6 +5,7 @@
     <PublishSingleFile>false</PublishSingleFile>
     <SelfContained>false</SelfContained>
     <Platforms>AnyCPU</Platforms>
+    <RuntimeIdentifiers>win-x86;linux-arm;win-arm</RuntimeIdentifiers>
     <PublishReadyToRun>false</PublishReadyToRun>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
