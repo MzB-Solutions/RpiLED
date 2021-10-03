@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "RpiLed.Cli": {
+      "commandName": "Project"
+    }
+  }
+}
