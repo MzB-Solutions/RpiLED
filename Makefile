@@ -22,6 +22,11 @@ OUTPUT_DIR=./output/
 BINARY_DUMP=bin/
 OBJECT_DUMP=obj/
 BINARIES=BINARY_DUMP OBJECT_DUMP
+_CLEAN=dotnet clean
+_RESTORE=dotnet restore
+_BUILD=dotnet build
+_PUBLISH=dotnet publish
+_RUN=dotnet run
 
 # as per https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
 ## This app specifically is aimed at RaspBerryPi's, so linux-arm is the only logical choice
@@ -71,11 +76,11 @@ publish-gui: --publish_gui
 
 cli: --build_cli
 	$(info ************  Running RpiLED.Cli  ************)
-	dotnet run --project $(CLI_PATH) -- -h
+	$(_RUN) --project $(CLI_PATH) -- -h
 
 gui: --build_gui
 	$(info ************  Running RpiLED.Gui  ************)
-	dotnet run --project $(GUI_PATH)
+	$(_RUN) --project $(GUI_PATH)
 
 #####################
 ## Private targets ##
@@ -83,66 +88,66 @@ gui: --build_gui
 
 --clean_extras:
 	$(info ************  Cleaning libraries  ************)
-	dotnet clean -v $(VERBOSITY) $(LOGO) $(CORE_PATH)$(CORE_PROJECT)
-	dotnet clean -v $(VERBOSITY) $(LOGO) $(VENDOR1)
+	$(_CLEAN) -v $(VERBOSITY) $(LOGO) $(CORE_PATH)$(CORE_PROJECT)
+	$(_CLEAN) -v $(VERBOSITY) $(LOGO) $(VENDOR1)
 
 --clean_makefile_markers:
 	$(info ************  Cleaning makefile markers  ************)
-	rm -f clean
-	rm -f restore
-	rm -f build*
-	rm -f publish*
+	rm -vf clean
+	rm -vf restore
+	rm -vf build*
+	rm -vf publish*
 
 --clean_cli:
 	$(info ************  Cleaning RpiLED.Cli  ************)
-	dotnet clean -v $(VERBOSITY) $(LOGO) $(CLI_PATH)$(CLI_PROJECT)
+	$(_CLEAN) -v $(VERBOSITY) $(LOGO) $(CLI_PATH)$(CLI_PROJECT)
 
 --clean_gui:
 	$(info ************  Cleaning RpiLED.Gui  ************)
-	dotnet clean -v $(VERBOSITY) $(LOGO) $(GUI_PATH)$(GUI_PROJECT)
+	$(_CLEAN) -v $(VERBOSITY) $(LOGO) $(GUI_PATH)$(GUI_PROJECT)
 
 --clean_output:
 	$(info  ************ Cleaning ./output/ directory  ************)
-	rm -rf $(OUTPUT_DIR)
+	rm -vrf $(OUTPUT_DIR)
 
 --clean_disk: --clean_makefile_markers
 	$(warning ************  This deletes all assets, obj files and build-states  ************)
-	rm -rf $(CORE_PATH)$(BINARY_DUMP)
-	rm -rf $(CORE_PATH)$(OBJECT_DUMP)
-	rm -rf $(VENDOR_LIB_ConsoLovers)$(VENDOR_PROJECT_PATH_ConsoLoversCore)$(BINARY_DUMP)
-	rm -rf $(VENDOR_LIB_ConsoLovers)$(VENDOR_PROJECT_PATH_ConsoLoversCore)$(OBJECT_DUMP)
-	rm -rf $(CLI_PATH)$(BINARY_DUMP)
-	rm -rf $(CLI_PATH)$(OBJECT_DUMP)
-	rm -rf $(GUI_PATH)$(BINARY_DUMP)
-	rm -rf $(GUI_PATH)$(OBJECT_DUMP)
+	rm -vrf $(CORE_PATH)$(BINARY_DUMP)
+	rm -vrf $(CORE_PATH)$(OBJECT_DUMP)
+	rm -vrf $(VENDOR_LIB_ConsoLovers)$(VENDOR_PROJECT_PATH_ConsoLoversCore)$(BINARY_DUMP)
+	rm -vrf $(VENDOR_LIB_ConsoLovers)$(VENDOR_PROJECT_PATH_ConsoLoversCore)$(OBJECT_DUMP)
+	rm -vrf $(CLI_PATH)$(BINARY_DUMP)
+	rm -vrf $(CLI_PATH)$(OBJECT_DUMP)
+	rm -vrf $(GUI_PATH)$(BINARY_DUMP)
+	rm -vrf $(GUI_PATH)$(OBJECT_DUMP)
 
 --clean_sln: --clean_output --clean_cli --clean_gui --clean_extras
 
 --clean_all: --clean_sln
 	$(info ************  Cleaning Solution (.sln)  ************)
-	dotnet clean -v $(VERBOSITY) $(LOGO) ./$(SOLUTION)
+	$(_CLEAN) -v $(VERBOSITY) $(LOGO) ./$(SOLUTION)
 
 --restore_cli: --clean_cli
 	$(info ************  Restoring RpiLED.Cli  ************)
-	dotnet restore -v $(VERBOSITY) --force --force-evaluate $(CLI_PATH)$(CLI_PROJECT)
+	$(_RESTORE) -v $(VERBOSITY) --force --force-evaluate $(CLI_PATH)$(CLI_PROJECT)
 
 --restore_gui: --clean_gui
 	$(info  ************  Restoring RpiLED.Gui  ************)
-	dotnet restore -v $(VERBOSITY) --force --force-evaluate $(GUI_PATH)$(GUI_PROJECT)
+	$(_RESTORE) -v $(VERBOSITY) --force --force-evaluate $(GUI_PATH)$(GUI_PROJECT)
 
 --build_cli: --restore_cli
 	$(info ************  Building RpiLED.Cli  ************)
-	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) $(CLI_PATH)$(CLI_PROJECT)
+	$(_BUILD) --no-restore $(LOGO) -c $(CONFIGURATION) $(CLI_PATH)$(CLI_PROJECT)
 
 --build_gui: --restore_gui
 	$(info ************  Building RpiLED.Gui  ************)
-	dotnet build --no-restore $(LOGO) -c $(CONFIGURATION) $(GUI_PATH)$(GUI_PROJECT)
+	$(_BUILD) --no-restore $(LOGO) -c $(CONFIGURATION) $(GUI_PATH)$(GUI_PROJECT)
 
 --publish_cli: --build_cli
 	$(info ************  Publishing RpiLED.Cli  ************)
-	dotnet publish --no-build $(LOGO) $(SELF_CONTAINED) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(CLI_PATH)$(CLI_PROJECT)
+	$(_PUBLISH) --no-build $(LOGO) $(SELF_CONTAINED) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(CLI_PATH)$(CLI_PROJECT)
 
 --publish_gui: --build_gui
 	$(info ************  Publishing RpiLED.Gui  ************)
-	dotnet publish --no-build $(LOGO) $(SELF_CONTAINED) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(GUI_PATH)$(GUI_PROJECT)
+	$(_PUBLISH) --no-build $(LOGO) $(SELF_CONTAINED) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(GUI_PATH)$(GUI_PROJECT)
 
