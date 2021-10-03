@@ -145,9 +145,9 @@ gui: --build_gui
 
 --publish_cli: --build_cli
 	$(info ************  Publishing RpiLED.Cli  ************)
-	$(_PUBLISH) --no-build $(LOGO) $(SELF_CONTAINED) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(CLI_PATH)$(CLI_PROJECT)
+	$(_PUBLISH) $(LOGO) $(SELF_CONTAINED) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(CLI_PATH)$(CLI_PROJECT)
 
 --publish_gui: --build_gui
 	$(info ************  Publishing RpiLED.Gui  ************)
-	$(_PUBLISH) --no-build $(LOGO) $(SELF_CONTAINED) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(GUI_PATH)$(GUI_PROJECT)
+	$(_PUBLISH) $(LOGO) $(SELF_CONTAINED) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(GUI_PATH)$(GUI_PROJECT)
 
