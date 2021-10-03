@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RpiLed.Core", "RpiLED.Core\RpiLed.Core.csproj", "{6D5BB103-CD4A-498F-9ABC-6DF9CDF554B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpiLed.Core", "RpiLED.Core\RpiLed.Core.csproj", "{6D5BB103-CD4A-498F-9ABC-6DF9CDF554B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RpiLed.Cli", "RpiLED.Cli\RpiLed.Cli.csproj", "{79B230F6-41E5-4376-975D-4289C56A5E57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpiLed.Cli", "RpiLED.Cli\RpiLed.Cli.csproj", "{79B230F6-41E5-4376-975D-4289C56A5E57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RpiLed.Gui", "RpiLED.Gui\RpiLed.Gui.csproj", "{B747F3FB-E91C-4A33-9FB5-88C5FFD9068C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpiLed.Gui", "RpiLED.Gui\RpiLed.Gui.csproj", "{B747F3FB-E91C-4A33-9FB5-88C5FFD9068C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "vendor", "vendor", "{D2C8FAB1-CB27-4BBF-8E28-1C584AA7BA9E}"
 EndProject
@@ -15,37 +15,40 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConsoLovers", "ConsoLovers"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B2412CE9-8CB4-4847-A2BB-78B69D12012C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoLovers.ConsoleToolkit.Core", "vendor\ConsoLovers\src\ConsoLovers.ConsoleToolkit.Core\ConsoLovers.ConsoleToolkit.Core.csproj", "{AA29E704-8CC6-4ADC-802A-9863D08121AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoLovers.ConsoleToolkit.Core", "vendor\ConsoLovers\src\ConsoLovers.ConsoleToolkit.Core\ConsoLovers.ConsoleToolkit.Core.csproj", "{AA29E704-8CC6-4ADC-802A-9863D08121AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|ARM32 = Debug|ARM32
-		Release|ARM32 = Release|ARM32
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6D5BB103-CD4A-498F-9ABC-6DF9CDF554B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D5BB103-CD4A-498F-9ABC-6DF9CDF554B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D5BB103-CD4A-498F-9ABC-6DF9CDF554B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D5BB103-CD4A-498F-9ABC-6DF9CDF554B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79B230F6-41E5-4376-975D-4289C56A5E57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79B230F6-41E5-4376-975D-4289C56A5E57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79B230F6-41E5-4376-975D-4289C56A5E57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79B230F6-41E5-4376-975D-4289C56A5E57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B747F3FB-E91C-4A33-9FB5-88C5FFD9068C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B747F3FB-E91C-4A33-9FB5-88C5FFD9068C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B747F3FB-E91C-4A33-9FB5-88C5FFD9068C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B747F3FB-E91C-4A33-9FB5-88C5FFD9068C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA29E704-8CC6-4ADC-802A-9863D08121AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA29E704-8CC6-4ADC-802A-9863D08121AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA29E704-8CC6-4ADC-802A-9863D08121AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA29E704-8CC6-4ADC-802A-9863D08121AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6D5BB103-CD4A-498F-9ABC-6DF9CDF554B6}.Debug|ARM32.ActiveCfg = Debug|ARM32
-		{6D5BB103-CD4A-498F-9ABC-6DF9CDF554B6}.Debug|ARM32.Build.0 = Debug|ARM32
-		{6D5BB103-CD4A-498F-9ABC-6DF9CDF554B6}.Release|ARM32.ActiveCfg = Release|ARM32
-		{6D5BB103-CD4A-498F-9ABC-6DF9CDF554B6}.Release|ARM32.Build.0 = Release|ARM32
-		{79B230F6-41E5-4376-975D-4289C56A5E57}.Debug|ARM32.ActiveCfg = Debug|ARM32
-		{79B230F6-41E5-4376-975D-4289C56A5E57}.Debug|ARM32.Build.0 = Debug|ARM32
-		{79B230F6-41E5-4376-975D-4289C56A5E57}.Release|ARM32.ActiveCfg = Release|ARM32
-		{79B230F6-41E5-4376-975D-4289C56A5E57}.Release|ARM32.Build.0 = Release|ARM32
-		{B747F3FB-E91C-4A33-9FB5-88C5FFD9068C}.Debug|ARM32.ActiveCfg = Debug|ARM32
-		{B747F3FB-E91C-4A33-9FB5-88C5FFD9068C}.Debug|ARM32.Build.0 = Debug|ARM32
-		{B747F3FB-E91C-4A33-9FB5-88C5FFD9068C}.Release|ARM32.ActiveCfg = Release|ARM32
-		{B747F3FB-E91C-4A33-9FB5-88C5FFD9068C}.Release|ARM32.Build.0 = Release|ARM32
-		{AA29E704-8CC6-4ADC-802A-9863D08121AD}.Debug|ARM32.ActiveCfg = Debug|ARM32
-		{AA29E704-8CC6-4ADC-802A-9863D08121AD}.Debug|ARM32.Build.0 = Debug|ARM32
-		{AA29E704-8CC6-4ADC-802A-9863D08121AD}.Release|ARM32.ActiveCfg = Release|ARM32
-		{AA29E704-8CC6-4ADC-802A-9863D08121AD}.Release|ARM32.Build.0 = Release|ARM32
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1B61BB11-8381-46F9-B786-044BF45CDE82} = {D2C8FAB1-CB27-4BBF-8E28-1C584AA7BA9E}
 		{B2412CE9-8CB4-4847-A2BB-78B69D12012C} = {1B61BB11-8381-46F9-B786-044BF45CDE82}
 		{AA29E704-8CC6-4ADC-802A-9863D08121AD} = {B2412CE9-8CB4-4847-A2BB-78B69D12012C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2109418A-3E3E-4712-A576-65AF1B4E1949}
 	EndGlobalSection
 EndGlobal
