@@ -5,7 +5,7 @@
     <PublishSingleFile>false</PublishSingleFile>
     <SelfContained>false</SelfContained>
     <Platforms>AnyCPU</Platforms>
-    <PublishReadyToRun>true</PublishReadyToRun>
+    <PublishReadyToRun>false</PublishReadyToRun>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DefineConstants />

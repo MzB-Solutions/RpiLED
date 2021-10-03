@@ -6,7 +6,7 @@
     <PublishSingleFile>false</PublishSingleFile>
     <SelfContained>false</SelfContained>
     <Platforms>AnyCPU</Platforms>
-    <PublishReadyToRun>true</PublishReadyToRun>
+    <PublishReadyToRun>false</PublishReadyToRun>
     <StartupObject>RpiLED.Cli.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

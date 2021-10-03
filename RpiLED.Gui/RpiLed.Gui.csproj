@@ -6,7 +6,7 @@
     <PublishSingleFile>false</PublishSingleFile>
     <SelfContained>false</SelfContained>
     <Platforms>AnyCPU</Platforms>
-    <PublishReadyToRun>true</PublishReadyToRun>
+    <PublishReadyToRun>false</PublishReadyToRun>
     <Nullable>enable</Nullable>
     <StartupObject>RpiLed.Gui.Program</StartupObject>
   </PropertyGroup>
