@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B2412CE9-8CB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoLovers.ConsoleToolkit.Core", "vendor\ConsoLovers\src\ConsoLovers.ConsoleToolkit.Core\ConsoLovers.ConsoleToolkit.Core.csproj", "{AA29E704-8CC6-4ADC-802A-9863D08121AD}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyConsole", "vendor\EasyConsole\EasyConsole.csproj", "{2629BF80-35A6-4A1F-9DA2-06DFBE4A96C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{AA29E704-8CC6-4ADC-802A-9863D08121AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA29E704-8CC6-4ADC-802A-9863D08121AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA29E704-8CC6-4ADC-802A-9863D08121AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2629BF80-35A6-4A1F-9DA2-06DFBE4A96C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2629BF80-35A6-4A1F-9DA2-06DFBE4A96C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2629BF80-35A6-4A1F-9DA2-06DFBE4A96C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2629BF80-35A6-4A1F-9DA2-06DFBE4A96C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,10 +55,10 @@ Global
 		{AA29E704-8CC6-4ADC-802A-9863D08121AD} = {B2412CE9-8CB4-4847-A2BB-78B69D12012C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_ExcelExportMode = MultipleSheets
-		RESX_ConfirmAddLanguageFile = True
-		RESX_SortFileContentOnSave = False
-		RESX_NeutralResourcesLanguage = en-GB
 		SolutionGuid = {2109418A-3E3E-4712-A576-65AF1B4E1949}
+		RESX_NeutralResourcesLanguage = en-GB
+		RESX_SortFileContentOnSave = False
+		RESX_ConfirmAddLanguageFile = True
+		RESX_ExcelExportMode = MultipleSheets
 	EndGlobalSection
 EndGlobal
