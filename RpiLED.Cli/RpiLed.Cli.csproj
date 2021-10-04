@@ -7,7 +7,7 @@
     <SelfContained>false</SelfContained>
     <Platforms>AnyCPU</Platforms>
     <PublishReadyToRun>false</PublishReadyToRun>
-    <RuntimeIdentifiers>win-x86;linux-arm;win-arm</RuntimeIdentifiers>
+    <RuntimeIdentifiers>win-x64;win-arm;win-arm64;linux-arm;linux-arm64;linux-x64</RuntimeIdentifiers>
     <StartupObject>RpiLED.Cli.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -18,19 +18,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
-  <PropertyGroup>
-    <SshDeployHost>pinky.mzb.home</SshDeployHost>
-    <SshDeployClean />
-    <SshDeployTargetPath>/home/smzb/projects/RpiLED</SshDeployTargetPath>
-    <SshDeployUsername>smzb</SshDeployUsername>
-    <SshDeployPassword>trustNO!11380</SshDeployPassword>
-    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-  </PropertyGroup>
-  <Target Condition="$(BuildingInsideSshDeploy) == '' and $(RuntimeIdentifier) == 'linux-arm'" Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="cd $(ProjectDir)" />
-    <Exec Command="dotnet-sshdeploy push -r $(RuntimeIdentifier)" />
-  </Target>
-
   <ItemGroup>
     <ProjectReference Include="..\RpiLED.Core\RpiLed.Core.csproj" />
     <ProjectReference Include="..\vendor\ConsoLovers\src\ConsoLovers.ConsoleToolkit.Core\ConsoLovers.ConsoleToolkit.Core.csproj" />
