@@ -76,7 +76,7 @@ publish-gui: --publish_gui
 
 cli: build-cli
 	$(info ************  Running RpiLED.Cli  ************)
-	$(_RUN) --project $(CLI_PATH) -- -h
+	$(_RUN) --project $(CLI_PATH)
 
 gui: build-gui
 	$(info ************  Running RpiLED.Gui  ************)
