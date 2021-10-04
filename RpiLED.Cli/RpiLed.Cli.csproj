@@ -26,9 +26,9 @@
     <SshDeployPassword>trustNO!11380</SshDeployPassword>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
-  <Target Condition="$(BuildingInsideSshDeploy) ==''" Name="PostBuild" AfterTargets="PostBuildEvent">
+  <Target Condition="$(BuildingInsideSshDeploy) == '' and $(RuntimeIdentifier) == 'linux-arm'" Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="cd $(ProjectDir)" />
-    <Exec Command="dotnet-sshdeploy push" />
+    <Exec Command="dotnet-sshdeploy push -r $(RuntimeIdentifier)" />
   </Target>
 
   <ItemGroup>
