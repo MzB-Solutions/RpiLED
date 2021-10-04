@@ -21,12 +21,12 @@ LOGO=--nologo
 OUTPUT_DIR=./output/
 BINARY_DUMP=bin/
 OBJECT_DUMP=obj/
-BINARIES=BINARY_DUMP OBJECT_DUMP
-_CLEAN=dotnet clean
-_RESTORE=dotnet restore
-_BUILD=dotnet build
-_PUBLISH=dotnet publish
-_RUN=dotnet run
+BINARIES=$(BINARY_DUMP) $(OBJECT_DUMP)
+_CLEAN=dotnet clean -v $(VERBOSITY)
+_RESTORE=dotnet restore -v $(VERBOSITY)
+_BUILD=dotnet build -v $(VERBOSITY)
+_PUBLISH=dotnet publish -v $(VERBOSITY)
+_RUN=dotnet run -v $(VERBOSITY)
 
 # as per https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
 ## This app specifically is aimed at RaspBerryPi's, so linux-arm is the only logical choice
@@ -39,7 +39,7 @@ SELF_CONTAINED=--self-contained -r $(RUNTIME)
 ####################
 all: clean restore build publish
 
-clean: --clean_sln
+clean: --clean_all
 	$(info ************  Cleaned Solution and NuGet packages  ************)
 
 full_clean: --clean_disk clean
@@ -50,7 +50,7 @@ restore: clean --restore_cli --restore_gui
 
 configure: restore
 
-build: --build_cli --build_gui
+build: build-cli build-gui
 	$(info ************  Built both RpiLED.Cli & RpiLED.Gui and their dependencies  ************)
 	touch $@
 
@@ -74,11 +74,11 @@ publish-gui: --publish_gui
 	$(info ************  Published RpiLED.Gui  ************)
 	touch $@
 
-cli: --build_cli
+cli: build-cli
 	$(info ************  Running RpiLED.Cli  ************)
 	$(_RUN) --project $(CLI_PATH) -- -h
 
-gui: --build_gui
+gui: build-gui
 	$(info ************  Running RpiLED.Gui  ************)
 	$(_RUN) --project $(GUI_PATH)
 
@@ -88,8 +88,8 @@ gui: --build_gui
 
 --clean_extras:
 	$(info ************  Cleaning libraries  ************)
-	$(_CLEAN) -v $(VERBOSITY) $(LOGO) $(CORE_PATH)$(CORE_PROJECT)
-	$(_CLEAN) -v $(VERBOSITY) $(LOGO) $(VENDOR1)
+	$(_CLEAN) $(LOGO) $(CORE_PATH)$(CORE_PROJECT)
+	$(_CLEAN) $(LOGO) $(VENDOR1)
 
 --clean_makefile_markers:
 	$(info ************  Cleaning makefile markers  ************)
@@ -100,11 +100,11 @@ gui: --build_gui
 
 --clean_cli:
 	$(info ************  Cleaning RpiLED.Cli  ************)
-	$(_CLEAN) -v $(VERBOSITY) $(LOGO) $(CLI_PATH)$(CLI_PROJECT)
+	$(_CLEAN) $(LOGO) $(CLI_PATH)$(CLI_PROJECT)
 
 --clean_gui:
 	$(info ************  Cleaning RpiLED.Gui  ************)
-	$(_CLEAN) -v $(VERBOSITY) $(LOGO) $(GUI_PATH)$(GUI_PROJECT)
+	$(_CLEAN) $(LOGO) $(GUI_PATH)$(GUI_PROJECT)
 
 --clean_output:
 	$(info  ************ Cleaning ./output/ directory  ************)
@@ -125,15 +125,15 @@ gui: --build_gui
 
 --clean_all: --clean_sln
 	$(info ************  Cleaning Solution (.sln)  ************)
-	$(_CLEAN) -v $(VERBOSITY) $(LOGO) ./$(SOLUTION)
+	$(_CLEAN) $(LOGO) ./$(SOLUTION)
 
 --restore_cli: --clean_cli
 	$(info ************  Restoring RpiLED.Cli  ************)
-	$(_RESTORE) -v $(VERBOSITY) --force --force-evaluate $(CLI_PATH)$(CLI_PROJECT)
+	$(_RESTORE) --force --force-evaluate $(CLI_PATH)$(CLI_PROJECT)
 
 --restore_gui: --clean_gui
 	$(info  ************  Restoring RpiLED.Gui  ************)
-	$(_RESTORE) -v $(VERBOSITY) --force --force-evaluate $(GUI_PATH)$(GUI_PROJECT)
+	$(_RESTORE) --force --force-evaluate $(GUI_PATH)$(GUI_PROJECT)
 
 --build_cli: --restore_cli
 	$(info ************  Building RpiLED.Cli  ************)
