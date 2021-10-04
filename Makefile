@@ -27,12 +27,14 @@ _RESTORE=dotnet restore -v $(VERBOSITY)
 _BUILD=dotnet build -v $(VERBOSITY)
 _PUBLISH=dotnet publish -v $(VERBOSITY)
 _RUN=dotnet run -v $(VERBOSITY)
+_RMF=rm -vf
+_RMD=rm -vrf
 
 # as per https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
 ## This app specifically is aimed at RaspBerryPi's, so linux-arm is the only logical choice
 ## win-arm;win-arm64;linux-arm;linux-arm64
 RUNTIME=linux-arm
-SELF_CONTAINED=--self-contained -r $(RUNTIME)
+CONTAINMENT=--self-contained
 
 ####################
 ## Public Targets ##
@@ -93,10 +95,10 @@ gui: build-gui
 
 --clean_makefile_markers:
 	$(info ************  Cleaning makefile markers  ************)
-	rm -vf clean
-	rm -vf restore
-	rm -vf build*
-	rm -vf publish*
+	$(_RMF) clean
+	$(_RMF) restore
+	$(_RMF) build*
+	$(_RMF) publish*
 
 --clean_cli:
 	$(info ************  Cleaning RpiLED.Cli  ************)
@@ -108,18 +110,18 @@ gui: build-gui
 
 --clean_output:
 	$(info  ************ Cleaning ./output/ directory  ************)
-	rm -vrf $(OUTPUT_DIR)
+	$(_RMD) $(OUTPUT_DIR)
 
 --clean_disk: --clean_makefile_markers
 	$(warning ************  This deletes all assets, obj files and build-states  ************)
-	rm -vrf $(CORE_PATH)$(BINARY_DUMP)
-	rm -vrf $(CORE_PATH)$(OBJECT_DUMP)
-	rm -vrf $(VENDOR_LIB_ConsoLovers)$(VENDOR_PROJECT_PATH_ConsoLoversCore)$(BINARY_DUMP)
-	rm -vrf $(VENDOR_LIB_ConsoLovers)$(VENDOR_PROJECT_PATH_ConsoLoversCore)$(OBJECT_DUMP)
-	rm -vrf $(CLI_PATH)$(BINARY_DUMP)
-	rm -vrf $(CLI_PATH)$(OBJECT_DUMP)
-	rm -vrf $(GUI_PATH)$(BINARY_DUMP)
-	rm -vrf $(GUI_PATH)$(OBJECT_DUMP)
+	$(_RMD) $(CORE_PATH)$(BINARY_DUMP)
+	$(_RMD) $(CORE_PATH)$(OBJECT_DUMP)
+	$(_RMD) $(VENDOR_LIB_ConsoLovers)$(VENDOR_PROJECT_PATH_ConsoLoversCore)$(BINARY_DUMP)
+	$(_RMD) $(VENDOR_LIB_ConsoLovers)$(VENDOR_PROJECT_PATH_ConsoLoversCore)$(OBJECT_DUMP)
+	$(_RMD) $(CLI_PATH)$(BINARY_DUMP)
+	$(_RMD) $(CLI_PATH)$(OBJECT_DUMP)
+	$(_RMD) $(GUI_PATH)$(BINARY_DUMP)
+	$(_RMD) $(GUI_PATH)$(OBJECT_DUMP)
 
 --clean_sln: --clean_output --clean_cli --clean_gui --clean_extras
 
@@ -129,25 +131,25 @@ gui: build-gui
 
 --restore_cli: --clean_cli
 	$(info ************  Restoring RpiLED.Cli  ************)
-	$(_RESTORE) --force --force-evaluate $(CLI_PATH)$(CLI_PROJECT)
+	$(_RESTORE) -r $(RUNTIME) --force --force-evaluate $(CLI_PATH)$(CLI_PROJECT)
 
 --restore_gui: --clean_gui
 	$(info  ************  Restoring RpiLED.Gui  ************)
-	$(_RESTORE) --force --force-evaluate $(GUI_PATH)$(GUI_PROJECT)
+	$(_RESTORE) -r $(RUNTIME) --force --force-evaluate $(GUI_PATH)$(GUI_PROJECT)
 
 --build_cli: --restore_cli
 	$(info ************  Building RpiLED.Cli  ************)
-	$(_BUILD) --no-restore $(LOGO) -c $(CONFIGURATION) $(CLI_PATH)$(CLI_PROJECT)
+	$(_BUILD) --no-restore $(LOGO) $(CONTAINMENT) -r $(RUNTIME) -c $(CONFIGURATION) $(CLI_PATH)$(CLI_PROJECT)
 
 --build_gui: --restore_gui
 	$(info ************  Building RpiLED.Gui  ************)
-	$(_BUILD) --no-restore $(LOGO) -c $(CONFIGURATION) $(GUI_PATH)$(GUI_PROJECT)
+	$(_BUILD) --no-restore $(LOGO) $(CONTAINMENT) -r $(RUNTIME) -c $(CONFIGURATION) $(GUI_PATH)$(GUI_PROJECT)
 
 --publish_cli: --build_cli
 	$(info ************  Publishing RpiLED.Cli  ************)
-	$(_PUBLISH) $(LOGO) $(SELF_CONTAINED) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(CLI_PATH)$(CLI_PROJECT)
+	$(_PUBLISH) --no-build $(LOGO) $(CONTAINMENT) -r $(RUNTIME) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(CLI_PATH)$(CLI_PROJECT)
 
 --publish_gui: --build_gui
 	$(info ************  Publishing RpiLED.Gui  ************)
-	$(_PUBLISH) $(LOGO) $(SELF_CONTAINED) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(GUI_PATH)$(GUI_PROJECT)
+	$(_PUBLISH) --no-build $(LOGO) $(CONTAINMENT) -r $(RUNTIME) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(GUI_PATH)$(GUI_PROJECT)
 
