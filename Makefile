@@ -1,4 +1,6 @@
 SHELL=/usr/bin/env bash
+BRANCH_NAME:=$(shell git rev-parse --abbrev-ref HEAD)
+GIT_RESET=false
 CLI_PROJECT=RpiLed.Cli.csproj
 CLI_PATH=./RpiLED.Cli/
 GUI_PROJECT=RpiLed.Gui.csproj
@@ -153,3 +155,24 @@ gui: build-gui
 	$(info ************  Publishing RpiLED.Gui  ************)
 	$(_PUBLISH) --no-build $(LOGO) $(CONTAINMENT) -r $(RUNTIME) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(GUI_PATH)$(GUI_PROJECT)
 
+######################
+## Git-repo targets ##
+######################
+
+update: --git_update --git_reset --git_origin
+reset: --git_update --git_reset_hard --git_origin
+
+--git_update:
+	git fetch -v
+	git status -v
+
+--git_reset:
+	git clean -xdf
+
+--git_reset_hard: --git_reset
+	git reset --hard
+
+--git_origin:
+	git pull origin -v $(BRANCH_NAME)
+	git submodule init
+	git submodule update
