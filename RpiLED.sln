@@ -19,6 +19,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoLovers.ConsoleToolkit.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyConsole", "vendor\EasyConsole\EasyConsole.csproj", "{2629BF80-35A6-4A1F-9DA2-06DFBE4A96C8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{70B521C7-6CAC-4081-9321-F626D0AC24B4}"
+	ProjectSection(SolutionItems) = preProject
+		Makefile = Makefile
+		update.sh = update.sh
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
