@@ -55,10 +55,10 @@ Global
 		{AA29E704-8CC6-4ADC-802A-9863D08121AD} = {B2412CE9-8CB4-4847-A2BB-78B69D12012C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {2109418A-3E3E-4712-A576-65AF1B4E1949}
-		RESX_NeutralResourcesLanguage = en-GB
-		RESX_SortFileContentOnSave = False
-		RESX_ConfirmAddLanguageFile = True
 		RESX_ExcelExportMode = MultipleSheets
+		RESX_ConfirmAddLanguageFile = True
+		RESX_SortFileContentOnSave = False
+		RESX_NeutralResourcesLanguage = en-GB
+		SolutionGuid = {2109418A-3E3E-4712-A576-65AF1B4E1949}
 	EndGlobalSection
 EndGlobal

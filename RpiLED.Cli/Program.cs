@@ -8,10 +8,6 @@ namespace RpiLED.Cli
 {
     internal class Program
     {
-<<<<<<< Updated upstream
-        private static void Main(string[] args)
-        {
-=======
         /// <summary>
         /// Do a clean exit with an errorcode
         /// </summary>
@@ -34,7 +30,6 @@ namespace RpiLED.Cli
                 // Spawn a new cli-menu
                 new CliMenu().Run();
             }
->>>>>>> Stashed changes
             //Console.WriteLine("Hello World!");
             ConsoleApplicationManager.For<AppBootstrap>()
                 .SetWindowHeight(80)
