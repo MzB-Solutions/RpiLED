@@ -34,9 +34,8 @@ _RMD=rm -vrf
 
 # as per https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
 ## This app specifically is aimed at RaspBerryPi's, so linux-arm is the only logical choice
-## win-arm;win-arm64;linux-arm;linux-arm64
 RUNTIME=linux-arm
-CONTAINMENT=--self-contained true
+CONTAINMENT=--self-contained
 
 ####################
 ## Public Targets ##
