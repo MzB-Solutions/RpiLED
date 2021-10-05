@@ -31,5 +31,7 @@
     <Content Include="Commands\WriteCommandArgs.cs" />
     <Content Include="Bootstrap\AppArguments.cs" />
     <Content Include="Bootstrap\AppBootstrap.cs" />
+    <Content Include="Bootstrap\Pages\MainPage.cs" />
+    <Content Include="Bootstrap\CliMenu.cs" />
   </ItemGroup>
 </Project>

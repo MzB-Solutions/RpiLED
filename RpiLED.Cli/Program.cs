@@ -20,8 +20,6 @@ namespace RpiLED.Cli
             {
                 // Spawn a new cli-menu
                 _ = new CliMenu();
-                // Also set -h for help output
-                args = new[] {"-h"};
             }
             //Console.WriteLine("Hello World!");
             ConsoleApplicationManager.For<AppBootstrap>()

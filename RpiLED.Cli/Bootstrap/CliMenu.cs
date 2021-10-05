@@ -1,16 +1,15 @@
 ﻿using System;
 using EasyConsole;
+using RpiLED.Cli.Bootstrap.Pages;
 
 namespace RpiLED.Cli.Bootstrap
 {
-    public class CliMenu
+    public class CliMenu : EasyConsole.Program
     {
-        public CliMenu()
+        public CliMenu() : base("RpiLED.CLI Menu Interface", breadcrumbHeader: true)
         {
-            var menu = new EasyConsole.Menu()
-                .Add("GPIO", () => Output.WriteLine("GPIO selected..", "green"))
-                .Add("PWM", () => Output.WriteLine("PWM selected..", "blue"));
-            menu.Display();
+            AddPage(new MainPage(this));
+            SetPage<MainPage>();
         }
     }
 }
