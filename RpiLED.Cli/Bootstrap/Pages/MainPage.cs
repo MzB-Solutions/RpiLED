@@ -11,8 +11,8 @@ namespace RpiLED.Cli.Bootstrap.Pages
     public MainPage(EasyConsole.Program program)
         : base("Main Page", program,
               new Option("GPIO", () => program.NavigateTo<GpioPage>()),
-              new Option("Page 2", () => program.NavigateTo<PwmPage>()),
-              new Option("Input", () => program.NavigateTo<StatusPage>()),
+              new Option("PWM", () => program.NavigateTo<PwmPage>()),
+              new Option("Pin Status", () => program.NavigateTo<StatusPage>()),
               new Option("Quit", () => return false;))
     {
     }
