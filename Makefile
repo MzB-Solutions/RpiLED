@@ -23,7 +23,7 @@ BINARY_DUMP=bin/
 OBJECT_DUMP=obj/
 BINARIES=$(BINARY_DUMP) $(OBJECT_DUMP)
 _CLEAN=dotnet clean -v $(VERBOSITY)
-_RESTORE=dotnet restore -v $(VERBOSITY)
+_RESTORE=dotnet restore --force --force-evaluate -v $(VERBOSITY)
 _BUILD=dotnet build -v $(VERBOSITY)
 _PUBLISH=dotnet publish -v $(VERBOSITY)
 _RUN=dotnet run -v $(VERBOSITY)
@@ -34,7 +34,7 @@ _RMD=rm -vrf
 ## This app specifically is aimed at RaspBerryPi's, so linux-arm is the only logical choice
 ## win-arm;win-arm64;linux-arm;linux-arm64
 RUNTIME=linux-arm
-CONTAINMENT=--self-contained
+CONTAINMENT=--self-contained true
 
 ####################
 ## Public Targets ##
@@ -131,19 +131,19 @@ gui: build-gui
 
 --restore_cli: --clean_cli
 	$(info ************  Restoring RpiLED.Cli  ************)
-	$(_RESTORE) -r $(RUNTIME) --force --force-evaluate $(CLI_PATH)$(CLI_PROJECT)
+	$(_RESTORE) -r $(RUNTIME) $(CLI_PATH)$(CLI_PROJECT)
 
 --restore_gui: --clean_gui
 	$(info  ************  Restoring RpiLED.Gui  ************)
-	$(_RESTORE) -r $(RUNTIME) --force --force-evaluate $(GUI_PATH)$(GUI_PROJECT)
+	$(_RESTORE) -r $(RUNTIME) $(GUI_PATH)$(GUI_PROJECT)
 
 --build_cli: --restore_cli
 	$(info ************  Building RpiLED.Cli  ************)
-	$(_BUILD) --no-restore $(LOGO) $(CONTAINMENT) -r $(RUNTIME) -c $(CONFIGURATION) $(CLI_PATH)$(CLI_PROJECT)
+	$(_BUILD) --no-restore $(LOGO) -r $(RUNTIME) -c $(CONFIGURATION) $(CLI_PATH)$(CLI_PROJECT)
 
 --build_gui: --restore_gui
 	$(info ************  Building RpiLED.Gui  ************)
-	$(_BUILD) --no-restore $(LOGO) $(CONTAINMENT) -r $(RUNTIME) -c $(CONFIGURATION) $(GUI_PATH)$(GUI_PROJECT)
+	$(_BUILD) --no-restore $(LOGO) -r $(RUNTIME) -c $(CONFIGURATION) $(GUI_PATH)$(GUI_PROJECT)
 
 --publish_cli: --build_cli
 	$(info ************  Publishing RpiLED.Cli  ************)
