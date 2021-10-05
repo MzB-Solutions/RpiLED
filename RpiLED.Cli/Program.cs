@@ -1,5 +1,8 @@
-﻿using ConsoLovers.ConsoleToolkit.Core;
+﻿using System;
+using System.Linq;
+using ConsoLovers.ConsoleToolkit.Core;
 using RpiLED.Cli.Bootstrap;
+using EasyConsole;
 
 namespace RpiLED.Cli
 {

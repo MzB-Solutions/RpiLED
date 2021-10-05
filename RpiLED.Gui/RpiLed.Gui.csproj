@@ -4,19 +4,19 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <PublishSingleFile>false</PublishSingleFile>
-    <SelfContained>true</SelfContained>
-    <RuntimeIdentifier>linux-arm</RuntimeIdentifier>
-    <Platforms>ARM32</Platforms>
-    <PublishReadyToRun>true</PublishReadyToRun>
+    <SelfContained>false</SelfContained>
+    <Platforms>AnyCPU</Platforms>
+    <RuntimeIdentifiers>win-x64;win-arm;win-arm64;linux-arm;linux-arm64;linux-x64</RuntimeIdentifiers>
+    <PublishReadyToRun>false</PublishReadyToRun>
     <Nullable>enable</Nullable>
     <StartupObject>RpiLed.Gui.Program</StartupObject>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM32'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG</DefineConstants>
-    <PlatformTarget>ARM32</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM32'">
-    <PlatformTarget>ARM32</PlatformTarget>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Models\" />
