@@ -16,6 +16,8 @@ namespace RpiLed.Cli.Bootstrap.Pages.Gpio
         {
             base.Display();
             Output.WriteLine(ConsoleColor.DarkRed,"Not implemented yet!");
+            Input.ReadString("Press any key to return");
+            base.Program.NavigateHome();
         }
     }
 }

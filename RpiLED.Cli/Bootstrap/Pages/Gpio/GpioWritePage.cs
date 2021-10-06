@@ -33,6 +33,8 @@ namespace RpiLed.Cli.Bootstrap.Pages.Gpio
                     throw new ArgumentOutOfRangeException("Please only provide 0 (zero/null) or 1(one) values");
             }
             Output.WriteLine(ConsoleColor.Blue, $"Pin value: {pin.PinState}");
+            Input.ReadString("Press any key to return");
+            base.Program.NavigateHome();
         }
     }
 }
