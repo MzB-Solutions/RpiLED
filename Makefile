@@ -24,6 +24,11 @@ OUTPUT_DIR=./output/
 BINARY_DUMP=bin/
 OBJECT_DUMP=obj/
 BINARIES=$(BINARY_DUMP) $(OBJECT_DUMP)
+# as per https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
+## This app specifically is aimed at RaspBerryPi's, so linux-arm is the only logical choice
+RUNTIME=linux-arm
+CONTAINMENT=--self-contained
+
 _CLEAN=dotnet clean -v $(VERBOSITY)
 _RESTORE=dotnet restore --force --force-evaluate -v $(VERBOSITY)
 _BUILD=dotnet build -v $(VERBOSITY)
@@ -32,10 +37,7 @@ _RUN=dotnet run -v $(VERBOSITY)
 _RMF=rm -vf
 _RMD=rm -vrf
 
-# as per https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
-## This app specifically is aimed at RaspBerryPi's, so linux-arm is the only logical choice
-RUNTIME=linux-arm
-CONTAINMENT=--self-contained
+
 
 ####################
 ## Public Targets ##
@@ -140,24 +142,25 @@ gui: build-gui
 
 --build_cli: --restore_cli
 	$(info ************  Building RpiLED.Cli  ************)
-	$(_BUILD) --no-restore $(LOGO) -r $(RUNTIME) -c $(CONFIGURATION) $(CLI_PATH)$(CLI_PROJECT)
+	$(_BUILD) $(LOGO) -r $(RUNTIME) -c $(CONFIGURATION) $(CLI_PATH)$(CLI_PROJECT)
 
 --build_gui: --restore_gui
 	$(info ************  Building RpiLED.Gui  ************)
-	$(_BUILD) --no-restore $(LOGO) -r $(RUNTIME) -c $(CONFIGURATION) $(GUI_PATH)$(GUI_PROJECT)
+	$(_BUILD) $(LOGO) -r $(RUNTIME) -c $(CONFIGURATION) $(GUI_PATH)$(GUI_PROJECT)
 
 --publish_cli: --build_cli
 	$(info ************  Publishing RpiLED.Cli  ************)
-	$(_PUBLISH) --no-build $(LOGO) $(CONTAINMENT) -r $(RUNTIME) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(CLI_PATH)$(CLI_PROJECT)
+	$(_PUBLISH) $(LOGO) $(CONTAINMENT) -r $(RUNTIME) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(CLI_PATH)$(CLI_PROJECT)
 
 --publish_gui: --build_gui
 	$(info ************  Publishing RpiLED.Gui  ************)
-	$(_PUBLISH) --no-build $(LOGO) $(CONTAINMENT) -r $(RUNTIME) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(GUI_PATH)$(GUI_PROJECT)
+	$(_PUBLISH) $(LOGO) $(CONTAINMENT) -r $(RUNTIME) -c $(CONFIGURATION) -o $(OUTPUT_DIR) $(GUI_PATH)$(GUI_PROJECT)
 
 ######################
 ## Git-repo targets ##
 ######################
 
+status: --git_update
 update: --git_update --git_reset --git_origin
 reset: --git_update --git_reset_hard --git_origin
 
