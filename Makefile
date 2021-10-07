@@ -14,6 +14,11 @@ VENDOR_PROJECT_ConsoLoversCore=ConsoLovers.ConsoleToolkit.Core.csproj
 VENDOR_PROJECT_ConsoLoversCore_file=$(VENDOR_LIB_ConsoLovers)$(VENDOR_PROJECT_PATH_ConsoLoversCore)$(VENDOR_PROJECT_ConsoLoversCore)
 ## all vendors ...
 VENDOR1=$(VENDOR_PROJECT_ConsoLoversCore_file)
+# EasyConsole
+VENDOR_LIB_EasyConsole=./vendor/EasyConsole/
+VENDOR_PROJECT_EasyConsole=EasyConsole.csproj
+VENDOR2=$(VENDOR_LIB_EasyConsole)$(VENDOR_PROJECT_EasyConsole)
+
 SOLUTION=RpiLED.sln
 
 ## {q[uiet],m[inimal],n[ormal],d[etailed],diag[nostic]}
@@ -95,6 +100,7 @@ gui: build-gui
 	$(info ************  Cleaning libraries  ************)
 	$(_CLEAN) $(LOGO) $(CORE_PATH)$(CORE_PROJECT)
 	$(_CLEAN) $(LOGO) $(VENDOR1)
+	$(_CLEAN) $(LOGO) $(VENDOR2)
 
 --clean_makefile_markers:
 	$(info ************  Cleaning makefile markers  ************)
@@ -115,12 +121,14 @@ gui: build-gui
 	$(info  ************ Cleaning ./output/ directory  ************)
 	$(_RMD) $(OUTPUT_DIR)
 
---clean_disk: --clean_makefile_markers
+--clean_disk:
 	$(warning ************  This deletes all assets, obj files and build-states  ************)
 	$(_RMD) $(CORE_PATH)$(BINARY_DUMP)
 	$(_RMD) $(CORE_PATH)$(OBJECT_DUMP)
 	$(_RMD) $(VENDOR_LIB_ConsoLovers)$(VENDOR_PROJECT_PATH_ConsoLoversCore)$(BINARY_DUMP)
 	$(_RMD) $(VENDOR_LIB_ConsoLovers)$(VENDOR_PROJECT_PATH_ConsoLoversCore)$(OBJECT_DUMP)
+	$(_RMD) $(VENDOR_LIB_EasyConsole)$(BINARY_DUMP)
+	$(_RMD) $(VENDOR_LIB_EasyConsole)$(OBJECT_DUMP)
 	$(_RMD) $(CLI_PATH)$(BINARY_DUMP)
 	$(_RMD) $(CLI_PATH)$(OBJECT_DUMP)
 	$(_RMD) $(GUI_PATH)$(BINARY_DUMP)
@@ -128,7 +136,7 @@ gui: build-gui
 
 --clean_sln: --clean_output --clean_cli --clean_gui --clean_extras
 
---clean_all: --clean_sln
+--clean_all: --clean_makefile_markers --clean_sln
 	$(info ************  Cleaning Solution (.sln)  ************)
 	$(_CLEAN) $(LOGO) ./$(SOLUTION)
 
