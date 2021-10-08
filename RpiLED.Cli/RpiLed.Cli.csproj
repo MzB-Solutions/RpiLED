@@ -19,22 +19,16 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Commands\CharacterCommand.cs" />
-    <Compile Remove="Commands\CharacterCommandArgs.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\RpiLED.Core\RpiLed.Core.csproj" />
     <ProjectReference Include="..\vendor\ConsoLovers\src\ConsoLovers.ConsoleToolkit.Core\ConsoLovers.ConsoleToolkit.Core.csproj" />
     <ProjectReference Include="..\vendor\EasyConsole\EasyConsole.csproj" />
-    <Content Include="Commands\CharacterCommand.cs" />
-    <Content Include="Commands\CharacterCommandArgs.cs" />
     <Content Include="Program.cs" />
     <Content Include="Commands\PwmCommand.cs" />
-    <Content Include="Commands\PwmCommandArgs.cs" />
+    <Content Include="Bootstrap\CommandArguments\PwmCommandArgs.cs" />
     <Content Include="Commands\ReadCommand.cs" />
-    <Content Include="Commands\ReadCommandArgs.cs" />
+    <Content Include="Bootstrap\CommandArguments\ReadCommandArgs.cs" />
     <Content Include="Commands\WriteCommand.cs" />
-    <Content Include="Commands\WriteCommandArgs.cs" />
+    <Content Include="Bootstrap\CommandArguments\WriteCommandArgs.cs" />
     <Content Include="Bootstrap\AppArguments.cs" />
     <Content Include="Bootstrap\AppBootstrap.cs" />
     <Content Include="Bootstrap\Pages\MainPage.cs" />

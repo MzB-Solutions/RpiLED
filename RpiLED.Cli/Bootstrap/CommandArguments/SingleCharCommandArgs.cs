@@ -2,12 +2,12 @@
 
 namespace RpiLED.Cli.Commands
 {
-    [HelpTextProvider(typeof(CharacterCommandArgs))]
-    public class CharacterCommandArgs : TypeHelpProvider
+    [HelpTextProvider(typeof(SingleCharCommandArgs))]
+    public class SingleCharCommandArgs : TypeHelpProvider
     {
-        [Argument("Value", "v", Required = true)]
-        [HelpText("What to write to this pin, [any valid single-digit hexadecimal value]")]
-        public char Value { get; set; };
+        [Argument("character","c")]
+        [HelpText("Provide a single character in the hexadecimal range")]
+        public char Character { get; set; }
 
         public override void WriteTypeFooter(TypeHelpRequest helpRequest)
         {
@@ -17,9 +17,9 @@ namespace RpiLED.Cli.Commands
 
         public override void WriteTypeHeader(TypeHelpRequest helpRequest)
         {
-            Console.WriteLine(" ╔══════════════════════════════╗");
-            Console.WriteLine(" ║  'character' ARGUMENT HELP   ║");
-            Console.WriteLine(" ╚══════════════════════════════╝");
+            Console.WriteLine(" ╔═══════════════════════════╗");
+            Console.WriteLine(" ║  'single' ARGUMENT HELP   ║");
+            Console.WriteLine(" ╚═══════════════════════════╝");
             Console.WriteLine();
         }
     }

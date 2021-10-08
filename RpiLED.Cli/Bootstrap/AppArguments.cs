@@ -34,9 +34,9 @@ namespace RpiLED.Cli.Bootstrap
         [HelpText("This writes the value to the given pin. (see -p -v)")]
         public WriteCommand Write { get; set; }
 
-        [Command("CHARACTER","c")]
+        [Command("SingleCharacter","s")]
         [HelpText("This writes a hexadecimal value via the shiftregister")]
-        public CharacterCommand Character { get; set; }
+        public SingleCharCommand SingleChar { get; set; }
 
         #endregion Public Properties
 
@@ -46,11 +46,9 @@ namespace RpiLED.Cli.Bootstrap
         {
             Console.WriteLine();
             Console.WriteLine("►───────────────────────────────────────────────────────────────────────────◄");
-            if (KeyWait)
-            {
-                Console.Write(Resources.ExitPrompt);
-                Console.ReadLine();
-            }
+            if (!KeyWait) return;
+            Console.Write(Resources.ExitPrompt);
+            Console.ReadLine();
         }
 
         public override void WriteTypeHeader(TypeHelpRequest helpRequest)
