@@ -1,5 +1,6 @@
 ﻿using System;
 using ConsoLovers.ConsoleToolkit.Core.CommandLineArguments;
+using RpiLed.Cli.CommandArguments;
 using RpiLED.Cli.Properties;
 using RpiLed.Core;
 using RpiLED.Core.Models;

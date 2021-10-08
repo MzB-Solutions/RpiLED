@@ -1,7 +1,9 @@
 ﻿using ConsoLovers.ConsoleToolkit.Core.CommandLineArguments;
+using RpiLed.Cli.CommandArguments;
+using RpiLED.Cli.Commands;
 using RpiLed.Core.Services;
 
-namespace RpiLED.Cli.Commands
+namespace RpiLed.Cli.Commands
 {
     public class SingleCharCommand : ICommand<SingleCharCommandArgs>
     {

@@ -1,18 +1,23 @@
 ﻿using ConsoLovers.ConsoleToolkit.Core.CommandLineArguments;
 
-namespace RpiLED.Cli.Commands
+namespace RpiLed.Cli.CommandArguments
 {
-    [HelpTextProvider(typeof(WriteCommandArgs))]
-    public class WriteCommandArgs : TypeHelpProvider
+    [HelpTextProvider(typeof(PwmCommandArgs))]
+    public class PwmCommandArgs : TypeHelpProvider
     {
+        #region Public Properties
+
         [Argument("Pin", "p", Required = true)]
         [HelpText("The number of the physical pin to use. ie: 12")]
         public int Pin { get; set; }
 
-        [Argument("Value", "v", Required = false)]
-        [HelpText("What to write to this pin, Default: false [false = low]  [true = high]")]
-        [DetailedHelpText("If no value is given we apply a low signal to the pin (ie: false)")]
-        public bool Value { get; set; } = false;
+        [Argument("Value", "v", Required = true)]
+        [HelpText("What to write to this pin, A value between 0 and 100 percent")]
+        public int Value { get; set; }
+
+        #endregion Public Properties
+
+        #region Public Methods
 
         public override void WriteTypeFooter(TypeHelpRequest helpRequest)
         {
@@ -27,5 +32,7 @@ namespace RpiLED.Cli.Commands
             Console.WriteLine(" ╚══════════════════════════╝");
             Console.WriteLine();
         }
+
+        #endregion Public Methods
     }
 }

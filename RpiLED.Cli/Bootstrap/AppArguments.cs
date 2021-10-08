@@ -1,4 +1,5 @@
 ﻿using ConsoLovers.ConsoleToolkit.Core.CommandLineArguments;
+using RpiLed.Cli.Commands;
 using RpiLED.Cli.Commands;
 using RpiLED.Cli.Properties;
 

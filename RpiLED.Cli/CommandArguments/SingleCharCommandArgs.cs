@@ -1,6 +1,6 @@
 ﻿using ConsoLovers.ConsoleToolkit.Core.CommandLineArguments;
 
-namespace RpiLED.Cli.Commands
+namespace RpiLed.Cli.CommandArguments
 {
     [HelpTextProvider(typeof(SingleCharCommandArgs))]
     public class SingleCharCommandArgs : TypeHelpProvider
