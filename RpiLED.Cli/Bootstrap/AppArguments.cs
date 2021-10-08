@@ -34,6 +34,10 @@ namespace RpiLED.Cli.Bootstrap
         [HelpText("This writes the value to the given pin. (see -p -v)")]
         public WriteCommand Write { get; set; }
 
+        [Command("CHARACTER","c")]
+        [HelpText("This writes a hexacdecimal value via the shiftregister")]
+        public CharacterCommand Character { get; set; }
+
         #endregion Public Properties
 
         #region Public Methods
