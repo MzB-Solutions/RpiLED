@@ -6,7 +6,7 @@ namespace RpiLED.Cli.Commands
     public class CharacterCommandArgs : TypeHelpProvider
     {
         [Argument("Value", "v", Required = true)]
-        [HelpText("What to write to this pin, [any valid hexadecimal value]")]
+        [HelpText("What to write to this pin, [any valid single-digit hexadecimal value]")]
         public char Value { get; set; };
 
         public override void WriteTypeFooter(TypeHelpRequest helpRequest)
