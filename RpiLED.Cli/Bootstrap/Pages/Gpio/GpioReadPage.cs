@@ -20,7 +20,7 @@ namespace RpiLed.Cli.Bootstrap.Pages.Gpio
             var pin = new PinModel(_pinId, PinService.Gpio);
             Output.WriteLine(ConsoleColor.Blue, $"Pin value: {pin.PinState}");
             Input.ReadString("Press any key to return");
-            base.Program.NavigateHome();
+            Program.NavigateHome();
         }
     }
 }

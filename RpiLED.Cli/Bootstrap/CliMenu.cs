@@ -7,18 +7,9 @@ namespace RpiLED.Cli.Bootstrap
 {
     public class CliMenu : EasyConsole.Program
     {
-        private bool _isRunning = false;
-
-        public bool IsRunning
-        {
-            get => _isRunning;
-            set => _isRunning = value;
-        }
-
         public CliMenu() : base("RpiLED.CLI Menu Interface", breadcrumbHeader: true)
         {
-            IsRunning = true;
-            AddPage(new MainPage(this, ref _isRunning));
+            AddPage(new MainPage(this));
             AddPage(new GpioPage(this));
             AddPage(new GpioReadPage(this));
             AddPage(new GpioWritePage(this));

@@ -17,7 +17,7 @@ namespace RpiLed.Cli.Bootstrap.Pages.Gpio
         {
             base.Display();
             Output.WriteLine(ConsoleColor.Blue, "Select Pin :");
-            _pinId = Input.ReadInt("Please provide Pin number", 1, 40);
+            _pinId = Input.ReadInt("Please provide Pin number (1-40):", 1, 40);
             var pin = new PinModel(_pinId, PinService.Gpio);
             Output.WriteLine(ConsoleColor.Blue, $"Pin value: {pin.PinState}");
             var input = Input.ReadInt($"Please provde an INT value indicating Off(0) or On(1):", 0, 1);
@@ -34,7 +34,7 @@ namespace RpiLed.Cli.Bootstrap.Pages.Gpio
             }
             Output.WriteLine(ConsoleColor.Blue, $"Pin value: {pin.PinState}");
             Input.ReadString("Press any key to return");
-            base.Program.NavigateHome();
+            Program.NavigateHome();
         }
     }
 }

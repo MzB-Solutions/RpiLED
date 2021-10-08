@@ -13,6 +13,7 @@ namespace RpiLED.Cli.Bootstrap.Pages
         {
             base.Display();
             Output.WriteLine("This will show an overview of all pins and their states/functions");
+            Program.NavigateHome();
         }
     }
 }
