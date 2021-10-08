@@ -19,9 +19,15 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Commands\CharacterCommand.cs" />
+    <Compile Remove="Commands\CharacterCommandArgs.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\RpiLED.Core\RpiLed.Core.csproj" />
     <ProjectReference Include="..\vendor\ConsoLovers\src\ConsoLovers.ConsoleToolkit.Core\ConsoLovers.ConsoleToolkit.Core.csproj" />
     <ProjectReference Include="..\vendor\EasyConsole\EasyConsole.csproj" />
+    <Content Include="Commands\CharacterCommand.cs" />
+    <Content Include="Commands\CharacterCommandArgs.cs" />
     <Content Include="Program.cs" />
     <Content Include="Commands\PwmCommand.cs" />
     <Content Include="Commands\PwmCommandArgs.cs" />

@@ -1,7 +1,8 @@
-﻿namespace RpiLED.Core.Models
+﻿namespace RpiLed.Core
 {
     public enum DisplayCharactersEnum
     {
+        None = 0b00000000,
         HexZero = 0b11111100,
         HexOne = 0b01100000,
         HexTwo = 0b11011010,
