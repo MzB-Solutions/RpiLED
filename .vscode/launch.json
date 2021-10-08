@@ -5,11 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Launch (console)",
+            "name": ".NET Core Launch (RpiLED.CLI)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "make: build-cli (debug)",
-            "program": "${workspaceFolder}/bin/Debug/<target-framework>/<project-name.dll>",
+            "preLaunchTask": "build-cli",
+            "program": "${workspaceFolder}/RpiLED.Cli/bin/Debug/<target-framework>/<project-name.dll>",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
+            "name": ".NET Core Launch (RpiLED.GUI)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-gui",
+            "program": "${workspaceFolder}/RpiLED.Gui/bin/Debug/<target-framework>/<project-name.dll>",
             "args": [],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
@@ -18,7 +29,18 @@
         {
             "name": ".NET Core Attach",
             "type": "coreclr",
-            "request": "attach"
+            "request": "attach",
+            "preLaunchTask": "push",
+            "processId": "${command:pickRemoteProcess}",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceFolder}",
+                "pipeProgram": "ssh",
+                "pipeArgs": [ "-T", "pinky"],
+                "debuggerPath": "~/.vs-debugger/vs2019/vsdbg"
+            },
+            "sourceFileMap": {
+                "/home/smzb/workspace/debug": "${workspaceRoot}"
+            }
         }
 
     ]
