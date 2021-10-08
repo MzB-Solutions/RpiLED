@@ -5,9 +5,15 @@ namespace RpiLed.Cli.CommandArguments
     [HelpTextProvider(typeof(ReadCommandArgs))]
     public class ReadCommandArgs : TypeHelpProvider
     {
+        #region Public Properties
+
         [Argument("Pin", "p", Required = true)]
         [HelpText("The number of the physical pin to use. ie: 12")]
         public int Pin { get; set; }
+
+        #endregion Public Properties
+
+        #region Public Methods
 
         public override void WriteTypeFooter(TypeHelpRequest helpRequest)
         {
@@ -22,5 +28,7 @@ namespace RpiLed.Cli.CommandArguments
             Console.WriteLine(" ╚══════════════════════════╝");
             Console.WriteLine();
         }
+
+        #endregion Public Methods
     }
 }

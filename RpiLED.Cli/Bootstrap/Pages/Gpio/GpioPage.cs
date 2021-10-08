@@ -4,6 +4,8 @@ namespace RpiLed.Cli.Bootstrap.Pages.Gpio
 {
     public class GpioPage : MenuPage
     {
+        #region Public Constructors
+
         public GpioPage(EasyConsole.Program program) : base("GPIO Page", program,
             new Option("Read", () => program.NavigateTo<GpioReadPage>()),
             new Option("Write", () => program.NavigateTo<GpioWritePage>()),
@@ -11,5 +13,6 @@ namespace RpiLed.Cli.Bootstrap.Pages.Gpio
         {
         }
 
+        #endregion Public Constructors
     }
 }

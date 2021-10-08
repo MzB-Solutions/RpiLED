@@ -1,9 +1,9 @@
-﻿using System;
-using ConsoLovers.ConsoleToolkit.Core.CommandLineArguments;
+﻿using ConsoLovers.ConsoleToolkit.Core.CommandLineArguments;
 using RpiLed.Cli.CommandArguments;
-using RpiLED.Cli.Properties;
 using RpiLed.Core;
+using RpiLED.Cli.Properties;
 using RpiLED.Core.Models;
+using System;
 
 namespace RpiLED.Cli.Commands
 {

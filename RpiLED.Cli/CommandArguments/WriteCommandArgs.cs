@@ -5,6 +5,8 @@ namespace RpiLed.Cli.CommandArguments
     [HelpTextProvider(typeof(WriteCommandArgs))]
     public class WriteCommandArgs : TypeHelpProvider
     {
+        #region Public Properties
+
         [Argument("Pin", "p", Required = true)]
         [HelpText("The number of the physical pin to use. ie: 12")]
         public int Pin { get; set; }
@@ -13,6 +15,10 @@ namespace RpiLed.Cli.CommandArguments
         [HelpText("What to write to this pin, Default: false [false = low]  [true = high]")]
         [DetailedHelpText("If no value is given we apply a low signal to the pin (ie: false)")]
         public bool Value { get; set; } = false;
+
+        #endregion Public Properties
+
+        #region Public Methods
 
         public override void WriteTypeFooter(TypeHelpRequest helpRequest)
         {
@@ -27,5 +33,7 @@ namespace RpiLed.Cli.CommandArguments
             Console.WriteLine(" ╚══════════════════════════╝");
             Console.WriteLine();
         }
+
+        #endregion Public Methods
     }
 }

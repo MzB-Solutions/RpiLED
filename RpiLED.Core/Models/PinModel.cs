@@ -1,10 +1,10 @@
-﻿using System;
+﻿using RpiLed.Core;
+using RpiLed.Core.Services;
+using RpiLED.Core.Services;
+using System;
 using System.Device.Gpio;
 using System.IO;
 using System.Linq;
-using RpiLed.Core;
-using RpiLed.Core.Services;
-using RpiLED.Core.Services;
 
 namespace RpiLED.Core.Models
 {
@@ -14,34 +14,9 @@ namespace RpiLED.Core.Models
 
         private static int _pinLocation;
 
+        private PinService ourService;
+
         #endregion Private Fields
-
-        #region Public Constructors
-
-        public PinModel(int pinNumber, PinService srv)
-        {
-            switch (srv)
-            {
-                case PinService.Gpio:
-                    gpioService = new GpioService();
-                    break;
-
-                case PinService.Pwm:
-                    pwmService = new PwmService((PwmSelect)pinNumber);
-                    break;
-
-                default:
-                    throw new NotImplementedException("This functionality is not implemented yet.");
-            }
-
-            _pinLocation = pinNumber;
-            ResetPin();
-            GetPinDirection();
-            GetPinValue();
-            gpioService.Gpio.ClosePin(_pinLocation);
-        }
-
-        #endregion Public Constructors
 
         #region Private Destructors
 
@@ -52,13 +27,14 @@ namespace RpiLED.Core.Models
                 case PinService.Gpio:
                     gpioService.Gpio.ClosePin(_pinLocation);
                     break;
+
                 case PinService.Pwm:
                     pwmService.Pwm.Stop();
                     pwmService.Pwm.Dispose();
                     break;
+
                 default:
                     break;
-
             }
         }
 
@@ -102,6 +78,16 @@ namespace RpiLED.Core.Models
 
         #endregion Private Methods
 
+        #region Protected Internal Properties
+
+        protected internal PinService OurService
+        {
+            get { return ourService; }
+            set { ourService = value; }
+        }
+
+        #endregion Protected Internal Properties
+
         #region Internal Fields
 
         /// <summary>
@@ -115,6 +101,33 @@ namespace RpiLED.Core.Models
         internal PwmService pwmService;
 
         #endregion Internal Fields
+
+        #region Public Constructors
+
+        public PinModel(int pinNumber, PinService srv)
+        {
+            switch (srv)
+            {
+                case PinService.Gpio:
+                    gpioService = new GpioService();
+                    break;
+
+                case PinService.Pwm:
+                    pwmService = new PwmService((PwmSelect)pinNumber);
+                    break;
+
+                default:
+                    throw new NotImplementedException("This functionality is not implemented yet.");
+            }
+
+            _pinLocation = pinNumber;
+            ResetPin();
+            GetPinDirection();
+            GetPinValue();
+            gpioService.Gpio.ClosePin(_pinLocation);
+        }
+
+        #endregion Public Constructors
 
         #region Public Properties
 
@@ -130,15 +143,6 @@ namespace RpiLED.Core.Models
         ///     This is either a boolean, in case of GPIO, or a double value between 0 and 1, for PWM
         /// </remarks>
         public PinValue PinState { get; private set; }
-
-        protected internal PinService OurService
-        {
-            get
-            {
-                return ourService;
-            }
-            set { ourService = value; }
-        }
 
         #endregion Public Properties
 
@@ -163,7 +167,5 @@ namespace RpiLED.Core.Models
         }
 
         #endregion Public Methods
-
-        private PinService ourService;
     }
 }

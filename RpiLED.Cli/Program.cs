@@ -1,21 +1,12 @@
-﻿using System;
-using System.Linq;
-using ConsoLovers.ConsoleToolkit.Core;
+﻿using ConsoLovers.ConsoleToolkit.Core;
 using RpiLED.Cli.Bootstrap;
-using EasyConsole;
+using System;
 
 namespace RpiLED.Cli
 {
     internal class Program
     {
-        /// <summary>
-        /// Do a clean exit with an errorcode
-        /// </summary>
-        /// <param name="exitCode">pass in any reasonable int as return or error code, 0 for success</param>
-        public static void QuitApp(int exitCode = 0)
-        {
-            System.Environment.Exit(exitCode);
-        }
+        #region Private Methods
 
         /// <summary>
         /// The main entry point for RpiLED.Cli
@@ -37,5 +28,20 @@ namespace RpiLED.Cli
                 .SetWindowTitle("Awesome Title")
                 .Run(args);
         }
+
+        #endregion Private Methods
+
+        #region Public Methods
+
+        /// <summary>
+        /// Do a clean exit with an errorcode
+        /// </summary>
+        /// <param name="exitCode">pass in any reasonable int as return or error code, 0 for success</param>
+        public static void QuitApp(int exitCode = 0)
+        {
+            System.Environment.Exit(exitCode);
+        }
+
+        #endregion Public Methods
     }
 }

@@ -5,9 +5,15 @@ namespace RpiLed.Cli.CommandArguments
     [HelpTextProvider(typeof(SingleCharCommandArgs))]
     public class SingleCharCommandArgs : TypeHelpProvider
     {
-        [Argument("character","c")]
+        #region Public Properties
+
+        [Argument("character", "c")]
         [HelpText("Provide a single character in the hexadecimal range")]
         public char Character { get; set; }
+
+        #endregion Public Properties
+
+        #region Public Methods
 
         public override void WriteTypeFooter(TypeHelpRequest helpRequest)
         {
@@ -22,5 +28,7 @@ namespace RpiLed.Cli.CommandArguments
             Console.WriteLine(" ╚═══════════════════════════╝");
             Console.WriteLine();
         }
+
+        #endregion Public Methods
     }
 }

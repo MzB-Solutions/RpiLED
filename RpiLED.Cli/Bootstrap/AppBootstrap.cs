@@ -1,13 +1,15 @@
-﻿using System;
-using System.IO;
-using ConsoLovers.ConsoleToolkit.Core;
+﻿using ConsoLovers.ConsoleToolkit.Core;
 using ConsoLovers.ConsoleToolkit.Core.CommandLineArguments;
 using RpiLED.Cli.Properties;
+using System;
+using System.IO;
 
 namespace RpiLED.Cli.Bootstrap
 {
     public class AppBootstrap : ConsoleApplication<AppArguments>
     {
+        #region Public Constructors
+
         public AppBootstrap(ICommandLineEngine commandLineEngine) : base(commandLineEngine)
         {
             // some pre-init tasks if necessary
@@ -17,6 +19,10 @@ namespace RpiLED.Cli.Bootstrap
             //    throw new MissingCommandLineArgumentException("AppArguments");
             //}
         }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         public override bool HandleException(Exception exception)
         {
@@ -40,5 +46,7 @@ namespace RpiLED.Cli.Bootstrap
                 Console.ReadLine();
             }
         }
+
+        #endregion Public Methods
     }
 }

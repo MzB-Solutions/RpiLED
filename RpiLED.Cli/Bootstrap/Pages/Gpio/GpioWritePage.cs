@@ -1,17 +1,27 @@
-﻿using System;
-using EasyConsole;
+﻿using EasyConsole;
 using RpiLed.Core;
 using RpiLED.Core.Models;
+using System;
 
 namespace RpiLed.Cli.Bootstrap.Pages.Gpio
 {
     public class GpioWritePage : Page
     {
+        #region Private Fields
+
         private int _pinId;
+
+        #endregion Private Fields
+
+        #region Public Constructors
+
         public GpioWritePage(Program program) : base("Write a value to GPIO a pin:", program)
         {
-            
         }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         public override void Display()
         {
@@ -26,9 +36,11 @@ namespace RpiLed.Cli.Bootstrap.Pages.Gpio
                 case 0:
                     pin.PinWrite(false);
                     break;
+
                 case 1:
                     pin.PinWrite(true);
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException("Please only provide 0 (zero/null) or 1(one) values");
             }
@@ -36,5 +48,7 @@ namespace RpiLed.Cli.Bootstrap.Pages.Gpio
             Input.ReadString("Press any key to return");
             Program.NavigateHome();
         }
+
+        #endregion Public Methods
     }
 }

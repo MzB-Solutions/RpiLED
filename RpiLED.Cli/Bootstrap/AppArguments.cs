@@ -1,5 +1,4 @@
 ﻿using ConsoLovers.ConsoleToolkit.Core.CommandLineArguments;
-using RpiLed.Cli.Commands;
 using RpiLED.Cli.Commands;
 using RpiLED.Cli.Properties;
 
@@ -31,13 +30,13 @@ namespace RpiLED.Cli.Bootstrap
             "Please note: this does NOT (re)set the pin in any way, shape, or form. We simply want to know its value.")]
         public ReadCommand Read { get; set; }
 
+        [Command("SingleCharacter", "s")]
+        [HelpText("This writes a hexadecimal value via the shiftregister")]
+        public SingleCharCommand SingleChar { get; set; }
+
         [Command("WRITE", "w")]
         [HelpText("This writes the value to the given pin. (see -p -v)")]
         public WriteCommand Write { get; set; }
-
-        [Command("SingleCharacter","s")]
-        [HelpText("This writes a hexadecimal value via the shiftregister")]
-        public SingleCharCommand SingleChar { get; set; }
 
         #endregion Public Properties
 

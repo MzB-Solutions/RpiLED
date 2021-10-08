@@ -1,12 +1,12 @@
-﻿using System;
-using EasyConsole;
+﻿using RpiLed.Cli.Bootstrap.Pages.Gpio;
 using RpiLED.Cli.Bootstrap.Pages;
-using RpiLed.Cli.Bootstrap.Pages.Gpio;
 
 namespace RpiLED.Cli.Bootstrap
 {
     public class CliMenu : EasyConsole.Program
     {
+        #region Public Constructors
+
         public CliMenu() : base("RpiLED.CLI Menu Interface", breadcrumbHeader: true)
         {
             AddPage(new MainPage(this));
@@ -18,5 +18,7 @@ namespace RpiLED.Cli.Bootstrap
             AddPage(new StatusPage(this));
             SetPage<MainPage>();
         }
+
+        #endregion Public Constructors
     }
 }
