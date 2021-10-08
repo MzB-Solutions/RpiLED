@@ -35,7 +35,7 @@ namespace RpiLED.Cli.Bootstrap
         public WriteCommand Write { get; set; }
 
         [Command("CHARACTER","c")]
-        [HelpText("This writes a hexacdecimal value via the shiftregister")]
+        [HelpText("This writes a hexadecimal value via the shiftregister")]
         public CharacterCommand Character { get; set; }
 
         #endregion Public Properties
