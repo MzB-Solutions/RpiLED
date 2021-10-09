@@ -1,29 +1,76 @@
-﻿using RpiLED.Core.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
-using System.Linq;
+using System.Threading;
+using RpiLed.Core;
+using RpiLED.Core.Models;
 
-namespace RpiLed.Core.Services
+namespace RpiLED.Core.Services
 {
     public class ShiftRegisterService
     {
+        #region Public Constructors
+
+        public ShiftRegisterService()
+        {
+            sdiPin.PinWrite(false);
+            rclkPin.PinWrite(false);
+            srclkPin.PinWrite(false);
+            _pulse(rclkPin);
+            Thread.Sleep(100);
+        }
+
+        #endregion Public Constructors
+
+        #region Private Destructors
+
+        ~ShiftRegisterService()
+        {
+        }
+
+        #endregion Private Destructors
+
+        #region Public Methods
+
+        public void ShiftIn(char c)
+        {
+            var pattern = GetBitPattern(c);
+            if (!pattern)
+            {
+                throw new InvalidExpressionException("This is not a valid HEX character!");
+            }
+            Console.WriteLine($@"This is the byte sequence we're gonna send : {pattern.ToString()}");
+            Console.Write("Writing");
+            for (var i = 0; i < 8; i++)
+            {
+                var val = pattern & (0x80 >> i > 0); 
+                Console.Write(val.ToString());
+                sdiPin.PinWrite(val);
+                _pulse(srclkPin);
+            }
+            Console.WriteLine();
+
+            _pulse(rclkPin);
+            Thread.Sleep(100);
+        }
+
+        #endregion Public Methods
+
         #region Private Fields
 
         // Storage Register clock
-        private static int RCLK = 18;
+        private static readonly int RCLK = 18;
 
         // Serial Data In Pin
-        private static int SDI = 16;
+        private static readonly int SDI = 16;
 
         // Shift register clock
-        private static int SRCLK = 29;
+        private static readonly int SRCLK = 29;
 
-        private PinModel rclkPin = new PinModel(RCLK, PinService.Gpio);
+        private readonly PinModel rclkPin = new(RCLK, PinService.Gpio);
 
-        private PinModel sdiPin = new PinModel(SDI, PinService.Gpio);
+        private readonly PinModel sdiPin = new(SDI, PinService.Gpio);
 
-        private PinModel srclkPin = new PinModel(SRCLK, PinService.Gpio);
+        private readonly PinModel srclkPin = new(SRCLK, PinService.Gpio);
 
         #endregion Private Fields
 
@@ -32,6 +79,7 @@ namespace RpiLed.Core.Services
         private void _pulse(PinModel pin)
         {
             pin.PinWrite(false);
+            Thread.Sleep(50);
             pin.PinWrite(true);
         }
 
@@ -99,48 +147,5 @@ namespace RpiLed.Core.Services
         }
 
         #endregion Private Methods
-
-        #region Public Fields
-
-        public List<DisplayCharactersEnum> Characters =
-                                                                        Enum.GetValues(typeof(DisplayCharactersEnum))
-        .Cast<DisplayCharactersEnum>()
-        .ToList();
-
-        #endregion Public Fields
-
-        #region Public Constructors
-
-        public ShiftRegisterService()
-        {
-            sdiPin.PinWrite(false);
-            rclkPin.PinWrite(false);
-            srclkPin.PinWrite(false);
-            _pulse(rclkPin);
-        }
-
-        #endregion Public Constructors
-
-        #region Public Methods
-
-        public void ShiftIn(char c)
-        {
-            var pattern = GetBitPattern(c);
-            if (!pattern)
-            {
-                throw new InvalidExpressionException("This is not a valid HEX character!");
-            }
-            else
-            {
-                for (var i = 0; i < 8; i++)
-                {
-                    sdiPin.PinWrite(pattern & (0x80 >> i) > 0);
-                    _pulse(srclkPin);
-                }
-                _pulse(rclkPin);
-            }
-        }
-
-        #endregion Public Methods
     }
 }

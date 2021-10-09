@@ -33,5 +33,6 @@
     <Content Include="Bootstrap\AppBootstrap.cs" />
     <Content Include="Bootstrap\Pages\MainPage.cs" />
     <Content Include="Bootstrap\CliMenu.cs" />
+    <Content Include="Bootstrap\Pages\SingleDigitDisplay\SingleDigitDisplayPage.cs" />
   </ItemGroup>
 </Project>

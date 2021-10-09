@@ -1,6 +1,6 @@
 ﻿using ConsoLovers.ConsoleToolkit.Core.CommandLineArguments;
 using RpiLed.Cli.CommandArguments;
-using RpiLed.Core.Services;
+using RpiLED.Core.Services;
 
 namespace RpiLED.Cli.Commands
 {

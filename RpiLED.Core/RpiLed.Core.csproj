@@ -37,5 +37,6 @@
     <Content Include="PinLayout.cs" />
     <Content Include="Services\GpioService.cs" />
     <Content Include="Services\PwmService.cs" />
+    <Content Include="Services\ShiftRegisterService.cs" />
   </ItemGroup>
 </Project>
