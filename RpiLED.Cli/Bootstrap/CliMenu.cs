@@ -1,6 +1,8 @@
 ﻿using RpiLed.Cli.Bootstrap.Pages.Gpio;
 using RpiLED.Cli.Bootstrap.Pages;
+using RpiLed.Cli.Bootstrap.Pages.Pwm;
 using RpiLED.Cli.Bootstrap.Pages.SingleDigitDisplay;
+using RpiLed.Cli.Bootstrap.Pages.Status;
 
 namespace RpiLED.Cli.Bootstrap
 {

@@ -1,6 +1,6 @@
 ﻿using EasyConsole;
 
-namespace RpiLED.Cli.Bootstrap.Pages
+namespace RpiLed.Cli.Bootstrap.Pages.Pwm
 {
     internal class PwmPage : MenuPage
     {

@@ -1,5 +1,8 @@
 using EasyConsole;
 using RpiLed.Cli.Bootstrap.Pages.Gpio;
+using RpiLed.Cli.Bootstrap.Pages.Pwm;
+using RpiLED.Cli.Bootstrap.Pages.SingleDigitDisplay;
+using RpiLed.Cli.Bootstrap.Pages.Status;
 
 namespace RpiLED.Cli.Bootstrap.Pages
 {
@@ -12,6 +15,7 @@ namespace RpiLED.Cli.Bootstrap.Pages
               new Option("GPIO", () => program.NavigateTo<GpioPage>()),
               new Option("PWM", () => program.NavigateTo<PwmPage>()),
               new Option("Pin Status", () => program.NavigateTo<StatusPage>()),
+              new Option("Single Character Display", () => program.NavigateTo<SingleDigitDisplayPage>()),
               new Option("Quit", () => RpiLED.Cli.Program.QuitApp(0)))
         {
         }
