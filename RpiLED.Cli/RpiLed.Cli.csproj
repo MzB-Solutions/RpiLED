@@ -34,5 +34,7 @@
     <Content Include="Bootstrap\Pages\MainPage.cs" />
     <Content Include="Bootstrap\CliMenu.cs" />
     <Content Include="Bootstrap\Pages\SingleDigitDisplay\SingleDigitDisplayPage.cs" />
+    <Content Include="Commands\SingleCharCommand.cs" />
+    <Content Include="CommandArguments\SingleCharCommandArgs.cs" />
   </ItemGroup>
 </Project>

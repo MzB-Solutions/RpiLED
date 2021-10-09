@@ -34,20 +34,20 @@ namespace RpiLED.Core.Services
         public void ShiftIn(char c)
         {
             var pattern = GetBitPattern(c);
-            if (!pattern)
+            if ((int)pattern == 0b00000000)
             {
                 throw new InvalidExpressionException("This is not a valid HEX character!");
             }
             Console.WriteLine($@"This is the byte sequence we're gonna send : {pattern.ToString()}");
-            Console.Write("Writing");
+            Console.Write("Writing : [");
             for (var i = 0; i < 8; i++)
             {
-                var val = pattern & (0x80 >> i > 0); 
+                var val = (int)(pattern & (0x80 >> i > 0));
                 Console.Write(val.ToString());
                 sdiPin.PinWrite(val);
                 _pulse(srclkPin);
             }
-            Console.WriteLine();
+            Console.WriteLine("]");
 
             _pulse(rclkPin);
             Thread.Sleep(100);
