@@ -15,7 +15,7 @@ namespace RpiLED.Core.Services
             sdiPin.PinWrite(false);
             rclkPin.PinWrite(false);
             srclkPin.PinWrite(false);
-            _pulse(rclkPin);
+            Pulse(rclkPin);
             Thread.Sleep(100);
         }
 
@@ -25,6 +25,9 @@ namespace RpiLED.Core.Services
 
         ~ShiftRegisterService()
         {
+            sdiPin.gpioService.Gpio.Dispose();
+            rclkPin.gpioService.Gpio.Dispose();
+            srclkPin.gpioService.Gpio.Dispose();
         }
 
         #endregion Private Destructors
@@ -34,22 +37,20 @@ namespace RpiLED.Core.Services
         public void ShiftIn(char c)
         {
             var pattern = GetBitPattern(c);
-            if (pattern == 0b00000000)
-            {
-                throw new InvalidExpressionException("This is not a valid HEX character!");
-            }
-            Console.WriteLine($@"This is the byte sequence we're gonna send : "+Convert.ToString(pattern, 2));
+            if (pattern == 0b00000000) throw new InvalidExpressionException("This is not a valid HEX character!");
+            Console.WriteLine(@"This is the byte sequence we're gonna send : " + Convert.ToString(pattern, 2));
             Console.Write(@"Writing : [");
             for (var i = 0; i < 8; i++)
             {
-                var val = (pattern & (0x80 >> i));
+                var val = pattern & (0x80 >> i);
                 Console.Write(Convert.ToString(val, 2));
                 sdiPin.PinWrite(val);
-                _pulse(srclkPin);
+                Pulse(srclkPin);
             }
+
             Console.WriteLine(@"]");
 
-            _pulse(rclkPin);
+            Pulse(rclkPin);
             Thread.Sleep(100);
         }
 
@@ -76,74 +77,41 @@ namespace RpiLED.Core.Services
 
         #region Private Methods
 
-        private void _pulse(PinModel pin)
+        private static int GetBitPattern(char character)
+        {
+            return character switch
+            {
+                '0' => (int) DisplayCharactersEnum.HexZero,
+                '1' => (int) DisplayCharactersEnum.HexOne,
+                '2' => (int) DisplayCharactersEnum.HexTwo,
+                '3' => (int) DisplayCharactersEnum.HexThree,
+                '4' => (int) DisplayCharactersEnum.HexFour,
+                '5' => (int) DisplayCharactersEnum.HexFive,
+                '6' => (int) DisplayCharactersEnum.HexSix,
+                '7' => (int) DisplayCharactersEnum.HexSeven,
+                '8' => (int) DisplayCharactersEnum.HexEight,
+                '9' => (int) DisplayCharactersEnum.HexNine,
+                'A' => (int) DisplayCharactersEnum.HexA,
+                'B' => (int) DisplayCharactersEnum.HexB,
+                'C' => (int) DisplayCharactersEnum.HexC,
+                'D' => (int) DisplayCharactersEnum.HexD,
+                'E' => (int) DisplayCharactersEnum.HexE,
+                'F' => (int) DisplayCharactersEnum.HexF,
+                'a' => (int) DisplayCharactersEnum.HexA,
+                'b' => (int) DisplayCharactersEnum.HexB,
+                'c' => (int) DisplayCharactersEnum.HexC,
+                'd' => (int) DisplayCharactersEnum.HexD,
+                'e' => (int) DisplayCharactersEnum.HexE,
+                'f' => (int) DisplayCharactersEnum.HexF,
+                _ => (int) DisplayCharactersEnum.None
+            };
+        }
+
+        private static void Pulse(PinModel pin)
         {
             pin.PinWrite(false);
             Thread.Sleep(50);
             pin.PinWrite(true);
-        }
-
-        private int GetBitPattern(char character)
-        {
-            switch (character)
-            {
-                case '0':
-                    return (int)DisplayCharactersEnum.HexZero;
-
-                case '1':
-                    return (int)DisplayCharactersEnum.HexOne;
-
-                case '2':
-                    return (int)DisplayCharactersEnum.HexTwo;
-
-                case '3':
-                    return (int)DisplayCharactersEnum.HexThree;
-
-                case '4':
-                    return (int)DisplayCharactersEnum.HexFour;
-
-                case '5':
-                    return (int)DisplayCharactersEnum.HexFive;
-
-                case '6':
-                    return (int)DisplayCharactersEnum.HexSix;
-
-                case '7':
-                    return (int)DisplayCharactersEnum.HexSeven;
-
-                case '8':
-                    return (int)DisplayCharactersEnum.HexEight;
-
-                case '9':
-                    return (int)DisplayCharactersEnum.HexNine;
-
-                case 'a':
-                case 'A':
-                    return (int)DisplayCharactersEnum.HexA;
-
-                case 'b':
-                case 'B':
-                    return (int)DisplayCharactersEnum.HexB;
-
-                case 'c':
-                case 'C':
-                    return (int)DisplayCharactersEnum.HexC;
-
-                case 'd':
-                case 'D':
-                    return (int)DisplayCharactersEnum.HexD;
-
-                case 'e':
-                case 'E':
-                    return (int)DisplayCharactersEnum.HexE;
-
-                case 'f':
-                case 'F':
-                    return (int)DisplayCharactersEnum.HexF;
-
-                default:
-                    return (int)DisplayCharactersEnum.None;
-            }
         }
 
         #endregion Private Methods
