@@ -98,7 +98,7 @@ namespace RpiLED.Core.Services
             for (var i = 0; i < 8; i++)
             {
                 var val = (ch & (0x80 >> i)) > 0;
-                Console.Write(i+@":"+Convert.ToInt16(val));
+                Console.Write(i+@":"+val);
                 _sdiPin.PinWrite(val);
                 Pulse(_srclkPin);
             }
