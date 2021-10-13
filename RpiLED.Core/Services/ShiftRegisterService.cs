@@ -94,7 +94,7 @@ namespace RpiLED.Core.Services
 
         private void SI(byte ch)
         {
-            Console.WriteLine(@"SerialOutput[");
+            Console.Write(@"SerialOutput[");
             for (var i = 0; i < 8; i++)
             {
                 var val = (ch & (0x80 >> i)) > 0;
@@ -112,9 +112,7 @@ namespace RpiLED.Core.Services
         private static void Pulse(PinModel pin)
         {
             pin.PinWrite(false);
-            Thread.Sleep(10);
             pin.PinWrite(true);
-            Thread.Sleep(10);
             pin.PinWrite(false);
         }
 
