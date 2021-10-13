@@ -98,7 +98,9 @@ namespace RpiLED.Core.Services
         {
             for (var i = 0; i < 8; i++)
             {
-                _sdiPin.PinWrite((ch & (0x80 >> i)) > 0);
+                var val = (ch & (0x80 >> i)) > 0;
+                Console.WriteLine(@"SerialOutput:"+val);
+                _sdiPin.PinWrite(val);
                 Pulse(_srclkPin);
             }
         }
@@ -109,20 +111,24 @@ namespace RpiLED.Core.Services
 
         private static void Pulse(PinModel pin)
         {
+            Console.WriteLine(@"Pulsing Pin:"+pin);
             pin.PinWrite(false);
             Thread.Sleep(50);
             pin.PinWrite(true);
+            Thread.Sleep(50);
+            pin.PinWrite(false);
         }
 
         public void RunTest()
         {
+            Console.WriteLine(@"Test1");
             for (var i = 0; i < 8; i++)
             {
                 SI(ShiftOutput[i]);
                 Pulse(_rclkPin);
                 Thread.Sleep(150);
             }
-
+            Console.WriteLine(@"Reset");
             Thread.Sleep(500);
             for (var i = 0; i < 3; i++)
             {
@@ -132,7 +138,7 @@ namespace RpiLED.Core.Services
                 SI(0x00);
                 Thread.Sleep(100);
             }
-
+            Console.WriteLine(@"Test2");
             Thread.Sleep(500);
             for (var i = 0; i < 8; i++)
             {
@@ -140,7 +146,7 @@ namespace RpiLED.Core.Services
                 Pulse(_rclkPin);
                 Thread.Sleep(150);
             }
-
+            Console.WriteLine(@"Reset");
             Thread.Sleep(500);
             for (var i = 0; i < 3; i++)
             {
