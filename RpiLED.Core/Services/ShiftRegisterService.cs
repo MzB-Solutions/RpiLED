@@ -42,8 +42,8 @@ namespace RpiLED.Core.Services
             Console.Write(@"Writing : [");
             for (var i = 0; i < 8; i++)
             {
-                var val = pattern & (0x80 >> i);
-                Console.Write(Convert.ToString(val, 2));
+                var val = pattern & Convert.ToInt16(0x80 >> i > 1);
+                Console.Write(Convert.ToString(val, 2)+@"|"+ Convert.ToBoolean(val));
                 sdiPin.PinWrite(Convert.ToBoolean(val));
                 Pulse(srclkPin);
             }
