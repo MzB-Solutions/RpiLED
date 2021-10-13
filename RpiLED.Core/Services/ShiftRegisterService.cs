@@ -1,88 +1,50 @@
-﻿using RpiLed.Core;
-using RpiLED.Core.Models;
-using System;
+﻿using System;
 using System.Data;
 using System.Threading;
+using RpiLed.Core;
+using RpiLED.Core.Models;
 
 namespace RpiLED.Core.Services
 {
     public class ShiftRegisterService
     {
-        #region Private Fields
+        #region Public Constructors
 
-        // Storage Register clock
-        private static readonly int RCLK = 18;
+        public ShiftRegisterService()
+        {
+            _sdiPin.PinWrite(false);
+            _rclkPin.PinWrite(false);
+            _srclkPin.PinWrite(false);
+            Pulse(_rclkPin);
+            Thread.Sleep(100);
+        }
 
-        // Serial Data In Pin
-        private static readonly int SDI = 16;
-
-        // Shift register clock
-        private static readonly int SRCLK = 29;
-
-        private readonly PinModel sdiPin = new(SDI, PinService.Gpio);
-
-        private readonly PinModel srclkPin = new(SRCLK, PinService.Gpio);
-
-        #endregion Private Fields
+        #endregion Public Constructors
 
         #region Private Destructors
 
         ~ShiftRegisterService()
         {
-            sdiPin.gpioService.Gpio.Dispose();
-            rclkPin.gpioService.Gpio.Dispose();
-            srclkPin.gpioService.Gpio.Dispose();
+            _sdiPin.gpioService.Gpio.Dispose();
+            _rclkPin.gpioService.Gpio.Dispose();
+            _srclkPin.gpioService.Gpio.Dispose();
         }
 
         #endregion Private Destructors
 
-        #region Private Methods
+        #region Private Fields
 
-        private static int GetBitPattern(char character)
+        // Storage Register clock
+        private const int Rclk = 18;
+
+        // Serial Data In Pin
+        private const int Sdi = 16;
+
+        // Shift register clock
+        private const int Srclk = 29;
+
+        private static readonly byte[] ShiftOutput =
         {
-            return character switch
-            {
-                '0' => (int)DisplayCharactersEnum.HexZero,
-                '1' => (int)DisplayCharactersEnum.HexOne,
-                '2' => (int)DisplayCharactersEnum.HexTwo,
-                '3' => (int)DisplayCharactersEnum.HexThree,
-                '4' => (int)DisplayCharactersEnum.HexFour,
-                '5' => (int)DisplayCharactersEnum.HexFive,
-                '6' => (int)DisplayCharactersEnum.HexSix,
-                '7' => (int)DisplayCharactersEnum.HexSeven,
-                '8' => (int)DisplayCharactersEnum.HexEight,
-                '9' => (int)DisplayCharactersEnum.HexNine,
-                'A' => (int)DisplayCharactersEnum.HexA,
-                'B' => (int)DisplayCharactersEnum.HexB,
-                'C' => (int)DisplayCharactersEnum.HexC,
-                'D' => (int)DisplayCharactersEnum.HexD,
-                'E' => (int)DisplayCharactersEnum.HexE,
-                'F' => (int)DisplayCharactersEnum.HexF,
-                'a' => (int)DisplayCharactersEnum.HexA,
-                'b' => (int)DisplayCharactersEnum.HexB,
-                'c' => (int)DisplayCharactersEnum.HexC,
-                'd' => (int)DisplayCharactersEnum.HexD,
-                'e' => (int)DisplayCharactersEnum.HexE,
-                'f' => (int)DisplayCharactersEnum.HexF,
-                _ => (int)DisplayCharactersEnum.None
-            };
-        }
-
-        private void SI(byte ch)
-        {
-            for (var i = 0; i < 8; i++)
-            {
-                sdiPin.PinWrite((ch & (0x80 >> i)) > 0);
-                Pulse(srclkPin);
-            }
-        }
-
-        #endregion Private Methods
-
-        #region Public Fields
-
-        public static readonly byte[] ShiftOutput =
-                                                                        {
             0x01,
             0x02,
             0x04,
@@ -93,26 +55,59 @@ namespace RpiLED.Core.Services
             0x80
         };
 
-        public readonly PinModel rclkPin = new(RCLK, PinService.Gpio);
+        private readonly PinModel _rclkPin = new(Rclk, PinService.Gpio);
+        private readonly PinModel _sdiPin = new(Sdi, PinService.Gpio);
 
-        #endregion Public Fields
+        private readonly PinModel _srclkPin = new(Srclk, PinService.Gpio);
 
-        #region Public Constructors
+        #endregion Private Fields
 
-        public ShiftRegisterService()
+        #region Private Methods
+
+        private static int GetBitPattern(char character)
         {
-            sdiPin.PinWrite(false);
-            rclkPin.PinWrite(false);
-            srclkPin.PinWrite(false);
-            Pulse(rclkPin);
-            Thread.Sleep(100);
+            return character switch
+            {
+                '0' => (int) DisplayCharactersEnum.HexZero,
+                '1' => (int) DisplayCharactersEnum.HexOne,
+                '2' => (int) DisplayCharactersEnum.HexTwo,
+                '3' => (int) DisplayCharactersEnum.HexThree,
+                '4' => (int) DisplayCharactersEnum.HexFour,
+                '5' => (int) DisplayCharactersEnum.HexFive,
+                '6' => (int) DisplayCharactersEnum.HexSix,
+                '7' => (int) DisplayCharactersEnum.HexSeven,
+                '8' => (int) DisplayCharactersEnum.HexEight,
+                '9' => (int) DisplayCharactersEnum.HexNine,
+                'A' => (int) DisplayCharactersEnum.HexA,
+                'B' => (int) DisplayCharactersEnum.HexB,
+                'C' => (int) DisplayCharactersEnum.HexC,
+                'D' => (int) DisplayCharactersEnum.HexD,
+                'E' => (int) DisplayCharactersEnum.HexE,
+                'F' => (int) DisplayCharactersEnum.HexF,
+                'a' => (int) DisplayCharactersEnum.HexA,
+                'b' => (int) DisplayCharactersEnum.HexB,
+                'c' => (int) DisplayCharactersEnum.HexC,
+                'd' => (int) DisplayCharactersEnum.HexD,
+                'e' => (int) DisplayCharactersEnum.HexE,
+                'f' => (int) DisplayCharactersEnum.HexF,
+                _ => (int) DisplayCharactersEnum.None
+            };
         }
 
-        #endregion Public Constructors
+        private void SI(byte ch)
+        {
+            for (var i = 0; i < 8; i++)
+            {
+                _sdiPin.PinWrite((ch & (0x80 >> i)) > 0);
+                Pulse(_srclkPin);
+            }
+        }
+
+        #endregion Private Methods
 
         #region Public Methods
 
-        public static void Pulse(PinModel pin)
+        private static void Pulse(PinModel pin)
         {
             pin.PinWrite(false);
             Thread.Sleep(50);
@@ -124,7 +119,7 @@ namespace RpiLED.Core.Services
             for (var i = 0; i < 8; i++)
             {
                 SI(ShiftOutput[i]);
-                Pulse(rclkPin);
+                Pulse(_rclkPin);
                 Thread.Sleep(150);
             }
 
@@ -132,7 +127,7 @@ namespace RpiLED.Core.Services
             for (var i = 0; i < 3; i++)
             {
                 SI(0xff);
-                Pulse(rclkPin);
+                Pulse(_rclkPin);
                 Thread.Sleep(100);
                 SI(0x00);
                 Thread.Sleep(100);
@@ -142,7 +137,7 @@ namespace RpiLED.Core.Services
             for (var i = 0; i < 8; i++)
             {
                 SI(ShiftOutput[8 - i - 1]);
-                Pulse(rclkPin);
+                Pulse(_rclkPin);
                 Thread.Sleep(150);
             }
 
@@ -150,7 +145,7 @@ namespace RpiLED.Core.Services
             for (var i = 0; i < 3; i++)
             {
                 SI(0xff);
-                Pulse(rclkPin);
+                Pulse(_rclkPin);
                 Thread.Sleep(100);
                 SI(0x00);
                 Thread.Sleep(100);
@@ -167,13 +162,13 @@ namespace RpiLED.Core.Services
             {
                 var val = pattern & Convert.ToInt16(0x80 >> i > 1);
                 Console.Write(Convert.ToString(val, 2) + @"|" + Convert.ToBoolean(val));
-                sdiPin.PinWrite(Convert.ToBoolean(val));
-                Pulse(srclkPin);
+                _sdiPin.PinWrite(Convert.ToBoolean(val));
+                Pulse(_srclkPin);
             }
 
             Console.WriteLine(@"]");
 
-            Pulse(rclkPin);
+            Pulse(_rclkPin);
             Thread.Sleep(100);
         }
 
