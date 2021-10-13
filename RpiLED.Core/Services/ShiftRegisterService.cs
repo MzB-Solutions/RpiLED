@@ -98,7 +98,7 @@ namespace RpiLED.Core.Services
             for (var i = 0; i < 8; i++)
             {
                 var val = (ch & (0x80 >> i)) > 0;
-                Console.Write(i+@":"+val);
+                Console.Write(i+@":"+Convert.ToInt16(val));
                 _sdiPin.PinWrite(val);
                 Pulse(_srclkPin);
             }
@@ -112,10 +112,10 @@ namespace RpiLED.Core.Services
         private static void Pulse(PinModel pin)
         {
             pin.PinWrite(false);
-            Thread.Sleep(50);
+            Thread.Sleep(10);
             pin.PinWrite(true);
-            //Thread.Sleep(50);
-            //pin.PinWrite(false);
+            Thread.Sleep(10);
+            pin.PinWrite(false);
         }
 
         public void RunTest()
@@ -125,7 +125,7 @@ namespace RpiLED.Core.Services
             {
                 SI(ShiftOutput[i]);
                 Pulse(_rclkPin);
-                Thread.Sleep(150);
+                Thread.Sleep(200);
             }
             Console.WriteLine(@"Reset");
             Thread.Sleep(500);
@@ -133,9 +133,9 @@ namespace RpiLED.Core.Services
             {
                 SI(0xff);
                 Pulse(_rclkPin);
-                Thread.Sleep(100);
+                Thread.Sleep(200);
                 SI(0x00);
-                Thread.Sleep(100);
+                Thread.Sleep(200);
             }
             Console.WriteLine(@"Test2");
             Thread.Sleep(500);
@@ -143,7 +143,7 @@ namespace RpiLED.Core.Services
             {
                 SI(ShiftOutput[8 - i - 1]);
                 Pulse(_rclkPin);
-                Thread.Sleep(150);
+                Thread.Sleep(200);
             }
             Console.WriteLine(@"Reset");
             Thread.Sleep(500);
@@ -151,9 +151,9 @@ namespace RpiLED.Core.Services
             {
                 SI(0xff);
                 Pulse(_rclkPin);
-                Thread.Sleep(100);
+                Thread.Sleep(200);
                 SI(0x00);
-                Thread.Sleep(100);
+                Thread.Sleep(200);
             }
         }
 
