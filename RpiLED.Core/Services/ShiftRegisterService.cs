@@ -38,16 +38,16 @@ namespace RpiLED.Core.Services
             {
                 throw new InvalidExpressionException("This is not a valid HEX character!");
             }
-            Console.WriteLine($@"This is the byte sequence we're gonna send : {pattern.ToString()}");
-            Console.Write("Writing : [");
+            Console.WriteLine($@"This is the byte sequence we're gonna send : "+Convert.ToString(pattern, 2));
+            Console.Write(@"Writing : [");
             for (var i = 0; i < 8; i++)
             {
                 var val = (pattern & (0x80 >> i));
-                Console.Write(val.ToString());
+                Console.Write(Convert.ToString(val, 2));
                 sdiPin.PinWrite(val);
                 _pulse(srclkPin);
             }
-            Console.WriteLine("]");
+            Console.WriteLine(@"]");
 
             _pulse(rclkPin);
             Thread.Sleep(100);
