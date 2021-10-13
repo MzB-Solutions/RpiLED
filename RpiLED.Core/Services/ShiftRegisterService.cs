@@ -15,8 +15,6 @@ namespace RpiLED.Core.Services
             _sdiPin.PinWrite(false);
             _rclkPin.PinWrite(false);
             _srclkPin.PinWrite(false);
-            Pulse(_rclkPin);
-            Thread.Sleep(100);
         }
 
         #endregion Public Constructors
@@ -99,7 +97,7 @@ namespace RpiLED.Core.Services
             for (var i = 0; i < 8; i++)
             {
                 var val = (ch & (0x80 >> i)) > 0;
-                Console.WriteLine(@"SerialOutput:"+val);
+                Console.WriteLine(@"SerialOutput["+i+@"]:"+val);
                 _sdiPin.PinWrite(val);
                 Pulse(_srclkPin);
             }
@@ -111,7 +109,7 @@ namespace RpiLED.Core.Services
 
         private static void Pulse(PinModel pin)
         {
-            Console.WriteLine(@"Pulsing Pin:"+pin);
+            Console.WriteLine(@"Pulsing Pin:"+pin.GetType());
             pin.PinWrite(false);
             Thread.Sleep(50);
             pin.PinWrite(true);
