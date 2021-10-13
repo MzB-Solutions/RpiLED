@@ -14,10 +14,9 @@ namespace RpiLED.Cli.Bootstrap.Pages.ShiftRegisterTest
         {
             base.Display();
             var sr = new ShiftRegisterService();
-            for (var i = 0; i < 8; i++)
-            {
-                sr.SI(ShiftRegisterService.ShiftOutput[i]);
-            }
+            Output.WriteLine(ConsoleColor.Green, "Running ShiftRegister tests");
+            sr.RunTest();
+            Output.WriteLine(ConsoleColor.Blue, "Done");
             Input.ReadString("Press any key to continue");
             Program.NavigateHome();
         }

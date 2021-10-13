@@ -45,15 +45,51 @@ namespace RpiLED.Core.Services
 
         #region Public Methods
 
-        public void SI(byte ch)
+        private void SI(byte ch)
         {
             for (var i = 0; i < 8; i++)
             {
                 sdiPin.PinWrite(((ch & (0x80 >> i)) > 0));
                 Pulse(srclkPin);
             }
+        }
 
-            Pulse(rclkPin);
+        public void RunTest()
+        {
+            for (var i = 0; i < 8; i++)
+            {
+                SI(ShiftOutput[i]);
+                Pulse(rclkPin);
+                Thread.Sleep(150);
+            }
+
+            Thread.Sleep(500);
+            for (var i = 0; i < 3; i++)
+            {
+                SI(0xff);
+                Pulse(rclkPin);
+                Thread.Sleep(100);
+                SI(0x00);
+                Thread.Sleep(100);
+            }
+
+            Thread.Sleep(500);
+            for (var i = 0; i < 8; i++)
+            {
+                SI(ShiftOutput[8 - i - 1]);
+                Pulse(rclkPin);
+                Thread.Sleep(150);
+            }
+
+            Thread.Sleep(500);
+            for (var i = 0; i < 3; i++)
+            {
+                SI(0xff);
+                Pulse(rclkPin);
+                Thread.Sleep(100);
+                SI(0x00);
+                Thread.Sleep(100);
+            }
         }
 
         public void ShiftIn(char c)

@@ -140,6 +140,10 @@ namespace RpiLED.Core.Models
         public void PinWrite(bool value)
         {
             ResetPin(true);
+            if (gpioService.Equals(null))
+            {
+                throw new IOException("Something went wrong ..");
+            }
             gpioService.Gpio.Write(_pinLocation, value);
             GetPinDirection();
             GetPinValue();
@@ -149,6 +153,10 @@ namespace RpiLED.Core.Models
         public void PinWrite(double value)
         {
             ResetPin(true);
+            if (pwmService.Equals(null))
+            {
+                throw new IOException("Something went wrong ..");
+            }
             pwmService.Pwm.DutyCycle = value;
             GetPinDirection();
             GetPinValue();
