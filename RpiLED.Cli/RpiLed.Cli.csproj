@@ -19,9 +19,13 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Bootstrap\Pages\SingleDigitDisplay\ShiftRegisterTestPage.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\RpiLED.Core\RpiLed.Core.csproj" />
     <ProjectReference Include="..\vendor\ConsoLovers\src\ConsoLovers.ConsoleToolkit.Core\ConsoLovers.ConsoleToolkit.Core.csproj" />
     <ProjectReference Include="..\vendor\EasyConsole\EasyConsole.csproj" />
+    <Content Include="Bootstrap\Pages\ShiftRegisterTest\ShiftRegisterTestPage.cs" />
     <Content Include="Program.cs" />
     <Content Include="Commands\PwmCommand.cs" />
     <Content Include="CommandArguments\PwmCommandArgs.cs" />

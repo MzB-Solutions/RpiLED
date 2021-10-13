@@ -1,6 +1,7 @@
 ﻿using RpiLed.Cli.Bootstrap.Pages.Gpio;
 using RpiLED.Cli.Bootstrap.Pages;
 using RpiLed.Cli.Bootstrap.Pages.Pwm;
+using RpiLED.Cli.Bootstrap.Pages.ShiftRegisterTest;
 using RpiLED.Cli.Bootstrap.Pages.SingleDigitDisplay;
 using RpiLed.Cli.Bootstrap.Pages.Status;
 
@@ -20,6 +21,7 @@ namespace RpiLED.Cli.Bootstrap
             AddPage(new PwmPage(this));
             AddPage(new StatusPage(this));
             AddPage(new SingleDigitDisplayPage(this));
+            AddPage(new ShiftRegisterTestPage(this));
             SetPage<MainPage>();
         }
 

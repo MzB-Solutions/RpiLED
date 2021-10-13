@@ -3,11 +3,22 @@ using System.Data;
 using System.Threading;
 using RpiLed.Core;
 using RpiLED.Core.Models;
+using UnitsNet.Units;
 
 namespace RpiLED.Core.Services
 {
     public class ShiftRegisterService
     {
+        public static readonly byte[] ShiftOutput = {
+            0x01,
+            0x02,
+            0x04,
+            0x08,
+            0x10,
+            0x20,
+            0x40,
+            0x80
+        };
         #region Public Constructors
 
         public ShiftRegisterService()
@@ -33,6 +44,17 @@ namespace RpiLED.Core.Services
         #endregion Private Destructors
 
         #region Public Methods
+
+        public void SI(byte ch)
+        {
+            for (var i = 0; i < 8; i++)
+            {
+                sdiPin.PinWrite(((ch & (0x80 >> i)) > 0));
+                Pulse(srclkPin);
+            }
+
+            Pulse(rclkPin);
+        }
 
         public void ShiftIn(char c)
         {
@@ -67,7 +89,7 @@ namespace RpiLED.Core.Services
         // Shift register clock
         private static readonly int SRCLK = 29;
 
-        private readonly PinModel rclkPin = new(RCLK, PinService.Gpio);
+        public readonly PinModel rclkPin = new(RCLK, PinService.Gpio);
 
         private readonly PinModel sdiPin = new(SDI, PinService.Gpio);
 
@@ -107,7 +129,7 @@ namespace RpiLED.Core.Services
             };
         }
 
-        private static void Pulse(PinModel pin)
+        public static void Pulse(PinModel pin)
         {
             pin.PinWrite(false);
             Thread.Sleep(50);
