@@ -54,18 +54,7 @@ namespace RpiLED.Core.Models
 
         private bool IsValidPin(int pin)
         {
-            if (gpioService.ValidPins.Contains((Pins)pin))
-            {
-                var result = $@"Found pin {pin} in {gpioService.ValidPins}";
-                Console.WriteLine(result);
-                return true;
-            }
-            else
-            {
-                var result = $@"You cannot use that pin ({pin}), since it is part of the power-rail!";
-                Console.WriteLine(result);
-                return false;
-            }
+            return gpioService.ValidPins.Contains((Pins)pin);
         }
 
         private void ResetPin(bool openForWrite = false)
