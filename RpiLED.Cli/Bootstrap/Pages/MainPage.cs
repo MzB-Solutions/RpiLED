@@ -1,9 +1,9 @@
 using EasyConsole;
 using RpiLed.Cli.Bootstrap.Pages.Gpio;
 using RpiLed.Cli.Bootstrap.Pages.Pwm;
+using RpiLed.Cli.Bootstrap.Pages.Status;
 using RpiLED.Cli.Bootstrap.Pages.ShiftRegisterTest;
 using RpiLED.Cli.Bootstrap.Pages.SingleDigitDisplay;
-using RpiLed.Cli.Bootstrap.Pages.Status;
 
 namespace RpiLED.Cli.Bootstrap.Pages
 {

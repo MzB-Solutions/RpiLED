@@ -28,7 +28,4 @@
     <PackageReference Include="Avalonia.Diagnostics" Version="0.10.3" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.3" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RpiLED.Core\RpiLed.Core.csproj" />
-  </ItemGroup>
 </Project>

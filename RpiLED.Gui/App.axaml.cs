@@ -8,6 +8,8 @@ namespace RpiLed.Gui
 {
     public class App : Application
     {
+        #region Public Methods
+
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
@@ -25,5 +27,7 @@ namespace RpiLed.Gui
 
             base.OnFrameworkInitializationCompleted();
         }
+
+        #endregion Public Methods
     }
 }

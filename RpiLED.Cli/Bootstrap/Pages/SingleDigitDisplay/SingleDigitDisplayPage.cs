@@ -1,14 +1,20 @@
-using System;
 using EasyConsole;
 using RpiLED.Core.Services;
+using System;
 
 namespace RpiLED.Cli.Bootstrap.Pages.SingleDigitDisplay
 {
     public class SingleDigitDisplayPage : Page
     {
-        public SingleDigitDisplayPage(EasyConsole.Program program): base("Single Digit Display Output", program)
+        #region Public Constructors
+
+        public SingleDigitDisplayPage(EasyConsole.Program program) : base("Single Digit Display Output", program)
         {
         }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         public override void Display()
         {
@@ -20,5 +26,7 @@ namespace RpiLED.Cli.Bootstrap.Pages.SingleDigitDisplay
             Input.ReadString("Press any key to continue");
             Program.NavigateHome();
         }
+
+        #endregion Public Methods
     }
 }

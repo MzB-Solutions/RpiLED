@@ -1,10 +1,10 @@
-﻿using System;
+﻿using RpiLed.Core.Exceptions;
+using RpiLed.Core.Properties;
+using System;
 using System.Collections.Generic;
 using System.Device.Pwm;
 using System.Device.Pwm.Drivers;
 using System.Linq;
-using RpiLed.Core.Exceptions;
-using RpiLed.Core.Properties;
 
 namespace RpiLed.Core.Services
 {
@@ -18,91 +18,6 @@ namespace RpiLed.Core.Services
 
     internal class PwmService
     {
-        #region Public Fields
-
-        public PwmChannel Pwm;
-
-        #endregion Public Fields
-
-        #region Public Constructors
-
-        /// <summary>
-        ///     The Constructor for the PwmService
-        ///     this automatically decides which PWM implementation to use (ie: HW or SW supported pwm service)
-        /// </summary>
-        /// <seealso cref="_hwPwmPins" />
-        /// <param name="selectedPin">An int (hopefully) with the physical pin we are adressing</param>
-        public PwmService(PwmSelect selectedPin)
-        {
-            // Generate a complete list of forbidden pins
-            _forbiddenPins.AddRange(_groundPins);
-            _forbiddenPins.AddRange(_3VPins);
-            _forbiddenPins.AddRange(_5VPins);
-            // from all available pins take away the forbidden pins
-            _availablePins = (List<Pins>)_availablePins.Except(_forbiddenPins);
-            // create list of sw pins by subtracting the hw pin list from available pins
-            _swPwmPins = (List<Pins>)_availablePins.Except(_hwPwmPins);
-            //logic to select chip and channel on SOC
-            if (_hwPwmPins.Contains((Pins)selectedPin))
-            {
-                var chip = 0;
-                var channel = 0;
-                PwmSelect((int)selectedPin, ref chip, ref channel);
-                Pwm = PwmChannel.Create(chip, channel, 400, 0);
-            }
-            else if (_swPwmPins.Contains((Pins)selectedPin))
-            {
-                Pwm = new SoftwarePwmChannel((int)selectedPin, 400, 0, shouldDispose: true);
-            }
-            else
-            {
-                throw new EPinNotValidException(string.Format(ExceptionMessages.PinNotValidMsg,
-                    (int)selectedPin));
-            }
-        }
-
-        #endregion Public Constructors
-
-        #region Private Methods
-
-        /// <summary>
-        ///     Figure out depending on the physical pin which chip and channel
-        ///     to select (assuming HW support for that pin of course)
-        /// </summary>
-        /// <remarks>
-        ///     please check hardware documentation for further information
-        /// </remarks>
-        /// <param name="pin">The physical pin selected for pwm service</param>
-        /// <param name="chip">Either 0 or 1</param>
-        /// <param name="channel">Either 0 or 1</param>
-        private static void PwmSelect(int pin, ref int chip, ref int channel)
-        {
-            switch (pin)
-            {
-                case 12:
-                    chip = 0;
-                    channel = 0;
-                    break;
-
-                case 32:
-                    chip = 0;
-                    channel = 1;
-                    break;
-
-                case 33:
-                    chip = 1;
-                    channel = 0;
-                    break;
-
-                case 35:
-                    chip = 1;
-                    channel = 1;
-                    break;
-            }
-        }
-
-        #endregion Private Methods
-
         #region Private Fields
 
         /// <summary>
@@ -174,5 +89,90 @@ namespace RpiLed.Core.Services
         private readonly List<Pins> _swPwmPins;
 
         #endregion Private Fields
+
+        #region Private Methods
+
+        /// <summary>
+        ///     Figure out depending on the physical pin which chip and channel
+        ///     to select (assuming HW support for that pin of course)
+        /// </summary>
+        /// <remarks>
+        ///     please check hardware documentation for further information
+        /// </remarks>
+        /// <param name="pin">The physical pin selected for pwm service</param>
+        /// <param name="chip">Either 0 or 1</param>
+        /// <param name="channel">Either 0 or 1</param>
+        private static void PwmSelect(int pin, ref int chip, ref int channel)
+        {
+            switch (pin)
+            {
+                case 12:
+                    chip = 0;
+                    channel = 0;
+                    break;
+
+                case 32:
+                    chip = 0;
+                    channel = 1;
+                    break;
+
+                case 33:
+                    chip = 1;
+                    channel = 0;
+                    break;
+
+                case 35:
+                    chip = 1;
+                    channel = 1;
+                    break;
+            }
+        }
+
+        #endregion Private Methods
+
+        #region Public Fields
+
+        public PwmChannel Pwm;
+
+        #endregion Public Fields
+
+        #region Public Constructors
+
+        /// <summary>
+        ///     The Constructor for the PwmService
+        ///     this automatically decides which PWM implementation to use (ie: HW or SW supported pwm service)
+        /// </summary>
+        /// <seealso cref="_hwPwmPins" />
+        /// <param name="selectedPin">An int (hopefully) with the physical pin we are adressing</param>
+        public PwmService(PwmSelect selectedPin)
+        {
+            // Generate a complete list of forbidden pins
+            _forbiddenPins.AddRange(_groundPins);
+            _forbiddenPins.AddRange(_3VPins);
+            _forbiddenPins.AddRange(_5VPins);
+            // from all available pins take away the forbidden pins
+            _availablePins = (List<Pins>)_availablePins.Except(_forbiddenPins);
+            // create list of sw pins by subtracting the hw pin list from available pins
+            _swPwmPins = (List<Pins>)_availablePins.Except(_hwPwmPins);
+            //logic to select chip and channel on SOC
+            if (_hwPwmPins.Contains((Pins)selectedPin))
+            {
+                var chip = 0;
+                var channel = 0;
+                PwmSelect((int)selectedPin, ref chip, ref channel);
+                Pwm = PwmChannel.Create(chip, channel, 400, 0);
+            }
+            else if (_swPwmPins.Contains((Pins)selectedPin))
+            {
+                Pwm = new SoftwarePwmChannel((int)selectedPin, 400, 0, shouldDispose: true);
+            }
+            else
+            {
+                throw new EPinNotValidException(string.Format(ExceptionMessages.PinNotValidMsg,
+                    (int)selectedPin));
+            }
+        }
+
+        #endregion Public Constructors
     }
 }

@@ -6,6 +6,17 @@ namespace RpiLed.Gui.Views
 {
     public partial class MainWindow : Window
     {
+        #region Private Methods
+
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
+
+        #endregion Private Methods
+
+        #region Public Constructors
+
         public MainWindow()
         {
             InitializeComponent();
@@ -14,9 +25,6 @@ namespace RpiLed.Gui.Views
 #endif
         }
 
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
+        #endregion Public Constructors
     }
 }
