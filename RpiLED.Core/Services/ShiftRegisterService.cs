@@ -113,7 +113,7 @@ namespace RpiLED.Core.Services
         {
             pin.PinWrite(false);
             pin.PinWrite(true);
-            pin.PinWrite(false);
+            //pin.PinWrite(false);
         }
 
         public void RunTest()
