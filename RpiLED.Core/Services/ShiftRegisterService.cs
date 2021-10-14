@@ -158,7 +158,11 @@ namespace RpiLED.Core.Services
         public void ShiftIn(char c)
         {
             var stringPattern = Convert.ToString(GetBitPattern(c), 2);
-            stringPattern += "0";
+            //stringPattern += "0";
+            if (stringPattern.Length < 8)
+            {
+                throw new AccessViolationException($@"Not enough bits supplied (found:{stringPattern.Length} bits, require 8 bits)");
+            }
             Console.WriteLine(@"This is the byte sequence we're gonna send : " + stringPattern);
             Console.Write(@"Writing : [");
             for (var i = 0; i <= 7; i++)
