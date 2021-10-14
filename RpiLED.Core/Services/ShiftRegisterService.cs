@@ -127,7 +127,7 @@ namespace RpiLED.Core.Services
             }
             Console.WriteLine(@"Reset");
             Thread.Sleep(500);
-            for (var i = 0; i < 3; i++)
+            for (var i = 0; i < 8; i++)
             {
                 SI(0xff);
                 Pulse(_rclkPin);
@@ -145,7 +145,7 @@ namespace RpiLED.Core.Services
             }
             Console.WriteLine(@"Reset");
             Thread.Sleep(500);
-            for (var i = 0; i < 3; i++)
+            for (var i = 0; i < 8; i++)
             {
                 SI(0xff);
                 Pulse(_rclkPin);
