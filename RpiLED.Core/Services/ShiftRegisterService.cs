@@ -111,9 +111,9 @@ namespace RpiLED.Core.Services
 
         private static void Pulse(PinModel pin)
         {
-            pin.PinWrite(false);
-            pin.PinWrite(true);
             //pin.PinWrite(false);
+            pin.PinWrite(true);
+            pin.PinWrite(false);
         }
 
         public void RunTest()
@@ -170,11 +170,9 @@ namespace RpiLED.Core.Services
                 _sdiPin.PinWrite(val);
                 Pulse(_srclkPin);
             }
-
             Console.WriteLine(@"]");
-
-            Pulse(_rclkPin);
             Thread.Sleep(100);
+            Pulse(_rclkPin);
         }
 
         #endregion Public Methods
