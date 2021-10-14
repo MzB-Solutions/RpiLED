@@ -160,7 +160,7 @@ namespace RpiLED.Core.Services
             var stringPattern = Convert.ToString(GetBitPattern(c), 2);
             Console.WriteLine(@"This is the byte sequence we're gonna send : " + stringPattern);
             Console.Write(@"Writing : [");
-            for (var i = 1; i < 8; i++)
+            for (var i = 0; i <= 7; i++)
             {
                 //var val = pattern & Convert.ToInt16(0x80 >> i > 0);
                 var singleValue = stringPattern[i].ToString();
