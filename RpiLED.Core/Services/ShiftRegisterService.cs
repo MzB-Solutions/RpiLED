@@ -158,14 +158,16 @@ namespace RpiLED.Core.Services
         public void ShiftIn(char c)
         {
             var pattern = GetBitPattern(c);
+            var stringPattern = Convert.ToString(pattern, 2);
             if (pattern == 0b00000000) throw new InvalidExpressionException("This is not a valid HEX character!");
-            Console.WriteLine(@"This is the byte sequence we're gonna send : " + Convert.ToString(pattern, 2));
+            Console.WriteLine(@"This is the byte sequence we're gonna send : " + stringPattern);
             Console.Write(@"Writing : [");
             for (var i = 0; i < 8; i++)
             {
-                var val = pattern & Convert.ToInt16(0x80 >> i > 0);
-                Console.Write(i + @"|" + Convert.ToBoolean(val));
-                _sdiPin.PinWrite(Convert.ToBoolean(val));
+                //var val = pattern & Convert.ToInt16(0x80 >> i > 0);
+                var val = Convert.ToBoolean(stringPattern[i]);
+                Console.Write(i + @"|" + val);
+                _sdiPin.PinWrite(val);
                 Pulse(_srclkPin);
             }
 
