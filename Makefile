@@ -169,8 +169,8 @@ gui: build-gui
 ######################
 
 status: --git_update
-update: --git_update --git_reset --git_origin
-reset: --git_update --git_reset_hard --git_origin
+update: --git_reset --git_update --git_origin
+reset: --git_reset_hard --git_update --git_origin
 
 --git_update:
 	git fetch -v
