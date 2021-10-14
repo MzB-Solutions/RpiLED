@@ -158,6 +158,7 @@ namespace RpiLED.Core.Services
         public void ShiftIn(char c)
         {
             var stringPattern = Convert.ToString(GetBitPattern(c), 2);
+            stringPattern += "0";
             Console.WriteLine(@"This is the byte sequence we're gonna send : " + stringPattern);
             Console.Write(@"Writing : [");
             for (var i = 0; i <= 7; i++)
