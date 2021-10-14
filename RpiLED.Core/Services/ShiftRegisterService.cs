@@ -165,8 +165,8 @@ namespace RpiLED.Core.Services
             for (var i = 0; i < 8; i++)
             {
                 //var val = pattern & Convert.ToInt16(0x80 >> i > 0);
-                var stringVal = stringPattern[i].ToString();
-                var val = bool.Parse(stringVal);
+                var singleValue = stringPattern[i].ToString();
+                var val = Convert.ToBoolean(int.Parse(singleValue));
                 Console.Write(i + @"|" + val);
                 _sdiPin.PinWrite(val);
                 Pulse(_srclkPin);
