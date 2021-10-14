@@ -162,7 +162,7 @@ namespace RpiLED.Core.Services
             if (pattern == 0b00000000) throw new InvalidExpressionException("This is not a valid HEX character!");
             Console.WriteLine(@"This is the byte sequence we're gonna send : " + stringPattern);
             Console.Write(@"Writing : [");
-            for (var i = 0; i < 8; i++)
+            for (var i = 0; i < 7; i++)
             {
                 //var val = pattern & Convert.ToInt16(0x80 >> i > 0);
                 var singleValue = stringPattern[i].ToString();
