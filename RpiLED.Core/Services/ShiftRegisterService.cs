@@ -75,6 +75,18 @@ namespace RpiLED.Core.Services
             _rstPin.PinWrite(true);
         }
 
+        private static string ToBinary(int myValue)
+        {
+            var binVal = Convert.ToString(myValue, 2);
+            var bits = 0;
+            var bitblock = 4;
+
+            for (var i = 0; i < binVal.Length; i += bitblock)
+            { bits += bitblock; }
+
+            return binVal.PadLeft(bits, '0');
+        }
+
         private static int GetBitPattern(char character)
         {
             return character switch
@@ -181,7 +193,7 @@ namespace RpiLED.Core.Services
         public void ShiftIn(char c)
         {
             ResetSr();
-            var stringPattern = Convert.ToString(GetBitPattern(c), 2);
+            var stringPattern = ToBinary(GetBitPattern(c));
             //stringPattern += "0";
             if (stringPattern.Length < 8)
             {
