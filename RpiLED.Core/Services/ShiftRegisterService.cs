@@ -15,6 +15,8 @@ namespace RpiLED.Core.Services
             _sdiPin.PinWrite(false);
             _rclkPin.PinWrite(false);
             _srclkPin.PinWrite(false);
+            // Reset pin is active low!!
+            _rstPin.PinWrite(true);
         }
 
         #endregion Public Constructors
@@ -26,19 +28,23 @@ namespace RpiLED.Core.Services
             _sdiPin.gpioService.Gpio.Dispose();
             _rclkPin.gpioService.Gpio.Dispose();
             _srclkPin.gpioService.Gpio.Dispose();
+            _rstPin.gpioService.Gpio.Dispose();
         }
 
         #endregion Private Destructors
 
         #region Private Fields
 
-        // Storage Register clock
+        // Storage Register clock (ST_CP)
         private const int Rclk = 18;
 
-        // Serial Data In Pin
+        // Serial Data In  (DS) Pin
         private const int Sdi = 16;
 
-        // Shift register clock
+        // Reset (MR) Pin
+        private const int Rst = 22;
+
+        // Shift register clock (SH_CP)
         private const int Srclk = 29;
 
         private static readonly byte[] ShiftOutput =
@@ -55,12 +61,19 @@ namespace RpiLED.Core.Services
 
         private readonly PinModel _rclkPin = new(Rclk, PinService.Gpio);
         private readonly PinModel _sdiPin = new(Sdi, PinService.Gpio);
-
+        private readonly PinModel _rstPin = new(Rst, PinService.Gpio);
         private readonly PinModel _srclkPin = new(Srclk, PinService.Gpio);
 
         #endregion Private Fields
 
         #region Private Methods
+
+        private void ResetSr()
+        {
+            _rstPin.PinWrite(false);
+            Pulse(_rclkPin);
+            _rstPin.PinWrite(true);
+        }
 
         private static int GetBitPattern(char character)
         {
@@ -110,18 +123,24 @@ namespace RpiLED.Core.Services
 
         #region Public Methods
 
-        private static void Pulse(PinModel pin)
+        /// <summary>
+        /// Send a triple of either 0/1/0 to a pin or 1/0/1 (in case of <see cref="inverted">inverted</see>=true)
+        /// </summary>
+        /// <param name="pin">Some <see cref="PinModel">Pinmodel</see> instantiated GPIO pin</param>
+        /// <param name="inverted">This parameter allows us to interact with active_low pins, whose default behaviour is to be always enabled and thus need an off pulse to act</param>
+        private static void Pulse(PinModel pin, bool inverted = false)
         {
-            pin.PinWrite(false);
-            Thread.Sleep(10);
-            pin.PinWrite(true);
-            Thread.Sleep(10);
-            pin.PinWrite(false);
-            Thread.Sleep(10);
+            pin.PinWrite(inverted);
+            Thread.Sleep(1);
+            pin.PinWrite(!inverted);
+            Thread.Sleep(1);
+            pin.PinWrite(inverted);
+            Thread.Sleep(1);
         }
 
         public void RunTest()
         {
+            ResetSr();
             Console.WriteLine(@"Test1");
             for (var i = 0; i < 8; i++)
             {
@@ -161,6 +180,7 @@ namespace RpiLED.Core.Services
 
         public void ShiftIn(char c)
         {
+            ResetSr();
             var stringPattern = Convert.ToString(GetBitPattern(c), 2);
             //stringPattern += "0";
             if (stringPattern.Length < 8)
