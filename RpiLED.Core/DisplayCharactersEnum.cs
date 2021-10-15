@@ -1,6 +1,6 @@
 ﻿namespace RpiLed.Core
 {
-    public enum DisplayCharactersEnum
+    public enum DisplayCharactersEnum : byte
     {
         //None = 0b00000000,
         //HexZero = 0b11111100,

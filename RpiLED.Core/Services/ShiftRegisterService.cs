@@ -71,6 +71,7 @@ namespace RpiLED.Core.Services
         private void ResetSr()
         {
             _rstPin.PinWrite(false);
+            Thread.Sleep(2);
             Pulse(_rclkPin);
             _rstPin.PinWrite(true);
         }
@@ -87,33 +88,33 @@ namespace RpiLED.Core.Services
             return binVal.PadLeft(bits, '0');
         }
 
-        private static int GetBitPattern(char character)
+        private static byte GetBitPattern(char character)
         {
             return character switch
             {
-                '0' => (int) DisplayCharactersEnum.HexZero,
-                '1' => (int) DisplayCharactersEnum.HexOne,
-                '2' => (int) DisplayCharactersEnum.HexTwo,
-                '3' => (int) DisplayCharactersEnum.HexThree,
-                '4' => (int) DisplayCharactersEnum.HexFour,
-                '5' => (int) DisplayCharactersEnum.HexFive,
-                '6' => (int) DisplayCharactersEnum.HexSix,
-                '7' => (int) DisplayCharactersEnum.HexSeven,
-                '8' => (int) DisplayCharactersEnum.HexEight,
-                '9' => (int) DisplayCharactersEnum.HexNine,
-                'A' => (int) DisplayCharactersEnum.HexA,
-                'B' => (int) DisplayCharactersEnum.HexB,
-                'C' => (int) DisplayCharactersEnum.HexC,
-                'D' => (int) DisplayCharactersEnum.HexD,
-                'E' => (int) DisplayCharactersEnum.HexE,
-                'F' => (int) DisplayCharactersEnum.HexF,
-                'a' => (int) DisplayCharactersEnum.HexA,
-                'b' => (int) DisplayCharactersEnum.HexB,
-                'c' => (int) DisplayCharactersEnum.HexC,
-                'd' => (int) DisplayCharactersEnum.HexD,
-                'e' => (int) DisplayCharactersEnum.HexE,
-                'f' => (int) DisplayCharactersEnum.HexF,
-                _ => (int) DisplayCharactersEnum.None
+                '0' => (byte)DisplayCharactersEnum.HexZero,
+                '1' => (byte)DisplayCharactersEnum.HexOne,
+                '2' => (byte)DisplayCharactersEnum.HexTwo,
+                '3' => (byte)DisplayCharactersEnum.HexThree,
+                '4' => (byte)DisplayCharactersEnum.HexFour,
+                '5' => (byte)DisplayCharactersEnum.HexFive,
+                '6' => (byte)DisplayCharactersEnum.HexSix,
+                '7' => (byte)DisplayCharactersEnum.HexSeven,
+                '8' => (byte)DisplayCharactersEnum.HexEight,
+                '9' => (byte)DisplayCharactersEnum.HexNine,
+                'A' => (byte)DisplayCharactersEnum.HexA,
+                'B' => (byte)DisplayCharactersEnum.HexB,
+                'C' => (byte)DisplayCharactersEnum.HexC,
+                'D' => (byte)DisplayCharactersEnum.HexD,
+                'E' => (byte)DisplayCharactersEnum.HexE,
+                'F' => (byte)DisplayCharactersEnum.HexF,
+                'a' => (byte)DisplayCharactersEnum.HexA,
+                'b' => (byte)DisplayCharactersEnum.HexB,
+                'c' => (byte)DisplayCharactersEnum.HexC,
+                'd' => (byte)DisplayCharactersEnum.HexD,
+                'e' => (byte)DisplayCharactersEnum.HexE,
+                'f' => (byte)DisplayCharactersEnum.HexF,
+                _ => (byte) DisplayCharactersEnum.None
             };
         }
 
@@ -143,11 +144,11 @@ namespace RpiLED.Core.Services
         private static void Pulse(PinModel pin, bool inverted = false)
         {
             pin.PinWrite(inverted);
-            Thread.Sleep(1);
+            Thread.Sleep(2);
             pin.PinWrite(!inverted);
-            Thread.Sleep(1);
+            Thread.Sleep(2);
             pin.PinWrite(inverted);
-            Thread.Sleep(1);
+            Thread.Sleep(2);
         }
 
         public void RunTest()
@@ -188,6 +189,19 @@ namespace RpiLED.Core.Services
                 SI(0x00);
                 Thread.Sleep(200);
             }
+            ResetSr();
+            Console.WriteLine($@"testing HexA");
+            SI((byte)DisplayCharactersEnum.HexA);
+            Thread.Sleep(1000);
+            ResetSr();
+            Console.WriteLine($@"testing Hex0");
+            SI((byte)DisplayCharactersEnum.HexZero);
+            Thread.Sleep(1000);
+            ResetSr();
+            Console.WriteLine($@"testing Hex8");
+            SI((byte)DisplayCharactersEnum.HexEight);
+            Thread.Sleep(1000);
+            ResetSr();
         }
 
         public void ShiftIn(char c)
