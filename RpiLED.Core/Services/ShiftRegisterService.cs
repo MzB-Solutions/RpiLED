@@ -71,8 +71,8 @@ namespace RpiLED.Core.Services
         private void ResetSr()
         {
             _rstPin.PinWrite(false);
-            Thread.Sleep(2);
             Pulse(_rclkPin);
+            Pulse(_srclkPin);
             _rstPin.PinWrite(true);
         }
 
@@ -141,14 +141,15 @@ namespace RpiLED.Core.Services
         /// </summary>
         /// <param name="pin">Some <see cref="PinModel">Pinmodel</see> instantiated GPIO pin</param>
         /// <param name="inverted">This parameter allows us to interact with active_low pins, whose default behaviour is to be always enabled and thus need an off pulse to act</param>
+        /// <remarks>We're using timespan here to get near nano-second accuracy for pulsing (as close as we need it to be within 500 nanos)</remarks>
         private static void Pulse(PinModel pin, bool inverted = false)
         {
             pin.PinWrite(inverted);
-            Thread.Sleep(2);
+            Thread.Sleep(TimeSpan.FromMilliseconds(0.5d));
             pin.PinWrite(!inverted);
-            Thread.Sleep(2);
+            Thread.Sleep(TimeSpan.FromMilliseconds(0.5d));
             pin.PinWrite(inverted);
-            Thread.Sleep(2);
+            Thread.Sleep(TimeSpan.FromMilliseconds(0.5d));
         }
 
         public void RunTest()
