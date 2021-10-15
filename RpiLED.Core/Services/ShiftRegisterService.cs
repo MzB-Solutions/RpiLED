@@ -47,6 +47,9 @@ namespace RpiLED.Core.Services
         // Shift register clock (SH_CP)
         private const int Srclk = 29;
 
+        // Test Led Pin
+        private const int IndLed = 13;
+
         private static readonly byte[] ShiftOutput =
         {
             0x01,
@@ -59,6 +62,7 @@ namespace RpiLED.Core.Services
             0x80
         };
 
+        private readonly PinModel _indPin = new(IndLed, PinService.Gpio);
         private readonly PinModel _rclkPin = new(Rclk, PinService.Gpio);
         private readonly PinModel _sdiPin = new(Sdi, PinService.Gpio);
         private readonly PinModel _rstPin = new(Rst, PinService.Gpio);
@@ -124,9 +128,10 @@ namespace RpiLED.Core.Services
             for (var i = 0; i < 8; i++)
             {
                 var val = (ch & (0x80 >> i)) > 0;
-                Console.Write(i+@":"+val);
+                Console.Write(i+@":"+Convert.ToInt16(val));
                 _sdiPin.PinWrite(val);
-                Thread.Sleep(50);
+                _indPin.PinWrite(val);
+                Thread.Sleep(20);
                 Pulse(_srclkPin);
             }
             Console.WriteLine(@"]");
