@@ -194,12 +194,11 @@ namespace RpiLED.Core.Services
         {
             ResetSr();
             var stringPattern = ToBinary(GetBitPattern(c));
-            //stringPattern += "0";
+            Console.WriteLine(@"This is the byte sequence we're gonna send : " + stringPattern);
             if (stringPattern.Length < 8)
             {
                 throw new AccessViolationException($@"Not enough bits supplied (found:{stringPattern.Length} bits, require 8 bits)");
             }
-            Console.WriteLine(@"This is the byte sequence we're gonna send : " + stringPattern);
             Console.Write(@"Writing : [");
             for (var i = 0; i <= 7; i++)
             {
