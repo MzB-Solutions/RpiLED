@@ -100,6 +100,7 @@ namespace RpiLED.Core.Services
                 var val = (ch & (0x80 >> i)) > 0;
                 Console.Write(i+@":"+val);
                 _sdiPin.PinWrite(val);
+                Thread.Sleep(50);
                 Pulse(_srclkPin);
             }
             Console.WriteLine(@"]");
@@ -111,9 +112,12 @@ namespace RpiLED.Core.Services
 
         private static void Pulse(PinModel pin)
         {
-            //pin.PinWrite(false);
-            pin.PinWrite(true);
             pin.PinWrite(false);
+            Thread.Sleep(10);
+            pin.PinWrite(true);
+            Thread.Sleep(10);
+            pin.PinWrite(false);
+            Thread.Sleep(10);
         }
 
         public void RunTest()
