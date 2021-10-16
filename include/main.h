@@ -4,16 +4,20 @@
 // ReSharper disable once CppUnusedIncludeDirective
 #include <random>
 
-#define MAXLOOPS 20 // Amount of loops to make forth and back through the SR output pins (one loop = forth AND back)
-					// should be divisible by 4 for simplicity
-
-#define	SDI_LED	13 // Indicator led for serial in on SR
-#define	SRCLK_LED 11 // Indicator led for SHCP on SR
-#define	RCLK_LED 15 // Indicator led for STCP on SR
-#define SDI 16 //serial data input
-#define RCLK 18 //memory clock input(STCP)
-#define SRCLK 29 //shift register clock input(SHCP)
-#define RST 22 // Reset pin (active_low)
+// Indicator led for serial in on SR
+#define	SDI_LED	13
+// Indicator led for SHCP on SR
+#define	SRCLK_LED 11
+// Indicator led for STCP on SR
+#define	RCLK_LED 15
+//serial data input
+#define SDI 16
+//memory clock input(STCP)
+#define RCLK 18
+//shift register clock input(SHCP)
+#define SRCLK 29
+// Reset pin (active_low)
+#define RST 22
 
 using std::cout;
 using std::endl;

@@ -66,8 +66,14 @@ void reset() {
 
 
 int main(void) {
-	// This is the inetrnal iterator for our loop runs
+	// This is the internal iterator for our ShiftIn runs
 	int _ii;
+	// This is the internal loop iterator tied into MaxLoops
+	int _li;
+	// Maximum amount of single loop runs
+	int MaxLoops = 20;
+	// Quarter of amount loops to loop through
+	int QuarterLoops = MaxLoops/4;
 	// let's set up a pseudo-random rng source for std::shuffle
 	std::random_device rd;
 	std::mt19937 g(rd());
@@ -79,7 +85,7 @@ int main(void) {
 	init();
 	reset();
 	// we just run up and down our SR pins from Q0-Q7
-	for (int loops = 0; loops < MAXLOOPS; loops++)
+	for (_li = 0; _li < MaxLoops; _li++)
 	{
 		for (_ii = 0; _ii < 8; _ii++) {
 			si(led_out[_ii]);
@@ -101,11 +107,11 @@ int main(void) {
 		pulse(RCLK); pulse(RCLK_LED);
 		delay(20);
 	}
-	// Let's shuffle our characters and loop them MAXLOOPS/4 times
-	cout << "Shuffled runs .." << endl;
-	for (_ii = 0; _ii < MAXLOOPS/4; _ii++)
+	// Let's shuffle our characters and loop them QUALOOPS times
+	cout << "Doing " << QuarterLoops <<" Shuffled runs .." << endl;
+	for (_li = 0; _li < QuarterLoops; _li++)
 	{
-		cout << " Run #" << i << endl;
+		cout << " Run #" << _ii << endl;
 		char byte[34] = {};
 		copy_n(display_out, sizeof(display_out), byte);
 		shuffle(byte, byte+34, g);
