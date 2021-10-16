@@ -1,13 +1,11 @@
 #pragma once
-#include <string>
-#include <random>
 #include <algorithm>
-#include <iterator>
 #include <iostream>
-#include <vector>
+// ReSharper disable once CppUnusedIncludeDirective
+#include <random>
 
 #define MAXLOOPS 20 // Amount of loops to make forth and back through the SR output pins (one loop = forth AND back)
-					// should be divisble by 4 for simplicity
+					// should be divisible by 4 for simplicity
 
 #define	SDI_LED	13 // Indicator led for serial in on SR
 #define	SRCLK_LED 11 // Indicator led for SHCP on SR
@@ -20,14 +18,14 @@
 using std::cout;
 using std::endl;
 using std::shuffle;
-using std::copy;
+using std::copy_n;
 
-unsigned char LedOut[8] = { 0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80 };
+unsigned char led_out[8] = { 0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80 };
 
 /// <summary>
 /// All hexa values on a 7 segment display, bit reversed
 /// </summary>
-unsigned char DisplayOut[34] = {
+unsigned char display_out[34] = {
 	0b00000000, // All off
 	0b10000000, // the dot only
 	0b00111111, // 0

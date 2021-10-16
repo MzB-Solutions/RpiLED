@@ -2,18 +2,27 @@
 
 #include <wiringPi.h>
 
-void pulse(int pin, bool inverted = false) {
+/// <summary>
+/// Take a pin from original state to opposite and back
+/// </summary>
+/// <param name="pin">physical pin id</param>
+/// <param name="inverted">if true, we are dealing with a ACTIVE_LOW pin</param>
+void pulse(const int pin, const bool inverted = false) {
 	digitalWrite(pin, inverted);
-	delay(2);
+	delay(3);
 	digitalWrite(pin, !inverted);
-	delay(2);
+	delay(3);
 	digitalWrite(pin, inverted);
 }
 
-void SI(unsigned char byte) {
+/// <summary>
+/// ShiftIn a value of 8bits (char) width
+/// </summary>
+/// <param name="byte">any valid 8 bit sequence / int</param>
+void si(unsigned char byte) {
 	for (int i = 0; i <= 7; i++)
 	{
-		bool val = (byte & (0x80 >> i)) > 0;
+		const bool val = (byte & (0x80 >> i)) > 0;
 		digitalWrite(SDI, val);
 		digitalWrite(SDI_LED, val);
 		delay(4);
@@ -22,6 +31,9 @@ void SI(unsigned char byte) {
 	}
 }
 
+/// <summary>
+/// Let's setup all our pins into their correct states.
+/// </summary>
 void init() {
 	pinMode(SDI, OUTPUT);
 	pinMode(RCLK, OUTPUT);
@@ -40,6 +52,9 @@ void init() {
 	digitalWrite(RST, 1);
 }
 
+/// <summary>
+/// This is the sequence of events that the 74HC595 ShiftRegister expects to fully reset it's output.
+/// </summary>
 void reset() {
 	digitalWrite(RST, 0);
 	pulse(RCLK);
@@ -49,56 +64,62 @@ void reset() {
 	digitalWrite(RST, 1);
 }
 
+
 int main(void) {
-	int i;
+	// This is the inetrnal iterator for our loop runs
+	int _ii;
+	// let's set up a pseudo-random rng source for std::shuffle
 	std::random_device rd;
 	std::mt19937 g(rd());
-
+	// setup wiringPi to use physical pin notation
 	if (wiringPiSetupPhys()==-1){
 		printf("Can't access GPIO pins");
 		return 1;
 	}
 	init();
 	reset();
+	// we just run up and down our SR pins from Q0-Q7
 	for (int loops = 0; loops < MAXLOOPS; loops++)
 	{
-		for (i = 0; i < 8; i++) {
-			SI(LedOut[i]);
+		for (_ii = 0; _ii < 8; _ii++) {
+			si(led_out[_ii]);
 			pulse(RCLK); pulse(RCLK_LED);
 		}
-		for (i = 0; i < 8; i++) {
-			SI(LedOut[8 - i - 1]);
+		for (_ii = 0; _ii < 8; _ii++) {
+			si(led_out[8 - _ii - 1]);
 			pulse(RCLK); pulse(RCLK_LED);
 		}
 	}
 	reset();
 	delay(50);
+	// Lets run all characters in their order on the 7 segment display
 	printf("Clean run");
-	for (i = 0; i <= 33; i++)
+	for (_ii = 0; _ii <= 33; _ii++)
 	{
-		SI(DisplayOut[i]);
-		printf("iterator -> %d", i);printf(" = %d <- value\n", DisplayOut[i]);
+		si(display_out[_ii]);
+		printf("iterator -> %d", _ii);printf(" = %d <- value\n", display_out[_ii]);
 		pulse(RCLK); pulse(RCLK_LED);
 		delay(20);
 	}
+	// Let's shuffle our characters and loop them MAXLOOPS/4 times
 	printf("Shuffled runs");
-	for (i = 0; i < MAXLOOPS/4; i++)
+	for (_ii = 0; _ii < MAXLOOPS/4; _ii++)
 	{
 		char byte[34] = {};
-		copy(DisplayOut,DisplayOut+34,byte);
+		copy_n(display_out, sizeof(display_out), byte);
 		shuffle(byte, byte+34, g);
-		for (i = 0; i <= 33; i++)
+		for (_ii = 0; _ii <= 33; _ii++)
 		{
-			SI(byte[i]);
-			printf("iterator -> %d", i);printf(" = %d <- value\n", byte[i]);
+			si(byte[_ii]);
+			printf("iterator -> %d", _ii);printf(" = %d <- value\n", byte[_ii]);
 			pulse(RCLK); pulse(RCLK_LED);
 			delay(20);
 		}
 	}
 	delay(50);
 	reset();
-	SI(DisplayOut[0]);
-	pulse(RCLK); pulse(RCLK_LED);
+	si(display_out[0]);
+	pulse(RCLK, false); pulse(RCLK_LED, false);
 	reset();
 	return 0;
 }
