@@ -85,8 +85,8 @@ int main(void) {
 	for (i = 0; i < MAXLOOPS/4; i++)
 	{
 		char byte[34] = {};
-		std::copy(DisplayOut,DisplayOut+34,byte);
-		std::shuffle(byte, byte+34, g);
+		copy(DisplayOut,DisplayOut+34,byte);
+		shuffle(byte, byte+34, g);
 		for (i = 0; i <= 33; i++)
 		{
 			SI(byte[i]);
