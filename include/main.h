@@ -1,6 +1,7 @@
 #pragma once
 #include <algorithm>
 #include <iostream>
+#include <bitset>
 // ReSharper disable once CppUnusedIncludeDirective
 #include <random>
 
@@ -23,6 +24,7 @@ using std::cout;
 using std::endl;
 using std::shuffle;
 using std::copy_n;
+using std::bitset;
 
 unsigned char led_out[8] = { 0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80 };
 

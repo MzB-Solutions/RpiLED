@@ -103,7 +103,7 @@ int main(void) {
 	for (_ii = 0; _ii <= 33; _ii++)
 	{
 		si(display_out[_ii]);
-		cout << "iterator -> "  << _ii << " = " << display_out[_ii] << " <- value" << endl;
+		cout << "iterator -> "  << _ii << " = " << std::bitset<8>(display_out[_ii]) << " <- value" << endl;
 		pulse(RCLK); pulse(RCLK_LED);
 		delay(20);
 	}
@@ -118,7 +118,7 @@ int main(void) {
 		for (_ii = 0; _ii <= 33; _ii++)
 		{
 			si(byte[_ii]);
-			cout << "iterator -> "  << _ii << " = " << display_out[_ii] << " <- value" << endl;
+			cout << "iterator -> "  << _ii << " = " << std::bitset<8>(display_out[_ii]) << " <- value" << endl;
 			pulse(RCLK); pulse(RCLK_LED);
 			delay(20);
 		}
