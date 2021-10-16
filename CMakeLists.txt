@@ -8,8 +8,13 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS ON)
 
+file(TO_CMAKE_PATH "C:/Users/smzb_code/AppData/Local/Microsoft/Linux/HeaderCache/1.0/-114093420/usr/include" WININCLUDES)
+file(TO_CMAKE_PATH "/usr/include" NIXINCLUDES)
 # Locate libraries and headers
-find_library(WIRINGPI_LIBRARIES NAMES wiringPi)
+find_library(WIRINGPI_LIBRARIES
+    NAMES wiringPi
+    HINTS "${WININCLUDES}/" "${NIXINCLUDES}/"
+    )
 
 set(SOURCE "src/main.cpp")
 set(HEADERS "include/main.h")
