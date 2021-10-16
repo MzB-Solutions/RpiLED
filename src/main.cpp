@@ -9,9 +9,10 @@
 /// <param name="inverted">if true, we are dealing with a ACTIVE_LOW pin</param>
 void pulse(const int pin, const bool inverted = false) {
 	digitalWrite(pin, inverted);
-	//delay(3);
+	//delay(1);
+	delayMicroseconds(200);
 	digitalWrite(pin, !inverted);
-	//delay(3);
+	delayMicroseconds(200);
 	digitalWrite(pin, inverted);
 }
 
@@ -25,7 +26,7 @@ void si(unsigned char byte) {
 		const bool val = (byte & (0x80 >> i)) > 0;
 		digitalWrite(SDI, val);
 		digitalWrite(SDI_LED, val);
-		//delay(4);
+		delay(2);
 		pulse(SRCLK);
 		pulse(SRCLK_LED);
 	}
@@ -71,7 +72,7 @@ int main(void) {
 	// This is the internal loop iterator tied into MaxLoops
 	int _li;
 	// Maximum amount of single loop runs
-	int MaxLoops = 20;
+	int MaxLoops = 4;
 	// Quarter of amount loops to loop through
 	int QuarterLoops = MaxLoops/4;
 	// let's set up a pseudo-random rng source for std::shuffle
@@ -87,7 +88,7 @@ int main(void) {
 	// we just run up and down our SR pins from Q0-Q7
 	for (_li = 0; _li < MaxLoops; _li++)
 	{
-		cout << "run: "  << _ii << endl;
+		cout << "run: "  << _li << endl;
 		for (_ii = 0; _ii < 8; _ii++) {
 			si(led_out[_ii]);
 			cout << "step: "  << _ii << " = " << bitset<8>(led_out[_ii]) << endl;
@@ -95,7 +96,7 @@ int main(void) {
 		}
 		for (_ii = 0; _ii < 8; _ii++) {
 			si(led_out[8 - _ii - 1]);
-			cout << "step: "  << _ii << " = " << bitset<8>(led_out[_ii]) << endl;
+			cout << "step: "  << _ii << " = " << bitset<8>(led_out[8 - _ii - 1]) << endl;
 			pulse(RCLK); pulse(RCLK_LED);
 		}
 	}
@@ -114,8 +115,7 @@ int main(void) {
 	// Let's shuffle our characters and loop them QuarterLoops times
 	for (_li = 0; _li < QuarterLoops; _li++)
 	{
-		cout << " Loop #" << _li << endl;
-		cout << " Run #" << _ii << endl;
+		cout << " Loop #" << _li+1 << endl;
 		char byte[34] = {};
 		copy_n(display_out, sizeof(display_out), byte);
 		shuffle(byte, byte+34, g);
