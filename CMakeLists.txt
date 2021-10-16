@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.18.0)
-project(ShiftRegister VERSION 0.1.2)
+project(ShiftRegister VERSION 0.1.2 LANGUAGES CXX)
 
-include(CTest)
-enable_testing()
+#include(CTest)
+#enable_testing()
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

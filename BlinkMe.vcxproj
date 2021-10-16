@@ -87,6 +87,9 @@
   <ItemGroup>
     <ClInclude Include="include/main.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="CMakeSettings.json" />
+  </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <ClCompile>
       <LinkTimeOptimization>true</LinkTimeOptimization>
