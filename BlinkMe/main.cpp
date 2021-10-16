@@ -4,12 +4,10 @@
 #define	SDI_LED	13 // Indicator led for serial in on SR
 #define	SRCLK_LED 11 // Indicator led for SHCP on SR
 #define	RCLK_LED 15 // Indicator led for STCP on SR
-#define RST_LED 31 // Reset pin indicator led for MR on SR
 #define SDI 16 //serial data input
 #define RCLK 18 //memory clock input(STCP)
 #define SRCLK 29 //shift register clock input(SHCP)
 #define RST 22 // Reset pin (active_low)
-
 
 unsigned char LedOut[8] = { 0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80 };
 
@@ -55,9 +53,9 @@ unsigned char DisplayOut[34] = {
 
 void pulse(int pin, bool inverted = false) {
 	digitalWrite(pin, inverted);
-	delay(1);
+	delay(8);
 	digitalWrite(pin, !inverted);
-	delay(1);
+	delay(8);
 	digitalWrite(pin, inverted);
 }
 
@@ -68,7 +66,7 @@ void SI(unsigned char byte) {
 		bool val = (byte & (0x80 >> i)) > 0;
 		digitalWrite(SDI, val);
 		digitalWrite(SDI_LED, val);
-		delay(1);
+		delay(8);
 		pulse(SRCLK);
 		pulse(SRCLK_LED);
 	}
@@ -81,7 +79,6 @@ void init() {
 	pinMode(SDI_LED, OUTPUT);
 	pinMode(RCLK_LED, OUTPUT);
 	pinMode(SRCLK_LED, OUTPUT);
-	pinMode(RST_LED, OUTPUT);
 	pinMode(RST, OUTPUT);
 	digitalWrite(SDI, 0);
 	digitalWrite(SDI_LED, 0);
@@ -91,18 +88,15 @@ void init() {
 	digitalWrite(SRCLK_LED, 0);
 	// set reset (MR) to active_low
 	digitalWrite(RST, 1);
-	digitalWrite(RST_LED, 1);
 }
 
 void reset() {
 	digitalWrite(RST, 0);
-	digitalWrite(RST_LED, 0);
 	pulse(RCLK);
 	pulse(RCLK_LED);
 	// this delay is required to satisfy the timing requirements of the 74HC595, ideally we only need 500 nano, but i digress
 	delayMicroseconds(1);
 	digitalWrite(RST, 1);
-	digitalWrite(RST_LED, 1);
 }
 
 int main(void) {
@@ -113,43 +107,48 @@ int main(void) {
 	}
 	init();
 	reset();
-	for (i = 0; i < 8; i++) {
-		SI(LedOut[i]);
-		pulse(RCLK); pulse(RCLK_LED);
+	for (int loops = 0; loops < 2; loops++)
+	{
+		for (i = 0; i < 8; i++) {
+			SI(LedOut[i]);
+			pulse(RCLK); pulse(RCLK_LED);
+			delay(20);
+			printf("i = %d\n", i);
+		}
 		delay(50);
-		printf("i = %d\n",i);
-	}
-	delay(200);
-	for (i = 0; i < 4; i++) {
-		SI(0xff);
-		pulse(RCLK); pulse(RCLK_LED);
-		delay(100);
-		SI(0x00);
-		pulse(RCLK); pulse(RCLK_LED);
-		delay(100);
-	}
-	delay(200);
-	for (i = 0; i < 8; i++) {
-		SI(LedOut[8 - i - 1]);
-		pulse(RCLK); pulse(RCLK_LED);
+		for (i = 0; i < 8; i++) {
+			SI(LedOut[8 - i - 1]);
+			pulse(RCLK); pulse(RCLK_LED);
+			delay(20);
+		}
 		delay(50);
 	}
-	delay(200);
-	for (i = 0; i < 4; i++) {
-		SI(0xff);
-		pulse(RCLK); pulse(RCLK_LED);
-		delay(100);
-		SI(0x00);
-		pulse(RCLK); pulse(RCLK_LED);
-		delay(100);
-	}
-	delay(200);
+	//for (i = 0; i < 4; i++) {
+	//	SI(0xff);
+	//	pulse(RCLK); pulse(RCLK_LED);
+	//	delay(100);
+	//	SI(0x00);
+	//	pulse(RCLK); pulse(RCLK_LED);
+	//	delay(100);
+	//}
+	//delay(200);
+	
 	reset();
 	for (i = 0; i <= 33; i++)
 	{
 		SI(DisplayOut[i]);
 		pulse(RCLK); pulse(RCLK_LED);
-		delay(500);
+		delay(100);
+	}
+	SI(DisplayOut[0]);
+	pulse(RCLK); pulse(RCLK_LED);
+	delay(200);
+	reset();
+	for (i = 33; i >= 0; i--)
+	{
+		SI(DisplayOut[i]);
+		pulse(RCLK); pulse(RCLK_LED);
+		delay(100);
 	}
 	SI(DisplayOut[0]);
 	pulse(RCLK); pulse(RCLK_LED);
