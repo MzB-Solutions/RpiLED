@@ -9,9 +9,9 @@
 /// <param name="inverted">if true, we are dealing with a ACTIVE_LOW pin</param>
 void pulse(const int pin, const bool inverted = false) {
 	digitalWrite(pin, inverted);
-	delay(3);
+	//delay(3);
 	digitalWrite(pin, !inverted);
-	delay(3);
+	//delay(3);
 	digitalWrite(pin, inverted);
 }
 
@@ -25,7 +25,7 @@ void si(unsigned char byte) {
 		const bool val = (byte & (0x80 >> i)) > 0;
 		digitalWrite(SDI, val);
 		digitalWrite(SDI_LED, val);
-		delay(4);
+		//delay(4);
 		pulse(SRCLK);
 		pulse(SRCLK_LED);
 	}
