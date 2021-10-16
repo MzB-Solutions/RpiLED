@@ -93,25 +93,26 @@ int main(void) {
 	reset();
 	delay(50);
 	// Lets run all characters in their order on the 7 segment display
-	printf("Clean run");
+	cout << "Clean run .." << endl;
 	for (_ii = 0; _ii <= 33; _ii++)
 	{
 		si(display_out[_ii]);
-		printf("iterator -> %d", _ii);printf(" = %d <- value\n", display_out[_ii]);
+		cout << "iterator -> "  << _ii << " = " << display_out[_ii] << " <- value" << endl;
 		pulse(RCLK); pulse(RCLK_LED);
 		delay(20);
 	}
 	// Let's shuffle our characters and loop them MAXLOOPS/4 times
-	printf("Shuffled runs");
+	cout << "Shuffled runs .." << endl;
 	for (_ii = 0; _ii < MAXLOOPS/4; _ii++)
 	{
+		cout << " Run #" << i << endl;
 		char byte[34] = {};
 		copy_n(display_out, sizeof(display_out), byte);
 		shuffle(byte, byte+34, g);
 		for (_ii = 0; _ii <= 33; _ii++)
 		{
 			si(byte[_ii]);
-			printf("iterator -> %d", _ii);printf(" = %d <- value\n", byte[_ii]);
+			cout << "iterator -> "  << _ii << " = " << display_out[_ii] << " <- value" << endl;
 			pulse(RCLK); pulse(RCLK_LED);
 			delay(20);
 		}
