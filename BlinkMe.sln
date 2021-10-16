@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BlinkMe", "BlinkMe\BlinkMe.vcxproj", "{8C727C7D-428C-4D7E-A03B-DAE0EAEC212F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AD769A13-D14E-4C4D-A19A-1638CCC190FE}"
+	ProjectSection(SolutionItems) = preProject
+		CMakeLists.txt = CMakeLists.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|ARM64 = Debug|ARM64
+		Release|ARM = Release|ARM
+		Release|ARM64 = Release|ARM64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8C727C7D-428C-4D7E-A03B-DAE0EAEC212F}.Debug|ARM.ActiveCfg = Debug|ARM
+		{8C727C7D-428C-4D7E-A03B-DAE0EAEC212F}.Debug|ARM.Build.0 = Debug|ARM
+		{8C727C7D-428C-4D7E-A03B-DAE0EAEC212F}.Debug|ARM.Deploy.0 = Debug|ARM
+		{8C727C7D-428C-4D7E-A03B-DAE0EAEC212F}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{8C727C7D-428C-4D7E-A03B-DAE0EAEC212F}.Debug|ARM64.Build.0 = Debug|ARM64
+		{8C727C7D-428C-4D7E-A03B-DAE0EAEC212F}.Debug|ARM64.Deploy.0 = Debug|ARM64
+		{8C727C7D-428C-4D7E-A03B-DAE0EAEC212F}.Release|ARM.ActiveCfg = Release|ARM
+		{8C727C7D-428C-4D7E-A03B-DAE0EAEC212F}.Release|ARM.Build.0 = Release|ARM
+		{8C727C7D-428C-4D7E-A03B-DAE0EAEC212F}.Release|ARM.Deploy.0 = Release|ARM
+		{8C727C7D-428C-4D7E-A03B-DAE0EAEC212F}.Release|ARM64.ActiveCfg = Release|ARM64
+		{8C727C7D-428C-4D7E-A03B-DAE0EAEC212F}.Release|ARM64.Build.0 = Release|ARM64
+		{8C727C7D-428C-4D7E-A03B-DAE0EAEC212F}.Release|ARM64.Deploy.0 = Release|ARM64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {26827842-1129-4390-9F42-E8C742EEF5F9}
+	EndGlobalSection
+EndGlobal
