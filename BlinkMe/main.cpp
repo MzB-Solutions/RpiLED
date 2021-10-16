@@ -86,7 +86,7 @@ int main(void) {
 	//	delay(100);
 	//}
 	//delay(200);
-	
+
 	reset();
 	for (i = 0; i <= 33; i++)
 	{
