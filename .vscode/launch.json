@@ -26,4 +26,37 @@
             "miDebuggerPath": "/usr/bin/gdb"
         }
     ]
+}// AUTOMATICALLY GENERATED FILE. PLEASE DO NOT MODIFY IT MANUALLY
+//
+// PIO Unified Debugger
+//
+// Documentation: https://docs.platformio.org/page/plus/debugging.html
+// Configuration: https://docs.platformio.org/page/projectconf/section_env_debug.html
+
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "platformio-debug",
+            "request": "launch",
+            "name": "PIO Debug",
+            "executable": "/home/smzb/workspace/cpp/PIO-leds/.pio/build/raspberrypi_3b/program",
+            "projectEnvName": "raspberrypi_3b",
+            "toolchainBinDir": "/usr/bin",
+            "internalConsoleOptions": "openOnSessionStart",
+            "preLaunchTask": {
+                "type": "PlatformIO",
+                "task": "Pre-Debug"
+            }
+        },
+        {
+            "type": "platformio-debug",
+            "request": "launch",
+            "name": "PIO Debug (skip Pre-Debug)",
+            "executable": "/home/smzb/workspace/cpp/PIO-leds/.pio/build/raspberrypi_3b/program",
+            "projectEnvName": "raspberrypi_3b",
+            "toolchainBinDir": "/usr/bin",
+            "internalConsoleOptions": "openOnSessionStart"
+        }
+    ]
 }

@@ -1,18 +1,14 @@
-#include "main.h"
+#include "../include/main.h"
 
 #include <wiringPi.h>
-#include <cstdio>
-
-
 
 void pulse(int pin, bool inverted = false) {
 	digitalWrite(pin, inverted);
-	delay(8);
+	delay(2);
 	digitalWrite(pin, !inverted);
-	delay(8);
+	delay(2);
 	digitalWrite(pin, inverted);
 }
-
 
 void SI(unsigned char byte) {
 	for (int i = 0; i <= 7; i++)
@@ -20,7 +16,7 @@ void SI(unsigned char byte) {
 		bool val = (byte & (0x80 >> i)) > 0;
 		digitalWrite(SDI, val);
 		digitalWrite(SDI_LED, val);
-		delay(8);
+		delay(4);
 		pulse(SRCLK);
 		pulse(SRCLK_LED);
 	}
@@ -55,55 +51,52 @@ void reset() {
 
 int main(void) {
 	int i;
+	std::random_device rd;
+	std::mt19937 g(rd());
+
 	if (wiringPiSetupPhys()==-1){
 		printf("Can't access GPIO pins");
 		return 1;
 	}
 	init();
 	reset();
-	for (int loops = 0; loops < 2; loops++)
+	for (int loops = 0; loops < MAXLOOPS; loops++)
 	{
 		for (i = 0; i < 8; i++) {
 			SI(LedOut[i]);
 			pulse(RCLK); pulse(RCLK_LED);
-			delay(20);
-			printf("i = %d\n", i);
 		}
-		delay(50);
 		for (i = 0; i < 8; i++) {
 			SI(LedOut[8 - i - 1]);
 			pulse(RCLK); pulse(RCLK_LED);
-			delay(20);
 		}
-		delay(50);
 	}
-	//for (i = 0; i < 4; i++) {
-	//	SI(0xff);
-	//	pulse(RCLK); pulse(RCLK_LED);
-	//	delay(100);
-	//	SI(0x00);
-	//	pulse(RCLK); pulse(RCLK_LED);
-	//	delay(100);
-	//}
-	//delay(200);
-
 	reset();
+	delay(50);
+	printf("Clean run");
 	for (i = 0; i <= 33; i++)
 	{
 		SI(DisplayOut[i]);
+		printf("iterator -> %d", i);printf(" = %d <- value\n", DisplayOut[i]);
 		pulse(RCLK); pulse(RCLK_LED);
-		delay(100);
+		delay(20);
 	}
-	SI(DisplayOut[0]);
-	pulse(RCLK); pulse(RCLK_LED);
-	delay(200);
-	reset();
-	for (i = 33; i >= 0; i--)
+	printf("Shuffled runs");
+	for (i = 0; i < MAXLOOPS/4; i++)
 	{
-		SI(DisplayOut[i]);
-		pulse(RCLK); pulse(RCLK_LED);
-		delay(100);
+		char byte[34] = {};
+		std::copy(DisplayOut,DisplayOut+34,byte);
+		std::shuffle(byte, byte+34, g);
+		for (i = 0; i <= 33; i++)
+		{
+			SI(byte[i]);
+			printf("iterator -> %d", i);printf(" = %d <- value\n", byte[i]);
+			pulse(RCLK); pulse(RCLK_LED);
+			delay(20);
+		}
 	}
+	delay(50);
+	reset();
 	SI(DisplayOut[0]);
 	pulse(RCLK); pulse(RCLK_LED);
 	reset();

@@ -1,4 +1,13 @@
 #pragma once
+#include <string>
+#include <random>
+#include <algorithm>
+#include <iterator>
+#include <iostream>
+#include <vector>
+
+#define MAXLOOPS 20 // Amount of loops to make forth and back through the SR output pins (one loop = forth AND back)
+					// should be divisble by 4 for simplicity
 
 #define	SDI_LED	13 // Indicator led for serial in on SR
 #define	SRCLK_LED 11 // Indicator led for SHCP on SR
@@ -7,6 +16,10 @@
 #define RCLK 18 //memory clock input(STCP)
 #define SRCLK 29 //shift register clock input(SHCP)
 #define RST 22 // Reset pin (active_low)
+
+using std::cout;
+using std::endl;
+using std::shuffle;
 
 unsigned char LedOut[8] = { 0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80 };
 
