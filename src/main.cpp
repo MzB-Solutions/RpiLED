@@ -87,12 +87,15 @@ int main(void) {
 	// we just run up and down our SR pins from Q0-Q7
 	for (_li = 0; _li < MaxLoops; _li++)
 	{
+		cout << "run: "  << _ii << endl;
 		for (_ii = 0; _ii < 8; _ii++) {
 			si(led_out[_ii]);
+			cout << "step: "  << _ii << " = " << bitset<8>(led_out[_ii]) << endl;
 			pulse(RCLK); pulse(RCLK_LED);
 		}
 		for (_ii = 0; _ii < 8; _ii++) {
 			si(led_out[8 - _ii - 1]);
+			cout << "step: "  << _ii << " = " << bitset<8>(led_out[_ii]) << endl;
 			pulse(RCLK); pulse(RCLK_LED);
 		}
 	}
@@ -103,14 +106,15 @@ int main(void) {
 	for (_ii = 0; _ii <= 33; _ii++)
 	{
 		si(display_out[_ii]);
-		cout << "iterator -> "  << _ii << " = " << std::bitset<8>(display_out[_ii]) << " <- value" << endl;
+		cout << "iterator -> "  << _ii << " = " << bitset<8>(display_out[_ii]) << " <- value" << endl;
 		pulse(RCLK); pulse(RCLK_LED);
 		delay(20);
 	}
-	// Let's shuffle our characters and loop them QUALOOPS times
-	cout << "Doing " << QuarterLoops <<" Shuffled runs .." << endl;
+	cout << "Doing " << QuarterLoops <<" Shuffled loops .." << endl;
+	// Let's shuffle our characters and loop them QuarterLoops times
 	for (_li = 0; _li < QuarterLoops; _li++)
 	{
+		cout << " Loop #" << _li << endl;
 		cout << " Run #" << _ii << endl;
 		char byte[34] = {};
 		copy_n(display_out, sizeof(display_out), byte);
@@ -118,7 +122,7 @@ int main(void) {
 		for (_ii = 0; _ii <= 33; _ii++)
 		{
 			si(byte[_ii]);
-			cout << "iterator -> "  << _ii << " = " << std::bitset<8>(display_out[_ii]) << " <- value" << endl;
+			cout << "iterator -> "  << _ii << " = " << bitset<8>(display_out[_ii]) << " <- value" << endl;
 			pulse(RCLK); pulse(RCLK_LED);
 			delay(20);
 		}
