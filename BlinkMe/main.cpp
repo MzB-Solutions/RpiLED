@@ -1,7 +1,7 @@
 #include "main.h"
 
 #include <wiringPi.h>
-#include <stdio.h>
+#include <cstdio>
 
 
 
