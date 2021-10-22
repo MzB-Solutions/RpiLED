@@ -10,9 +10,9 @@
 void pulse(const int pin, const bool inverted = false) {
 	digitalWrite(pin, inverted);
 	//delay(1);
-	delayMicroseconds(200);
+	delayMicroseconds(500);
 	digitalWrite(pin, !inverted);
-	delayMicroseconds(200);
+	delayMicroseconds(500);
 	digitalWrite(pin, inverted);
 }
 
@@ -26,7 +26,7 @@ void si(unsigned char byte) {
 		const bool val = (byte & (0x80 >> i)) > 0;
 		digitalWrite(SDI, val);
 		digitalWrite(SDI_LED, val);
-		delay(2);
+		delay(5);
 		pulse(SRCLK);
 		pulse(SRCLK_LED);
 	}
@@ -71,10 +71,11 @@ int main(void) {
 	int _ii;
 	// This is the internal loop iterator tied into MaxLoops
 	int _li;
-	// Maximum amount of single loop runs
-	int MaxLoops = 4;
+	// Maximum amount of single loop runs (this is fixed at COMPILE time)
+	// as opposed to a const which might get evaluated at runtime and NOT at compile time
+	constexpr int max_loops = 4;
 	// Quarter of amount loops to loop through
-	int QuarterLoops = MaxLoops/4;
+	constexpr int quarter_loops = max_loops/4;
 	// let's set up a pseudo-random rng source for std::shuffle
 	std::random_device rd;
 	std::mt19937 g(rd());
@@ -86,7 +87,7 @@ int main(void) {
 	init();
 	reset();
 	// we just run up and down our SR pins from Q0-Q7
-	for (_li = 0; _li < MaxLoops; _li++)
+	for (_li = 0; _li < max_loops; _li++)
 	{
 		cout << "run: "  << _li << endl;
 		for (_ii = 0; _ii < 8; _ii++) {
@@ -111,9 +112,9 @@ int main(void) {
 		pulse(RCLK); pulse(RCLK_LED);
 		delay(20);
 	}
-	cout << "Doing " << QuarterLoops <<" Shuffled loops .." << endl;
+	cout << "Doing " << quarter_loops <<" Shuffled loops .." << endl;
 	// Let's shuffle our characters and loop them QuarterLoops times
-	for (_li = 0; _li < QuarterLoops; _li++)
+	for (_li = 0; _li < quarter_loops; _li++)
 	{
 		cout << " Loop #" << _li+1 << endl;
 		char byte[34] = {};

@@ -26,10 +26,13 @@ using std::shuffle;
 using std::copy_n;
 using std::bitset;
 
+/// <summary>
+/// These are just the output pins of the shift register, in binary
+/// </summary>
 unsigned char led_out[8] = { 0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80 };
 
 /// <summary>
-/// All hexa values on a 7 segment display, bit reversed
+/// All hexa values on a 7 segment display, bit reversed (little endian, i think)
 /// </summary>
 unsigned char display_out[34] = {
 	0b00000000, // All off
