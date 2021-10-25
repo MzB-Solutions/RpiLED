@@ -9,10 +9,9 @@
 /// <param name="inverted">if true, we are dealing with a ACTIVE_LOW pin</param>
 void pulse(const int pin, const bool inverted = false) {
 	digitalWrite(pin, inverted);
-	//delay(1);
-	delayMicroseconds(500);
+//	delayMicroseconds(500);
 	digitalWrite(pin, !inverted);
-	delayMicroseconds(500);
+//	delayMicroseconds(500);
 	digitalWrite(pin, inverted);
 }
 
@@ -24,36 +23,37 @@ void si(unsigned char byte) {
 	for (int i = 0; i <= 7; i++)
 	{
 		const bool val = (byte & (0x80 >> i)) > 0;
-		digitalWrite(SDI, val);
+		digitalWrite(DS, val);
 		delay(5);
-		pulse(SRCLK);
+		pulse(SH_CP);
 	}
+	pulse(ST_CP);
 }
 
 /// <summary>
 /// Let's setup all our pins into their correct states.
 /// </summary>
 void init() {
-	pinMode(SDI, OUTPUT);
-	pinMode(RCLK, OUTPUT);
-	pinMode(SRCLK, OUTPUT);
-	pinMode(RST, OUTPUT);
-	digitalWrite(SDI, 0);
-	digitalWrite(RCLK, 0);
-	digitalWrite(SRCLK, 0);
+	pinMode(DS, OUTPUT);
+	pinMode(ST_CP, OUTPUT);
+	pinMode(SH_CP, OUTPUT);
+	pinMode(MR, OUTPUT);
+	digitalWrite(DS, 0);
+	digitalWrite(ST_CP, 0);
+	digitalWrite(SH_CP, 0);
 	// set reset (MR) to active_low
-	digitalWrite(RST, 1);
+	digitalWrite(MR, 1);
 }
 
 /// <summary>
 /// This is the sequence of events that the 74HC595 ShiftRegister expects to fully reset it's output.
 /// </summary>
 void reset() {
-	digitalWrite(RST, 0);
-	pulse(RCLK);
+	digitalWrite(MR, 0);
+	pulse(ST_CP);
 	// this delay is required to satisfy the timing requirements of the 74HC595, ideally we only need 500 nano, but i digress
 	delayMicroseconds(1);
-	digitalWrite(RST, 1);
+	digitalWrite(MR, 1);
 }
 
 
@@ -82,14 +82,14 @@ int main(void) {
 	{
 		cout << "run: "  << _li << endl;
 		for (_ii = 0; _ii < 8; _ii++) {
+			auto value = bitset<8>(led_out[_ii]);
 			si(led_out[_ii]);
-			cout << "step: "  << _ii << " = " << bitset<8>(led_out[_ii]) << endl;
-			pulse(RCLK);
+			cout << "step: "  << _ii << " = " << value << endl;
 		}
 		for (_ii = 0; _ii < 8; _ii++) {
+			auto value = bitset<8>(led_out[8 - _ii - 1]);
 			si(led_out[8 - _ii - 1]);
-			cout << "step: "  << _ii << " = " << bitset<8>(led_out[8 - _ii - 1]) << endl;
-			pulse(RCLK);
+			cout << "step: "  << _ii << " = " << value << endl;
 		}
 	}
 	reset();
@@ -98,9 +98,9 @@ int main(void) {
 	cout << "Clean run .." << endl;
 	for (_ii = 0; _ii <= 33; _ii++)
 	{
+		auto value = bitset<8>(display_out[_ii]);
 		si(display_out[_ii]);
-		cout << "iterator -> "  << _ii << " = " << bitset<8>(display_out[_ii]) << " <- value" << endl;
-		pulse(RCLK);
+		cout << "iterator -> "  << _ii << " = " << value << " <- value" << endl;
 		delay(20);
 	}
 	cout << "Doing " << quarter_loops <<" Shuffled loops .." << endl;
@@ -113,16 +113,15 @@ int main(void) {
 		shuffle(byte, byte+34, g);
 		for (_ii = 0; _ii <= 33; _ii++)
 		{
+			auto value = bitset<8>(display_out[_ii]);
 			si(byte[_ii]);
-			cout << "iterator -> "  << _ii << " = " << bitset<8>(display_out[_ii]) << " <- value" << endl;
-			pulse(RCLK);
+			cout << "iterator -> "  << _ii << " = " << value << " <- value" << endl;
 			delay(20);
 		}
 	}
 	delay(50);
 	reset();
 	si(display_out[0]);
-	pulse(RCLK, false);
 	reset();
 	return 0;
 }

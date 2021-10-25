@@ -6,13 +6,13 @@
 #include <random>
 
 //serial data input
-#define SDI 16
+#define DS 16
 //memory clock input(STCP)
-#define RCLK 18
+#define ST_CP 18
 //shift register clock input(SHCP)
-#define SRCLK 29
+#define SH_CP 29
 // Reset pin (active_low)
-#define RST 22
+#define MR 22
 
 using std::cout;
 using std::endl;
