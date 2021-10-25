@@ -20,7 +20,7 @@ find_library(WIRINGPI_LIBRARIES
 
 find_library(QT6_LIBRARIES,
     names Qt
-    HINTS ${qt6win_INCLUDES} ${qt6nix_INCLUDES}
+    HINTS "${qt6win_INCLUDES}/" "${qt6nix_INCLUDES}/"
     )
 
 set(SOURCE "src/main.cpp")
