@@ -24,7 +24,7 @@ void si(unsigned char byte) {
 		pulse(SH_CP);
 	}
 	pulse(ST_CP);
-	delay(50);
+	delay(25);
 }
 
 /// <summary>
@@ -61,7 +61,7 @@ int main(void) {
 	int _li;
 	// Maximum amount of single loop runs (this is fixed at COMPILE time)
 	// as opposed to a const which might get evaluated at runtime and NOT at compile time
-	constexpr int max_loops = 4;
+	constexpr int max_loops = 12;
 	// Quarter of amount loops to loop through
 	constexpr int quarter_loops = max_loops/4;
 	// let's set up a pseudo-random rng source for std::shuffle
