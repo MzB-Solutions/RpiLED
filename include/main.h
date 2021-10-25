@@ -5,12 +5,6 @@
 // ReSharper disable once CppUnusedIncludeDirective
 #include <random>
 
-// Indicator led for serial in on SR
-#define	SDI_LED	13
-// Indicator led for SHCP on SR
-#define	SRCLK_LED 11
-// Indicator led for STCP on SR
-#define	RCLK_LED 15
 //serial data input
 #define SDI 16
 //memory clock input(STCP)

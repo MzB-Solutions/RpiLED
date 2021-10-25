@@ -25,10 +25,8 @@ void si(unsigned char byte) {
 	{
 		const bool val = (byte & (0x80 >> i)) > 0;
 		digitalWrite(SDI, val);
-		digitalWrite(SDI_LED, val);
 		delay(5);
 		pulse(SRCLK);
-		pulse(SRCLK_LED);
 	}
 }
 
@@ -39,16 +37,10 @@ void init() {
 	pinMode(SDI, OUTPUT);
 	pinMode(RCLK, OUTPUT);
 	pinMode(SRCLK, OUTPUT);
-	pinMode(SDI_LED, OUTPUT);
-	pinMode(RCLK_LED, OUTPUT);
-	pinMode(SRCLK_LED, OUTPUT);
 	pinMode(RST, OUTPUT);
 	digitalWrite(SDI, 0);
-	digitalWrite(SDI_LED, 0);
 	digitalWrite(RCLK, 0);
-	digitalWrite(RCLK_LED, 0);
 	digitalWrite(SRCLK, 0);
-	digitalWrite(SRCLK_LED, 0);
 	// set reset (MR) to active_low
 	digitalWrite(RST, 1);
 }
@@ -59,7 +51,6 @@ void init() {
 void reset() {
 	digitalWrite(RST, 0);
 	pulse(RCLK);
-	pulse(RCLK_LED);
 	// this delay is required to satisfy the timing requirements of the 74HC595, ideally we only need 500 nano, but i digress
 	delayMicroseconds(1);
 	digitalWrite(RST, 1);
@@ -93,12 +84,12 @@ int main(void) {
 		for (_ii = 0; _ii < 8; _ii++) {
 			si(led_out[_ii]);
 			cout << "step: "  << _ii << " = " << bitset<8>(led_out[_ii]) << endl;
-			pulse(RCLK); pulse(RCLK_LED);
+			pulse(RCLK);
 		}
 		for (_ii = 0; _ii < 8; _ii++) {
 			si(led_out[8 - _ii - 1]);
 			cout << "step: "  << _ii << " = " << bitset<8>(led_out[8 - _ii - 1]) << endl;
-			pulse(RCLK); pulse(RCLK_LED);
+			pulse(RCLK);
 		}
 	}
 	reset();
@@ -109,7 +100,7 @@ int main(void) {
 	{
 		si(display_out[_ii]);
 		cout << "iterator -> "  << _ii << " = " << bitset<8>(display_out[_ii]) << " <- value" << endl;
-		pulse(RCLK); pulse(RCLK_LED);
+		pulse(RCLK);
 		delay(20);
 	}
 	cout << "Doing " << quarter_loops <<" Shuffled loops .." << endl;
@@ -124,14 +115,14 @@ int main(void) {
 		{
 			si(byte[_ii]);
 			cout << "iterator -> "  << _ii << " = " << bitset<8>(display_out[_ii]) << " <- value" << endl;
-			pulse(RCLK); pulse(RCLK_LED);
+			pulse(RCLK);
 			delay(20);
 		}
 	}
 	delay(50);
 	reset();
 	si(display_out[0]);
-	pulse(RCLK, false); pulse(RCLK_LED, false);
+	pulse(RCLK, false);
 	reset();
 	return 0;
 }
