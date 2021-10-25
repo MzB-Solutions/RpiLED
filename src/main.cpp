@@ -9,9 +9,7 @@
 /// <param name="inverted">if true, we are dealing with a ACTIVE_LOW pin</param>
 void pulse(const int pin, const bool inverted = false) {
 	digitalWrite(pin, inverted);
-	delayMicroseconds(500);
 	digitalWrite(pin, !inverted);
-	delayMicroseconds(500);
 	digitalWrite(pin, inverted);
 }
 
@@ -22,12 +20,11 @@ void pulse(const int pin, const bool inverted = false) {
 void si(unsigned char byte) {
 	for (int i = 0; i <= 7; i++)
 	{
-		const bool val = (byte & (0x80 >> i)) > 0;
-		digitalWrite(DS, val);
+		digitalWrite(DS, (byte & (0x80 >> i)) > 0);
 		pulse(SH_CP);
-		delay(10);
 	}
 	pulse(ST_CP);
+	delay(50);
 }
 
 /// <summary>
@@ -82,26 +79,24 @@ int main(void) {
 	{
 		cout << "run: "  << _li << endl;
 		for (_ii = 0; _ii < 8; _ii++) {
-			auto value = bitset<8>(led_out[_ii]);
-			si(led_out[_ii]);
-			cout << "step: "  << _ii << " = " << value << endl;
+			const auto val = led_out[_ii];
+			si(val);
+			cout << "step: "  << _ii << " = " << bitset<8>(val) << endl;
 		}
 		for (_ii = 0; _ii < 8; _ii++) {
-			auto value = bitset<8>(led_out[8 - _ii - 1]);
-			si(led_out[8 - _ii - 1]);
-			cout << "step: "  << _ii << " = " << value << endl;
+			const auto val = led_out[8 - _ii - 1];
+			si(val);
+			cout << "step: "  << _ii << " = " << bitset<8>(val) << endl;
 		}
 	}
 	reset();
-	delay(50);
 	// Lets run all characters in their order on the 7 segment display
 	cout << "Clean run .." << endl;
 	for (_ii = 0; _ii <= 33; _ii++)
 	{
-		auto value = bitset<8>(display_out[_ii]);
-		si(display_out[_ii]);
-		cout << "iterator -> "  << _ii << " = " << value << " <- value" << endl;
-		delay(20);
+		const auto val = display_out[_ii];
+		si(val);
+		cout << "iterator -> "  << _ii << " = " << bitset<8>(val) << " <- value" << endl;
 	}
 	cout << "Doing " << quarter_loops <<" Shuffled loops .." << endl;
 	// Let's shuffle our characters and loop them QuarterLoops times
@@ -113,13 +108,11 @@ int main(void) {
 		shuffle(byte, byte+34, g);
 		for (_ii = 0; _ii <= 33; _ii++)
 		{
-			auto value = bitset<8>(display_out[_ii]);
-			si(byte[_ii]);
-			cout << "iterator -> "  << _ii << " = " << value << " <- value" << endl;
-			delay(20);
+			const auto val = byte[_ii];
+			si(val);
+			cout << "iterator -> "  << _ii << " = " << bitset<8>(val) << " <- value" << endl;
 		}
 	}
-	delay(50);
 	reset();
 	si(display_out[0]);
 	reset();
