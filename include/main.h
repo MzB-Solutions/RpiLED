@@ -24,9 +24,19 @@ using std::bitset;
 /// These are just the output pins of the shift register, in binary
 /// </summary>
 unsigned char led_out[8] = { 0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80 };
+// this is equivalent to:
+//unsigned char led_out[8] = {
+//	0b00000001,
+//	0b00000010,
+//	0b00000100,
+//	0b00001000,
+//	0b00010000,
+//	0b00100000,
+//	0b01000000,
+//	0b10000000 };
 
 /// <summary>
-/// All hexa values on a 7 segment display, bit reversed (little endian, i think)
+/// All hexadecimal values on a 7 segment display, bit reversed (Little Endian)
 /// </summary>
 unsigned char display_out[34] = {
 	0b00000000, // All off
