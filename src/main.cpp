@@ -9,7 +9,9 @@
 /// <param name="inverted">if true, we are dealing with a ACTIVE_LOW pin</param>
 void pulse(const int pin, const bool inverted = false) {
 	digitalWrite(pin, inverted);
+	delay(20);
 	digitalWrite(pin, !inverted);
+	delay(20);
 	digitalWrite(pin, inverted);
 }
 
@@ -21,10 +23,11 @@ void si(unsigned char byte) {
 	for (int i = 0; i <= 7; i++)
 	{
 		digitalWrite(DS, (byte & (0x80 >> i)) > 0);
+		delay(20);
 		pulse(SH_CP);
 	}
 	pulse(ST_CP);
-	delay(25);
+	delay(20);
 }
 
 /// <summary>
@@ -61,7 +64,7 @@ int main(void) {
 	int _li;
 	// Maximum amount of single loop runs (this is fixed at COMPILE time)
 	// as opposed to a const which might get evaluated at runtime and NOT at compile time
-	constexpr int max_loops = 12;
+	constexpr int max_loops = 4;
 	// Quarter of amount loops to loop through
 	constexpr int quarter_loops = max_loops/4;
 	// let's set up a pseudo-random rng source for std::shuffle
