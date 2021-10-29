@@ -1,4 +1,4 @@
-#include "../include/main.hpp"
+#include "../include/ShiftRegister.hpp"
 
 #include <wiringPi.h>
 
