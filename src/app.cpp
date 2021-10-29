@@ -1,8 +1,8 @@
 // main.cpp
 #include <console/application.h>
 
-#include "include/app.hpp"
-#include "include/cmd_pin_write.h"
+#include "../include/app.hpp"
+#include "../include/cmd_pin_write.hpp"
 
 
 int main(int argc, char * argv[])
