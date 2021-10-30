@@ -31,7 +31,7 @@ Types::AvailableOptions cmdPinWrite::getOptions()
     Types::AvailableOptions options;
 
     options["-p"] = std::pair<std::string, std::string>("--pin", "specify the physical pin");
-    options["-v"] = std:pair<std::string, std::string>("--value", "specify the value to send to the pin");
+    options["-v"] = std::pair<std::string, std::string>("--value", "specify the value to send to the pin");
 
     return options;
 }
