@@ -82,6 +82,6 @@ private:
 	static void reset();
 
 public:
-	bool beVerbose = false;
+	std::string beVerbose;
 	int run();
 };
