@@ -57,7 +57,7 @@ void reset() {
 }
 
 
-int main(void) {
+int DoRun(void) {
 	// This is the internal iterator for our ShiftIn runs
 	int _ii;
 	// This is the internal loop iterator tied into MaxLoops

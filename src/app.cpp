@@ -2,7 +2,6 @@
 #include <console/application.h>
 
 #include "../include/app.hpp"
-#include "../include/cmd_pin_write.hpp"
 
 
 int main(int argc, char * argv[])
@@ -11,7 +10,7 @@ int main(int argc, char * argv[])
 
     app.setApplicationName("RPi Test Suite");
     app.setApplicationUsage("./bin/rpi-test [command] [options]");
-    app.setApplicationVersion("1.0.0");
+    app.setApplicationVersion("0.1.3");
     app.setAutoPrintHelp(true);
 
     app.setApplicationDescription("A more or less complete test suite for RaspberryPi's GPIO header");
@@ -19,6 +18,7 @@ int main(int argc, char * argv[])
     app.addGlobalOption("--test", "Testing the application", "-t");
 
     app.addCommand(new cmdPinWrite);
+    app.addCommand(new cmdTestShiftRegister);
 
     return app.run();
 }

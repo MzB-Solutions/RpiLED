@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.18.0)
-project(rpi-test VERSION 0.1.2 LANGUAGES CXX)
+project(rpi-test VERSION 0.1.3 LANGUAGES CXX)
 
 # Add The CPM Package Manager
 if(NOT EXISTS "${CMAKE_HOME_DIRECTORY}/cmake/CPM.cmake")
@@ -38,16 +38,19 @@ find_library(WIRINGPI_LIBRARIES
 set(SOURCES_CXX_FILES
     "src/app.cpp"
     "src/ShiftRegister.cpp"
-    "commands/cmd_pin_write.cpp"
-    # add your implemention files here..
 )
 set(HEADERS
     "include/app.hpp"
     "include/ShiftRegister.hpp"
-    "include/cmd_pin_write.hpp"
+)
+set(COMMANDS_FILES
+    "commands/cmd_pin_write.hpp"
+    "commands/cmd_pin_write.cpp"
+    "commands/cmd_test_sr.hpp"
+    "commands/cmd_test_sr.cpp"
 )
 
-add_executable(${PROJECT_NAME} ${SOURCES_CXX_FILES} ${HEADERS})
+add_executable(${PROJECT_NAME} ${SOURCES_CXX_FILES} ${HEADERS} ${COMMANDS_FILES})
 include_directories(${CMAKE_BINARY_DIR}/dist/include)
 target_link_libraries(${PROJECT_NAME} ${WIRINGPI_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} console)

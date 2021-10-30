@@ -1,4 +1,4 @@
-#include "cmd_pin_write.hpp"
+#include "cmd_test_sr.hpp"
 
 
 /**
@@ -6,9 +6,9 @@
  *
  * @return std::string
  */
-std::string cmdPinWrite::getName()
+std::string cmdTestShiftRegister::getName()
 {
-    return "cmd:pin:write";
+    return "cmdTestShiftRegister";
 }
 
 /**
@@ -16,9 +16,9 @@ std::string cmdPinWrite::getName()
  *
  * @return std::string
  */
-std::string cmdPinWrite::getDescription()
+std::string cmdTestShiftRegister::getDescription()
 {
-    return "Pin write command";
+    return "Test the ShiftRegister";
 }
 
 /**
@@ -26,7 +26,7 @@ std::string cmdPinWrite::getDescription()
  *
  * @return Types::AvailableOptions
  */
-Types::AvailableOptions cmdPinWrite::getOptions()
+Types::AvailableOptions cmdTestShiftRegister::getOptions()
 {
     Types::AvailableOptions options;
 
@@ -40,7 +40,7 @@ Types::AvailableOptions cmdPinWrite::getOptions()
  * @param OutputInterface * output
  * @return ExitCode
  */
-ExitCode cmdPinWrite::handle(Interfaces::InputInterface * input, Interfaces::OutputInterface * output)
+ExitCode cmdTestShiftRegister::handle(Interfaces::InputInterface * input, Interfaces::OutputInterface * output)
 {
     if (input->wantsHelp()) {
         output->printCommandHelp(this);
