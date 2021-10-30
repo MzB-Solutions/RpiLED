@@ -1,6 +1,6 @@
 #include "../include/ShiftRegister.hpp"
 
-#include <wiringPi.h>
+#include "../lib/WiringPi/wiringPi/wiringPi.h"
 
 /// <summary>
 /// Take a pin from original state to opposite and back
