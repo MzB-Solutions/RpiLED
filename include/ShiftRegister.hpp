@@ -82,5 +82,6 @@ private:
 	static void reset();
 
 public:
+	bool beVerbose = false;
 	int run();
 };

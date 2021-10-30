@@ -50,6 +50,7 @@ ExitCode TestShiftRegister::handle(Interfaces::InputInterface * input, Interface
 
     // Implement something
     auto mySR = new shift_register();
+    mySR->beVerbose = input->getOption("Verbose");
     mySR->run();
 
 
