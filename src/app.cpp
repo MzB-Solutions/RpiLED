@@ -3,8 +3,6 @@
 
 #include "../include/app.hpp"
 
-bool beVerbose = false;
-
 int main(int argc, char * argv[])
 {
     Console::Application app(argc, argv);
@@ -20,7 +18,7 @@ int main(int argc, char * argv[])
     app.addGlobalOption("--gui", "Run the TUI/GUI element of this app", "-g");
 
     auto appOptions = app.getAvailableGlobalOptions();
-    beVerbose = appOptions->getOption("Verbose");
+    auto beVerbose = appOptions->getOption("Verbose");
 
     app.addCommand(new TestShiftRegister);
     app.addCommand(new WritePin);
