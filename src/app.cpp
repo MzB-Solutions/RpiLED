@@ -10,7 +10,7 @@ int main(int argc, char * argv[])
 
     app.setApplicationName("RPi Test Suite");
     app.setApplicationUsage("./bin/rpi-test [command] [options]");
-    app.setApplicationVersion("0.1.3");
+    app.setApplicationVersion("0.1.4");
     app.setAutoPrintHelp(true);
 
     app.setApplicationDescription("A more or less complete test suite for RaspberryPi's GPIO header");

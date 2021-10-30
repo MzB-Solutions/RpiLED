@@ -30,10 +30,12 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
 file(TO_CMAKE_PATH "C:/Users/smzb_code/AppData/Local/Microsoft/Linux/HeaderCache/1.0/-114093420/usr/include" WININCLUDES)
 file(TO_CMAKE_PATH "/usr/include" NIXINCLUDES)
+file(TO_CMAKE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/lib/WiringPi" WiringPiSource)
+
 # Locate libraries and headers
 find_library(WIRINGPI_LIBRARIES
     NAMES wiringPi
-    HINTS "${WININCLUDES}/" "${NIXINCLUDES}/"
+    HINTS "${WININCLUDES}/" "${NIXINCLUDES}/" "${WiringPiSource}"
     )
 
 set(SOURCES_CXX_FILES
