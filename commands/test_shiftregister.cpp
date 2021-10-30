@@ -1,4 +1,5 @@
-#include "cmd_test_sr.hpp"
+#include "test_shiftregister.hpp"
+#include "../include/ShiftRegister.hpp"
 
 
 /**
@@ -6,9 +7,9 @@
  *
  * @return std::string
  */
-std::string cmdTestShiftRegister::getName()
+std::string TestShiftRegister::getName()
 {
-    return "cmdTestShiftRegister";
+    return "test:shiftregister";
 }
 
 /**
@@ -16,7 +17,7 @@ std::string cmdTestShiftRegister::getName()
  *
  * @return std::string
  */
-std::string cmdTestShiftRegister::getDescription()
+std::string TestShiftRegister::getDescription()
 {
     return "Test the ShiftRegister";
 }
@@ -26,7 +27,7 @@ std::string cmdTestShiftRegister::getDescription()
  *
  * @return Types::AvailableOptions
  */
-Types::AvailableOptions cmdTestShiftRegister::getOptions()
+Types::AvailableOptions TestShiftRegister::getOptions()
 {
     Types::AvailableOptions options;
 
@@ -40,7 +41,7 @@ Types::AvailableOptions cmdTestShiftRegister::getOptions()
  * @param OutputInterface * output
  * @return ExitCode
  */
-ExitCode cmdTestShiftRegister::handle(Interfaces::InputInterface * input, Interfaces::OutputInterface * output)
+ExitCode TestShiftRegister::handle(Interfaces::InputInterface * input, Interfaces::OutputInterface * output)
 {
     if (input->wantsHelp()) {
         output->printCommandHelp(this);
@@ -48,6 +49,9 @@ ExitCode cmdTestShiftRegister::handle(Interfaces::InputInterface * input, Interf
     }
 
 	// Implement something
+    auto mySR = new ShiftRegister();
+    mySR.Run();
+
 
     return ExitCode::Ok;
 }

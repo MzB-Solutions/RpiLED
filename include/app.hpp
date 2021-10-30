@@ -1,4 +1,4 @@
 #pragma once
 
-#include "../commands/cmd_pin_write.hpp"
-#include "../commands/cmd_test_sr.hpp"
+#include "../commands/write_pin.hpp"
+#include "../commands/test_shiftregister.hpp"

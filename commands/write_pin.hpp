@@ -8,9 +8,9 @@ namespace Types = Console::Types;
 
 
 /**
- * @name cmd:pin:write
+ * @name write:pin
  */
-class cmdPinWrite : public Interfaces::CommandInterface
+class WritePin : public Interfaces::CommandInterface
 {
 
 public:

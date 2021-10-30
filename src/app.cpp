@@ -17,8 +17,8 @@ int main(int argc, char * argv[])
 
     app.addGlobalOption("--test", "Testing the application", "-t");
 
-    app.addCommand(new cmdPinWrite);
-    app.addCommand(new cmdTestShiftRegister);
+    app.addCommand(new TestShiftRegister;
+    app.addCommand(new WritePin);
 
     return app.run();
 }

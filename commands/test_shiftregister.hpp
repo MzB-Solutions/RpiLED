@@ -8,9 +8,9 @@ namespace Types = Console::Types;
 
 
 /**
- * @name cmd:test:shiftregister
+ * @name test:shiftregister
  */
-class cmdTestShiftRegister : public Interfaces::CommandInterface
+class TestShiftRegister : public Interfaces::CommandInterface
 {
 
 public:

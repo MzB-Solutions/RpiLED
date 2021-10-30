@@ -1,4 +1,4 @@
-#include "cmd_pin_write.hpp"
+#include "write_pin.hpp"
 
 
 /**
@@ -6,9 +6,9 @@
  *
  * @return std::string
  */
-std::string cmdPinWrite::getName()
+std::string WritePin::getName()
 {
-    return "cmd:pin:write";
+    return "write:pin";
 }
 
 /**
@@ -16,7 +16,7 @@ std::string cmdPinWrite::getName()
  *
  * @return std::string
  */
-std::string cmdPinWrite::getDescription()
+std::string WritePin::getDescription()
 {
     return "Write a <value> to <pin>";
 }
@@ -26,7 +26,7 @@ std::string cmdPinWrite::getDescription()
  *
  * @return Types::AvailableOptions
  */
-Types::AvailableOptions cmdPinWrite::getOptions()
+Types::AvailableOptions WritePin::getOptions()
 {
     Types::AvailableOptions options;
 
@@ -43,7 +43,7 @@ Types::AvailableOptions cmdPinWrite::getOptions()
  * @param OutputInterface * output
  * @return ExitCode
  */
-ExitCode cmdPinWrite::handle(Interfaces::InputInterface * input, Interfaces::OutputInterface * output)
+ExitCode WritePin::handle(Interfaces::InputInterface * input, Interfaces::OutputInterface * output)
 {
     if (input->wantsHelp()) {
         output->printCommandHelp(this);
@@ -57,8 +57,8 @@ ExitCode cmdPinWrite::handle(Interfaces::InputInterface * input, Interfaces::Out
         return ExitCode::NeedHelp;
     }
 
-    auto pin = input->getOption("pin");
-    auto value = input->getOption("value");
+    std::string pin = input->getOption("pin");
+    std::string value = input->getOption("value");
     output->info("We would be writing %s to pin %s", pin.c_str(), value.c_str());
 	// Implement something
 
