@@ -35,7 +35,7 @@ file(TO_CMAKE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/lib/WiringPi" WiringPiSource)
 # Locate libraries and headers
 find_library(WIRINGPI_LIBRARIES
     NAMES wiringPi
-    HINTS "${WININCLUDES}/" "${NIXINCLUDES}/" "${WiringPiSource}"
+    HINTS "${WININCLUDES}/" "${NIXINCLUDES}/" "${WiringPiSource}/wiringPi/"
     )
 
 set(SOURCES_CXX_FILES
