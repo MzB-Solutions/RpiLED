@@ -44,10 +44,10 @@ set(HEADERS
     "include/ShiftRegister.hpp"
 )
 set(COMMANDS_FILES
-    "commands/cmd_pin_write.hpp"
-    "commands/cmd_pin_write.cpp"
-    "commands/cmd_test_sr.hpp"
-    "commands/cmd_test_sr.cpp"
+    "commands/write_pin.hpp"
+    "commands/write_pin.cpp"
+    "commands/test_shiftregister.hpp"
+    "commands/test_shiftregister.cpp"
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES_CXX_FILES} ${HEADERS} ${COMMANDS_FILES})
