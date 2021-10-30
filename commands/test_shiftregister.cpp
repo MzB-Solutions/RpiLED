@@ -48,9 +48,9 @@ ExitCode TestShiftRegister::handle(Interfaces::InputInterface * input, Interface
         return ExitCode::NeedHelp;
     }
 
-	// Implement something
-    auto mySR = new ShiftRegister();
-    mySR.Run();
+    // Implement something
+    auto mySR = new shift_register();
+    mySR.run();
 
 
     return ExitCode::Ok;

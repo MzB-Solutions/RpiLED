@@ -20,7 +20,7 @@ using std::shuffle;
 using std::copy_n;
 using std::bitset;
 
-class ShiftRegister {
+class shift_register {
 private:
 	/// <summary>
 	/// These are just the output pins of the shift register, in binary
@@ -76,7 +76,11 @@ private:
 		0b01110001, // F
 		0b11110001  // F with dot
 	};
+	static void pulse(const int pin, const bool inverted);
+	static void si(unsigned char byte);
+	static void init();
+	static void reset();
 
 public:
-	int Run() override;
-}
+	int run();
+};

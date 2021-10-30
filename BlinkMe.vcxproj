@@ -79,16 +79,22 @@
     </RemotePostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src/main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include/main.h" />
+    <None Include="CMakeSettings.json" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="CMakeSettings.json" />
+    <ClCompile Include="commands\test_shiftregister.cpp" />
+    <ClCompile Include="commands\write_pin.cpp" />
+    <ClCompile Include="src\app.cpp" />
+    <ClCompile Include="src\ShiftRegister.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="commands\test_shiftregister.hpp" />
+    <ClInclude Include="commands\write_pin.hpp" />
+    <ClInclude Include="include\app.hpp" />
+    <ClInclude Include="include\ShiftRegister.hpp" />
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <ClCompile>

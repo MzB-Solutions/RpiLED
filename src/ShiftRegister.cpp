@@ -7,7 +7,7 @@
 /// </summary>
 /// <param name="pin">physical pin id</param>
 /// <param name="inverted">if true, we are dealing with a ACTIVE_LOW pin</param>
-void ShiftRegister::pulse(const int pin, const bool inverted = false) {
+void shift_register::pulse(const int pin, const bool inverted = false) {
 	digitalWrite(pin, inverted);
 	delay(2);
 	digitalWrite(pin, !inverted);
@@ -19,7 +19,7 @@ void ShiftRegister::pulse(const int pin, const bool inverted = false) {
 /// ShiftIn a value of 8bits (char) width
 /// </summary>
 /// <param name="byte">any valid 8 bit sequence / int</param>
-void ShiftRegister::si(unsigned char byte) {
+void shift_register::si(unsigned char byte) {
 	for (int i = 0; i <= 7; i++)
 	{
 		digitalWrite(DS, (byte & (0x80 >> i)) > 0);
@@ -33,7 +33,7 @@ void ShiftRegister::si(unsigned char byte) {
 /// <summary>
 /// Let's setup all our pins into their correct states.
 /// </summary>
-void ShiftRegister::init() {
+void shift_register::init() {
 	pinMode(DS, OUTPUT);
 	pinMode(ST_CP, OUTPUT);
 	pinMode(SH_CP, OUTPUT);
@@ -48,7 +48,7 @@ void ShiftRegister::init() {
 /// <summary>
 /// This is the sequence of events that the 74HC595 ShiftRegister expects to fully reset it's output.
 /// </summary>
-void ShiftRegister::reset() {
+void shift_register::reset() {
 	digitalWrite(MR, 0);
 	pulse(ST_CP);
 	// this delay is required to satisfy the timing requirements of the 74HC595, ideally we only need 500 nano, but i digress
@@ -57,7 +57,7 @@ void ShiftRegister::reset() {
 }
 
 
-int ShiftRegister::Run(void) {
+int shift_register::run(void) {
 	// This is the internal iterator for our ShiftIn runs
 	int _ii;
 	// This is the internal loop iterator tied into MaxLoops

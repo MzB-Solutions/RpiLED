@@ -60,7 +60,7 @@ ExitCode WritePin::handle(Interfaces::InputInterface * input, Interfaces::Output
     std::string pin = input->getOption("pin");
     std::string value = input->getOption("value");
     output->info("We would be writing %s to pin %s", pin.c_str(), value.c_str());
-	// Implement something
+    // Implement something
 
     return ExitCode::Ok;
 }
