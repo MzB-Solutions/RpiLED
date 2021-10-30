@@ -80,13 +80,13 @@ int shift_register::run(void) {
 	// we just run up and down our SR pins from Q0-Q7
 	for (_li = 0; _li < max_loops; _li++)
 	{
-		if (beVerbose) {
+		if (!beVerbose.empty()) {
 				cout << "run: "  << _li << endl;
 		}
 		for (_ii = 0; _ii < 8; _ii++) {
 			const auto val = led_out[_ii];
 			si(val);
-			if (beVerbose) {
+			if (!beVerbose.empty()) {
 				cout << "step: "  << _ii << " = " << bitset<8>(val) << endl;
 			}
 
@@ -94,31 +94,31 @@ int shift_register::run(void) {
 		for (_ii = 0; _ii < 8; _ii++) {
 			const auto val = led_out[8 - _ii - 1];
 			si(val);
-			if (beVerbose) {
+			if (!beVerbose.empty()) {
 				cout << "step: "  << _ii << " = " << bitset<8>(val) << endl;
 			}
 		}
 	}
 	reset();
 	// Lets run all characters in their order on the 7 segment display
-	if (beVerbose) {
+	if (!beVerbose.empty()) {
 				cout << "Clean run .." << endl;
 	}
 	for (_ii = 0; _ii <= 33; _ii++)
 	{
 		const auto val = display_out[_ii];
 		si(val);
-		if (beVerbose) {
+		if (!beVerbose.empty()) {
 				cout << "iterator -> "  << _ii << " = " << bitset<8>(val) << " <- value" << endl;
 		}
 	}
-	if (beVerbose) {
+	if (!beVerbose.empty()) {
 				cout << "Doing " << quarter_loops <<" Shuffled loops .." << endl;
 	}
 	// Let's shuffle our characters and loop them QuarterLoops times
 	for (_li = 0; _li < quarter_loops; _li++)
 	{
-		if (beVerbose) {
+		if (!beVerbose.empty()) {
 				cout << " Loop #" << _li+1 << endl;
 		}
 		char byte[34] = {};
@@ -128,7 +128,7 @@ int shift_register::run(void) {
 		{
 			const auto val = byte[_ii];
 			si(val);
-			if (beVerbose) {
+			if (!beVerbose.empty()) {
 				cout << "iterator -> "  << _ii << " = " << bitset<8>(val) << " <- value" << endl;
 			}
 		}
