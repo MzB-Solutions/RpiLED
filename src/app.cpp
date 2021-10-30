@@ -3,6 +3,7 @@
 
 #include "../include/app.hpp"
 
+bool beVerbose = false;
 
 int main(int argc, char * argv[])
 {
@@ -17,6 +18,9 @@ int main(int argc, char * argv[])
 
     app.addGlobalOption("--Verbose", "Be extra verbose in output", "-V");
     app.addGlobalOption("--gui", "Run the TUI/GUI element of this app", "-g");
+
+    auto appOptions = app.getAvailableGlobalOptions();
+    beVerbose = appOptions->getOption("Verbose");
 
     app.addCommand(new TestShiftRegister);
     app.addCommand(new WritePin);
