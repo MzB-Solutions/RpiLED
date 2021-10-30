@@ -15,7 +15,8 @@ int main(int argc, char * argv[])
 
     app.setApplicationDescription("A more or less complete test suite for RaspberryPi's GPIO header");
 
-    app.addGlobalOption("--test", "Testing the application", "-t");
+    app.addGlobalOption("--verbose", "Be extra verbose in output", "-v");
+    app.addGlobalOption("--gui", "Run the TUI/GUI element of this app", "-g");
 
     app.addCommand(new TestShiftRegister);
     app.addCommand(new WritePin);

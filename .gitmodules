@@ -1,0 +1,3 @@
+[submodule "lib/CliMenu"]
+	path = lib/CliMenu
+	url = git@github.com:TheNoviceProspect/CliMenu.git
