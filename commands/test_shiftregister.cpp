@@ -50,7 +50,7 @@ ExitCode TestShiftRegister::handle(Interfaces::InputInterface * input, Interface
 
     // Implement something
     auto mySR = new shift_register();
-    mySR.run();
+    mySR->run();
 
 
     return ExitCode::Ok;
