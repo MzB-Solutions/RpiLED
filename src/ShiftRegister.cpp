@@ -9,9 +9,9 @@
 /// <param name="inverted">if true, we are dealing with a ACTIVE_LOW pin</param>
 void shift_register::pulse(const int pin, const bool inverted = false) {
 	digitalWrite(pin, inverted);
-	delay(2);
+	delay(10);
 	digitalWrite(pin, !inverted);
-	delay(2);
+	delay(30);
 	digitalWrite(pin, inverted);
 }
 
@@ -23,11 +23,9 @@ void shift_register::si(unsigned char byte) {
 	for (int i = 0; i <= 7; i++)
 	{
 		digitalWrite(DS, (byte & (0x80 >> i)) > 0);
-		//delay(1);
 		pulse(SH_CP);
 	}
 	pulse(ST_CP);
-	delay(20);
 }
 
 /// <summary>

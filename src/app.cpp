@@ -17,8 +17,8 @@ int main(int argc, char * argv[])
     app.addGlobalOption("--Verbose", "Be extra verbose in output", "-V");
     app.addGlobalOption("--gui", "Run the TUI/GUI element of this app", "-g");
 
-    auto appOptions = app.getAvailableGlobalOptions();
-    auto beVerbose = appOptions->getOption("Verbose");
+    //auto appOptions = app.getAvailableGlobalOptions();
+    //auto beVerbose = appOptions.getOption("Verbose");
 
     app.addCommand(new TestShiftRegister);
     app.addCommand(new WritePin);
