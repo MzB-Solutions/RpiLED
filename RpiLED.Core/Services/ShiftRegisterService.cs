@@ -139,7 +139,9 @@ namespace RpiLED.Core.Services
                 Si(0x00);
                 Thread.Sleep(200);
             }
-
+            for (var i=0; i<=15; i++) {
+                //do something here
+            }
             ResetSr();
             Console.WriteLine(@"testing HexA");
             Si((byte) DisplayCharactersEnum.HexA);
