@@ -21,21 +21,21 @@
         //HexF = 0b10001110
         // == ABOVE AND BELOW ARE IDENTICAL values, base2 vs base16 (ie: binary vs hex)
         None = 0x00,
-        HexZero = 0xFC,
-        HexOne = 0x60,
-        HexTwo = 0xDA,
-        HexThree = 0xF2,
+        HexZero = 0x3F,
+        HexOne = 0x06,
+        HexTwo = 0x5B,
+        HexThree = 0x4F,
         HexFour = 0x66,
-        HexFive = 0xB6,
-        HexSix = 0xBE,
-        HexSeven = 0xE0,
-        HexEight = 0xFE,
-        HexNine = 0xE6,
-        HexA = 0xEE,
-        HexB = 0x3E,
-        HexC = 0x9C,
-        HexD = 0x7A,
-        HexE = 0x9E,
-        HexF = 0x8E
+        HexFive = 0x6D,
+        HexSix = 0x7D,
+        HexSeven = 0x07,
+        HexEight = 0x7F,
+        HexNine = 0x67,
+        HexA = 0x77,
+        HexB = 0x7C,
+        HexC = 0x39,
+        HexD = 0x5E,
+        HexE = 0x79,
+        HexF = 0x71
     }
 }
