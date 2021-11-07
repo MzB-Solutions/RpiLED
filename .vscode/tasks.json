@@ -1,0 +1,103 @@
+{
+    "tasks": [
+        {
+            "type": "make",
+            "script": "build-cli",
+            "target": "build-cli",
+            "path": "",
+            "fileName": "Makefile",
+            "uri": {
+                "$mid": 1,
+                "fsPath": "c:\\Users\\smzb_code\\workspace\\RaspBerryPi\\dotnet\\RpiLED\\Makefile",
+                "_sep": 1,
+                "external": "file:///c%3A/Users/smzb_code/workspace/RaspBerryPi/dotnet/RpiLED/Makefile",
+                "path": "/c:/Users/smzb_code/workspace/RaspBerryPi/dotnet/RpiLED/Makefile",
+                "scheme": "file"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "label": "build-cli"
+        },
+        {
+            "type": "make",
+            "dependsOn": "build-cli",
+            "script": "publish-cli",
+            "target": "publish-cli",
+            "path": "",
+            "fileName": "Makefile",
+            "uri": {
+                "$mid": 1,
+                "fsPath": "c:\\Users\\smzb_code\\workspace\\RaspBerryPi\\dotnet\\RpiLED\\Makefile",
+                "_sep": 1,
+                "external": "file:///c%3A/Users/smzb_code/workspace/RaspBerryPi/dotnet/RpiLED/Makefile",
+                "path": "/c:/Users/smzb_code/workspace/RaspBerryPi/dotnet/RpiLED/Makefile",
+                "scheme": "file"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "label": "publish-cli"
+        },
+
+        {
+            "type": "make",
+            "script": "build-gui",
+            "target": "build-gui",
+            "path": "",
+            "fileName": "Makefile",
+            "uri": {
+                "$mid": 1,
+                "fsPath": "c:\\Users\\smzb_code\\workspace\\RaspBerryPi\\dotnet\\RpiLED\\Makefile",
+                "_sep": 1,
+                "external": "file:///c%3A/Users/smzb_code/workspace/RaspBerryPi/dotnet/RpiLED/Makefile",
+                "path": "/c:/Users/smzb_code/workspace/RaspBerryPi/dotnet/RpiLED/Makefile",
+                "scheme": "file"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "label": "build-gui"
+        },
+        {
+            "type": "make",
+            "dependsOn": "build-gui",
+            "script": "publish-gui",
+            "target": "publish-gui",
+            "path": "",
+            "fileName": "Makefile",
+            "uri": {
+                "$mid": 1,
+                "fsPath": "c:\\Users\\smzb_code\\workspace\\RaspBerryPi\\dotnet\\RpiLED\\Makefile",
+                "_sep": 1,
+                "external": "file:///c%3A/Users/smzb_code/workspace/RaspBerryPi/dotnet/RpiLED/Makefile",
+                "path": "/c:/Users/smzb_code/workspace/RaspBerryPi/dotnet/RpiLED/Makefile",
+                "scheme": "file"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "label": "publish-gui"
+        },
+
+        {
+            "type": "process",
+            "command": "scp",
+            "dependsOn": ["publish-cli","publish-gui"],
+            "args": ["-rv","${workspaceFolder}/output/","pinky:~/workspace/debug"],
+            "problemMatcher":[],
+            "label": "push"
+
+        }
+    ]
+}

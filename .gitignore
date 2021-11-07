@@ -613,3 +613,9 @@ $RECYCLE.BIN/
 
 output/
 out/
+vendor/**/
+## Makefile artifacts
+
+build*
+publish*
+restore*
