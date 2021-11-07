@@ -1,4 +1,5 @@
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using RpiLed.Gui.ViewModels;
@@ -19,8 +20,9 @@ namespace RpiLed.Gui
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = new MainWindow
+                desktop.MainWindow = new MainWindowView
                 {
+                    WindowStartupLocation = WindowStartupLocation.CenterScreen,
                     DataContext = new MainWindowViewModel(),
                 };
             }

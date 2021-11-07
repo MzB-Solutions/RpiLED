@@ -4,7 +4,7 @@ using Avalonia.Markup.Xaml;
 
 namespace RpiLed.Gui.Views
 {
-    public partial class MainWindow : Window
+    public partial class MainWindowView : Window
     {
         #region Private Methods
 
@@ -17,7 +17,7 @@ namespace RpiLed.Gui.Views
 
         #region Public Constructors
 
-        public MainWindow()
+        public MainWindowView()
         {
             InitializeComponent();
 #if DEBUG
