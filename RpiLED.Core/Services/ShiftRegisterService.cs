@@ -11,8 +11,7 @@ namespace RpiLED.Core.Services
 
         public ShiftRegisterService()
         {
-            var pinMapping = new ShiftRegisterPinMapping(Sdi, Srclk, Rclk);
-            _sr = new ShiftRegister(pinMapping, 8, new GpioService().Gpio);
+            _sr = new ShiftRegister(new ShiftRegisterPinMapping(Sdi, Srclk, Rclk), 8, new GpioService().Gpio);
         }
 
         #endregion Public Constructors
